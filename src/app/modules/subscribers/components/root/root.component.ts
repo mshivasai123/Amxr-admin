@@ -1,22 +1,22 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { SelectionModel } from '@angular/cdk/collections';
+import { MatMenuTrigger } from '@angular/material/menu';
+
 export interface PeriodicElement {
-  name: string;
-  position: number;
-  weight: number;
-  symbol: string;
+  image: number;
+  userName: string;
+  email: string;
+  phone: string;
+  plan: string,
+  expiry: string;
+  date: string;
+  status: string;
 }
 
 const ELEMENT_DATA: PeriodicElement[] = [
-  {position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H'},
-  {position: 2, name: 'Helium', weight: 4.0026, symbol: 'He'},
-  {position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li'},
-  {position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be'},
-  {position: 5, name: 'Boron', weight: 10.811, symbol: 'B'},
-  {position: 6, name: 'Carbon', weight: 12.0107, symbol: 'C'},
-  {position: 7, name: 'Nitrogen', weight: 14.0067, symbol: 'N'},
-  {position: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O'},
-  {position: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F'},
-  {position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne'},
+  { image: 1, userName: 'Shiva', email: "test@gmail.com", phone: '9992223331', plan: "6 months", expiry: '6th Jan 2022', date: "6th Jan 2022", status: "completed" },
+  { image: 2, userName: 'Shiva', email: "test@gmail.com", phone: '9992223331', plan: "6 months", expiry: '6th Jan 2022', date: "6th Jan 2022", status: "Active / Expried" },
+  { image: 3, userName: 'Sai', email: "test@gmail.com", phone: '9992223331', plan: "6 months", expiry: '6th Jan 2022', date: "6th Jan 2022", status: "completed" }
 ];
 
 @Component({
@@ -25,11 +25,31 @@ const ELEMENT_DATA: PeriodicElement[] = [
   styleUrls: ['./root.component.scss']
 })
 export class RootComponent implements OnInit {
-  displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
+  displayedColumns: string[] = ['select', 'image', 'userName', 'email', 'phone', 'plan', 'expiry', 'date', 'status', 'action'];
   dataSource = ELEMENT_DATA;
+  selection = new SelectionModel<PeriodicElement>(true, []);
+  // contextMenuPosition = { x: '0px', y: '0px' };
+  // @ViewChild(MatMenuTrigger)
+  // contextMenu: MatMenuTrigger;
+
   constructor() { }
 
   ngOnInit(): void {
   }
+
+  isAllSelected() {
+    const numSelected = this.selection.selected.length;
+    const numRows = this.dataSource.length;
+    return numSelected == numRows;
+  }
+
+  /** Selects all rows if they are not all selected; otherwise clear selection. */
+  masterToggle() {
+    this.isAllSelected() ?
+      this.selection.clear() :
+      this.dataSource.forEach(row => this.selection.select(row));
+  }
+
+
 
 }

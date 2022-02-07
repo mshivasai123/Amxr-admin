@@ -1,1 +1,115 @@
-<p>root works!</p>
+<div class="container-fluid mt-5">
+    <div class="page-header d-flex align-items-center flex-wrap justify-content-between">
+      <h3 class="page-title mb-3">Manage Content</h3>
+      <div class="page-search mb-3 d-flex flex-grow-1">
+        <div class="input-group border-bottom">
+          <span class="input-group-text bg-transparent border-0 p-0">
+            <span class="material-icons icon f-20">
+              my_location
+            </span>
+          </span>
+          <input type="text" class="form-control f-16 shadow-none border-0 bg-transparent"
+            placeholder="Search Module...">
+          <button class="input-group-text bg-transparent border-0 p-0">
+            <span class="material-icons f-20">
+              search
+            </span>
+          </button>
+        </div>
+        <button class="bg-transparent ms-md-5 border-0" mat-button [matMenuTriggerFor]="actionMenu">
+          <span class="material-icons align-middle">
+            more_vert
+          </span>
+        </button>
+      </div>
+    </div>
+    <mat-menu #actionMenu="matMenu">
+      <button mat-menu-item class="d-flex align-items-center text-white">
+          <span class="material-icons f-20 mx-2">
+              add
+          </span>
+          Add Module
+      </button>
+    </mat-menu>
+  
+    <div class="w-100 overflow-auto">
+      <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 bg-transparent shadow-none custom-table w-100">
+  
+        <!-- Position Column -->
+        <ng-container matColumnDef="image">
+          <th mat-header-cell *matHeaderCellDef class="ws-nowrap"> Image/Icon </th>
+          <td mat-cell *matCellDef="let element" class="ws-nowrap"> {{element.image}} </td>
+        </ng-container>
+  
+        <!-- Name Column -->
+        <ng-container matColumnDef="moduleName">
+          <th mat-header-cell *matHeaderCellDef class="ws-nowrap"> Module Name </th>
+          <td mat-cell *matCellDef="let element" class="ws-nowrap"> {{element.moduleName}} </td>
+        </ng-container>
+  
+        <!-- Weight Column -->
+        <ng-container matColumnDef="moduleType">
+          <th mat-header-cell *matHeaderCellDef class="ws-nowrap"> Module Type </th>
+          <td mat-cell *matCellDef="let element" class="ws-nowrap"> {{element.moduleType}} </td>
+        </ng-container>
+  
+        <!-- Symbol Column -->
+        <ng-container matColumnDef="updatedDate">
+          <th mat-header-cell *matHeaderCellDef class="ws-nowrap"> Updated Date </th>
+          <td mat-cell *matCellDef="let element" class="ws-nowrap"> {{element.updatedDate}} </td>
+        </ng-container>
+  
+        <!-- Symbol Column -->
+        <ng-container matColumnDef="status">
+          <th mat-header-cell *matHeaderCellDef> Status </th>
+          <td mat-cell *matCellDef="let element" class="ws-nowrap"> {{element.status}} </td>
+        </ng-container>
+  
+        <!-- Action Column -->
+        <ng-container matColumnDef="action">
+          <th mat-header-cell *matHeaderCellDef> Action </th>
+          <td mat-cell *matCellDef="let element">
+            <button class="bg-transparent border-0" mat-button [matMenuTriggerFor]="menu">
+              <span class="material-icons align-middle">
+                more_vert
+              </span>
+            </button>
+          </td>
+        </ng-container>
+        <mat-menu #menu="matMenu">
+            <button mat-menu-item class="d-flex align-items-center text-white">
+                <span class="material-icons mx-2 f-20">
+                    add
+                </span>
+                Manage Media
+            </button>
+            <button mat-menu-item class="d-flex align-items-center text-white">
+                <span class="material-icons mx-2 f-20">
+                    add
+                </span>
+                Edit Info
+            </button>
+            <button mat-menu-item class="d-flex align-items-center text-white">
+                <span class="material-icons mx-2 f-20">
+                    edit
+                </span>
+                Active / Inactive
+            </button>
+            <button mat-menu-item class="d-flex align-items-center text-white">
+                <span class="material-icons mx-2 f-20">
+                    delete
+                </span>
+                Delete
+            </button>
+        </mat-menu>
+  
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+    </div>
+    <div class="d-flex justify-content-center">
+      <button class="bg-white p-2 show-more-btn f-14 d-flex align-items-center justify-content-center border-0">
+        <span class="material-icons text-primary mx-1 f-20">download</span>
+        Show More</button>
+    </div>
+  </div>
