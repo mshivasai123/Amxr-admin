@@ -38,7 +38,9 @@
         <!-- Position Column -->
         <ng-container matColumnDef="image">
           <th mat-header-cell *matHeaderCellDef class="ws-nowrap"> Image/Icon </th>
-          <td mat-cell *matCellDef="let element" class="ws-nowrap"> {{element.image}} </td>
+          <td mat-cell *matCellDef="let element" class="ws-nowrap"> 
+            <img src="https://picsum.photos/536/354" alt="Image" class="img-fluid table-img" />  
+          </td>
         </ng-container>
   
         <!-- Name Column -->

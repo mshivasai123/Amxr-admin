@@ -1,0 +1,41 @@
+<div class="container-fluid settings-wrapper">
+
+    <div class="row h-100">
+        <div class="col-md-3 col-lg-2 p-0">
+            <div class="settings-sidebar">
+                <ul class="list-unstyled pt-4 d-flex flex-wrap justify-content-md-end">
+                    <li>
+                        <a routerLink="/settings/genres" routerLinkActive="active" class="text-decoration-none d-block py-3 px-5 text-end f-16">Genres</a>
+                    </li>
+                    <li>
+                        <a routerLink="/settings/languages" routerLinkActive="active" class="text-decoration-none d-block py-3 px-5 text-end f-16">Languages</a>
+                    </li>
+                    <li>
+                        <a routerLink="/settings/plans" routerLinkActive="active" class="text-decoration-none d-block py-3 px-5 text-end f-16">Subscribe Plans</a>
+                    </li>
+                    <li>
+                        <a routerLink="/settings/offers" routerLinkActive="active" class="text-decoration-none d-block py-3 px-5 text-end f-16">Offers</a>
+                    </li>
+                    <li>
+                        <a routerLink="/settings/certifications" routerLinkActive="active" class="text-decoration-none d-block py-3 px-5 text-end f-16">Media Certifications</a>
+                    </li>
+                    <li>
+                        <a routerLink="/settings/test-users" routerLinkActive="active" class="text-decoration-none d-block py-3 px-5 text-end f-16">Test Users</a>
+                    </li>
+                    <li>
+                        <a routerLink="/settings/media-type" routerLinkActive="active" class="text-decoration-none d-block py-3 px-5 text-end f-16">Media Type</a>
+                    </li>
+                    <li>
+                        <a routerLink="/settings/media-provider" routerLinkActive="active" class="text-decoration-none d-block py-3 px-5 text-end f-16">Media Provider</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="col-md-9 col-lg-10">
+            <router-outlet></router-outlet>
+        </div>
+    
+    </div>
+
+</div>    

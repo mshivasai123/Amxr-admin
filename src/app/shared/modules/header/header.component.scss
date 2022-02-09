@@ -1,6 +1,7 @@
 @import '../../../../assets/scss/_variables.scss';
 
 nav {
+    z-index: 9;
     background-color: $baseColor;
     // min-height: 60px;
     // .navbar-nav {
@@ -11,7 +12,7 @@ nav {
     //     }
     // }
     .light-text {
-        color: $textLightColor;
+        color: $textLightColor !important;
     }
     .active {
         background-color: $navItemActiveColor;

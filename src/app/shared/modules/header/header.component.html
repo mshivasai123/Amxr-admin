@@ -1,7 +1,7 @@
-<nav class="navbar navbar-expand-md navbar-light f-16 p-0">
+<nav class="navbar navbar-expand-md navbar-light position-fixed top-0 w-100 f-16 p-0">
     <div class="container-fluid p-0">
       <a class="navbar-brand f-18 p-2" href="#">Navbar</a>
-      <button class="navbar-toggler p-2 me-3" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
+      <button class="navbar-toggler p-2 me-3 my-4" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarScroll">
@@ -29,9 +29,11 @@
                     <p class="mb-0 text-white">test@gmail.com</p>
                     <button class="bg-transparent border-0 light-text">Logout</button>
                 </li>
-                <li class="p-2 light-text">
-                    <mat-icon aria-hidden="false" class="d-block w-100 text-center" aria-label="settings icon">settings</mat-icon>
+                <li class="p-2">
+                  <a routerLink="/settings/genres" class="text-decoration-none">
+                    <mat-icon aria-hidden="false" class="d-block light-text w-100 text-center" aria-label="settings icon">settings</mat-icon>
                     <button class="bg-transparent border-0 light-text">Settings</button>
+                  </a>
                 </li>
             </ul>
         </div>

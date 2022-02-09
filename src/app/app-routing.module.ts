@@ -12,6 +12,9 @@ const routes: Routes = [
   },
   {
     path: 'content', loadChildren: () => import('./modules/content/content.module').then(m => m.ContentModule)
+  },
+  {
+    path: 'settings', loadChildren: () => import('./modules/settings/settings.module').then(m => m.SettingsModule)
   }
 ];
 
