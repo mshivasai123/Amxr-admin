@@ -1,0 +1,31 @@
+@import '../../../../../../assets/scss/variables';
+
+.add-modal {
+    .add-modal-header {
+        background-color: $modalHeaderBgColor;
+        h2 {
+            color: $modalHeadingColor;
+        }
+    }
+    .add-modal-body {
+        height: calc(100vh - 200px);
+    }
+    .drag-icon {
+        cursor: grab;
+    }
+}
+
+@media (max-width: 767.99px) {
+    .add-modal {
+        .drag-icon {
+            flex-grow: 1;
+            order: 1;
+        }
+        .text-field {
+            order: 3;
+        }
+        .checkbox-field {
+            order: 2;
+        }
+    }
+}

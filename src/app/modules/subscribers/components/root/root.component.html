@@ -1,4 +1,4 @@
-<div class="container-fluid mt-5">
+<div class="container-fluid pt-4">
   <div class="page-header d-flex align-items-center flex-wrap justify-content-between">
     <h3 class="page-title mb-3">Manage Subscribers</h3>
     <div class="page-search mb-3 d-flex flex-grow-1">
@@ -50,7 +50,12 @@
       <ng-container matColumnDef="image">
         <th mat-header-cell *matHeaderCellDef> Image </th>
         <td mat-cell *matCellDef="let element" class="ws-nowrap">
-          <img src="https://picsum.photos/536/353" alt="Image" class="img-fluid table-img" />  
+          <!-- <img src="https://picsum.photos/536/353" alt="Image" class="img-fluid table-img" />   -->
+            <label for="fileUpload" class="file-uploader d-flex align-items-center justify-content-center">
+                <span class="material-icons f-36">
+                    photo_camera
+                </span>
+            </label>
         </td>
       </ng-container>
 

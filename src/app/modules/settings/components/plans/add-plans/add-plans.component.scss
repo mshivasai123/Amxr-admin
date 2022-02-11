@@ -1,0 +1,13 @@
+@import '../../../../../../assets/scss/variables';
+
+.add-modal {
+    .add-modal-header {
+        background-color: $modalHeaderBgColor;
+        h2 {
+            color: $modalHeadingColor;
+        }
+    }
+    .add-modal-body {
+        height: calc(100vh - 200px);
+    }
+}
