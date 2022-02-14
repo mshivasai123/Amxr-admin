@@ -237,6 +237,9 @@
                                   </mat-accordion>
                             </div>
                             <div class="tab-pane fade" id="upload-full-media" role="tabpanel" aria-labelledby="upload-full-media-tab">
+                                <button class="btn btn-primary f-16 mb-3 d-block ms-auto" (click)="toggleView()">
+                                     movie / webseries view
+                                </button>
                                 <ng-container *ngIf="!isWebSeries">
                                     <mat-accordion>
                                         <mat-expansion-panel>
@@ -430,9 +433,7 @@
               </div>
         </div>
         <div class="col-md-2 left-panel">
-            <button class="btn btn-primary f-16" (click)="toggleView()">
-                toggle movie / webseries view
-            </button>
+            <app-media-right-panel></app-media-right-panel>
         </div>
     </div>
 </div>

@@ -92,6 +92,12 @@ table {
     }
 }
 
+.accordion-custom-padding {
+    .mat-expansion-panel-body  {
+        padding: 0 1rem;
+    }
+}
+
 .mat-chip.mat-standard-chip.mat-chip-selected.mat-primary {
     background-color: $matChipBgColor;
 }

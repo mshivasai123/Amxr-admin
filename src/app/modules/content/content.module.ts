@@ -7,6 +7,7 @@ import { ManageMediaComponent } from './components/manage-media/manage-media.com
 import { AddMediaComponent } from './components/add-media/add-media.component';
 import { MediaInformationComponent } from './components/media-information/media-information.component';
 import { FormsModule } from '@angular/forms';
+import { MediaRightPanelComponent } from './components/media-right-panel/media-right-panel.component';
 
 const routes: Routes = [
   {
@@ -27,7 +28,8 @@ const routes: Routes = [
     RootComponent,
     ManageMediaComponent,
     AddMediaComponent,
-    MediaInformationComponent
+    MediaInformationComponent,
+    MediaRightPanelComponent
   ],
   imports: [
     CommonModule,
