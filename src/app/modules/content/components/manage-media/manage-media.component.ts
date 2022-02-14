@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { AddMediaComponent } from '../add-media/add-media.component';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 
 export interface PeriodicElement {
   poster: string;
@@ -28,9 +30,18 @@ export class ManageMediaComponent implements OnInit {
   displayedColumns: string[] = ['poster', 'mediaId', 'title','mediaType','languages','subtitles','genres', 'updatedDate', 'status', 'action'];
   dataSource = ELEMENT_DATA;
 
-  constructor() { }
+  constructor(
+    public dialog: MatDialog
+  ) { }
 
   ngOnInit(): void {
+  }
+
+  addMedia() {
+    const dialogRef = this.dialog.open(AddMediaComponent, {
+      width: '1300px',
+      panelClass: ['add-modal','xxl-modal']
+    });
   }
 
 }

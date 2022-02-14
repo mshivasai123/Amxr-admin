@@ -1,0 +1,27 @@
+@import '../../../../../assets/scss/variables';
+
+.add-modal {
+    .add-modal-header {
+        background-color: $modalHeaderBgColor;
+        h2 {
+            color: $modalHeadingColor;
+        }
+    }
+    .add-modal-body {
+        height: calc(100vh - 200px);
+    }
+    .language-form-control {
+        max-width: 300px;
+    }
+    .go-btn {
+        color: $goArrowColor;
+    }
+    .languages-btn {
+        color: $goArrowColor;
+        border: 1px solid rgba(0,0,0,0.4);
+        border-radius: 15px;
+        &.active {
+            border: 2px solid $goArrowColor;
+        }
+    }
+}

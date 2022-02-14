@@ -1,0 +1,438 @@
+<div class="container-fluid media-info h-100">
+    <div class="row h-100">
+        <div class="col-md-2 p-0 left-panel">
+            <h4 class="p-3 border-bottom">Selected Languages</h4>
+
+            <ul class="nav nav-tabs flex-column ps-md-4 mt-4 p-3 p-md-0" id="myTab" role="tablist">
+                <li class="nav-item mb-4" role="presentation" *ngFor="let lang of selectedLanguages; let i = index">
+                  <button class="nav-link text-dark f-15 d-flex align-items-center" id="{{lang}}-tab" data-bs-toggle="tab" 
+                  [class.active]="i === 0" [attr.data-bs-target]="'#'+lang"
+                   type="button" role="tab" [attr.aria-controls]="lang" aria-selected="true">
+                   <mat-checkbox class="example-margin me-3" [checked]="true" color="primary"></mat-checkbox> {{lang}}</button>
+                </li>
+              </ul>
+
+        </div>
+        <div class="col-md-8 px-4 py-3">
+            <div class="tab-content" id="myTabContent">
+                <ng-container *ngFor="let lang of selectedLanguages; let i = index">
+                    <div class="tab-pane fade" id="{{lang}}" role="tabpanel" 
+                    [ngClass]="{'show active': i === 0}" [attr.aria-labelledby]="lang+'-tab'">
+                        <ul class="nav nav-pills mb-4" id="pills-tab" role="tablist">
+                            <li class="nav-item" role="presentation">
+                              <button class="nav-link f-14 px-4 active" id="media-info-tab" data-bs-toggle="pill" data-bs-target="#media-info" type="button" role="tab" aria-controls="media-info" aria-selected="true">
+                                  Media Information
+                              </button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                              <button class="nav-link f-14 px-4" id="upload-media-tab" data-bs-toggle="pill" data-bs-target="#upload-media" type="button" role="tab" aria-controls="upload-media" aria-selected="false">
+                                  Upload Trailer
+                              </button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                              <button class="nav-link f-14 px-4" id="upload-full-media-tab" data-bs-toggle="pill" data-bs-target="#upload-full-media" type="button" role="tab" aria-controls="upload-full-media" aria-selected="false">
+                                  Upload Full Media
+                              </button>
+                            </li>
+                            <li class="ms-md-auto">
+                                <button class="bg-transparnet f-14 border-0"> 
+                                    Copy data to all languages
+                                </button>
+                            </li>
+                          </ul>
+                          <div class="tab-content mb-4" id="pills-tabContent">
+                            <div class="tab-pane fade show active" id="media-info" role="tabpanel" aria-labelledby="media-info-tab">
+
+                                <div class="images-list">
+                                    <div class="d-inline-block  mb-4 me-4">
+                                        <label for="fileUploadM" class="file-uploader size-m cursor-pointer d-flex flex-column align-items-center justify-content-center">
+                                            <span class="material-icons icon f-36">
+                                                photo_camera
+                                            </span>
+                                            <!-- <img src="https://picsum.photos/536/353" alt="Image" class="img-fluid" /> -->
+                                            <span class="f-14">
+                                                500 &times; 500
+                                            </span>
+                                        </label>
+                                        <input type="file" id="fileUploadM" class="d-none" />
+                                    </div>
+                                    <div class="d-inline-block mb-4 me-4">
+                                        <label for="fileUploadL" class="file-uploader size-l cursor-pointer d-flex flex-column align-items-center justify-content-center">
+                                            <span class="material-icons icon f-36">
+                                                photo_camera
+                                            </span>
+                                            <!-- <img src="https://picsum.photos/536/353" alt="Image" class="img-fluid" /> -->
+                                            <span class="f-14">
+                                                500 &times; 500
+                                            </span>
+                                        </label>
+                                        <input type="file" id="fileUploadL" class="d-none" />
+                                    </div>
+                                    <div class="d-inline-block mb-4 me-4">
+                                        <label for="fileUploadXl" class="file-uploader size-xl cursor-pointer d-flex flex-column align-items-center justify-content-center">
+                                            <span class="material-icons icon f-36">
+                                                photo_camera
+                                            </span>
+                                            <!-- <img src="https://picsum.photos/536/353" alt="Image" class="img-fluid" /> -->
+                                            <span class="f-14">
+                                                500 &times; 500
+                                            </span>
+                                        </label>
+                                        <input type="file" id="fileUploadXl" class="d-none" />
+                                    </div>
+                                    <div class="d-inline-block mb-4 me-4">
+                                        <label for="fileUploadXxl" class="file-uploader size-xxl cursor-pointer d-flex flex-column align-items-center justify-content-center">
+                                            <span class="material-icons icon f-36">
+                                                photo_camera
+                                            </span>
+                                            <!-- <img src="https://picsum.photos/536/353" alt="Image" class="img-fluid" /> -->
+                                            <span class="f-14">
+                                                500 &times; 500
+                                            </span>
+                                        </label>
+                                        <input type="file" id="fileUploadXxl" class="d-none" />
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6 mb-4">
+                                        <mat-form-field class="example-full-width w-100 f-16">
+                                            <mat-label>Media Title<span class="text-danger ms-2">*</span></mat-label>
+                                            <input matInput />
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-md-3 mb-4">
+                                        <!-- <mat-form-field class="w-100 f-16">
+                                            <mat-label>Year<span class="text-danger ms-2">*</span></mat-label>
+                                            <mat-select>
+                                                <mat-option class="text-capitalize" value="10">10</mat-option>
+                                                <mat-option class="text-capitalize" value="20">20</mat-option>
+                                            </mat-select>
+                                        </mat-form-field> -->
+                                        <mat-form-field class="w-100 f-16">
+                                            <mat-label>Year<span class="text-danger ms-2">*</span></mat-label>
+                                            <input matInput [matDatepicker]="picker" [formControl]="_inputCtrl">
+                                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                            <mat-datepicker #picker
+                                            startView="multi-year"
+                                            (yearSelected)="_yearSelectedHandler($event,picker)"
+                                            ></mat-datepicker>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-md-3 mb-4">
+                                        <mat-form-field class="w-100 f-16">
+                                            <mat-label>Certificate<span class="text-danger ms-2">*</span></mat-label>
+                                            <mat-select>
+                                                <mat-option class="text-capitalize" value="A">A</mat-option>
+                                                <mat-option class="text-capitalize" value="U">U</mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-md-3 mb-4">
+                                        <mat-form-field class="w-100 f-16">
+                                            <mat-label>Resolution<span class="text-danger ms-2">*</span></mat-label>
+                                            <mat-select>
+                                                <mat-option class="text-capitalize" value="100 * 100">100 * 100</mat-option>
+                                                <mat-option class="text-capitalize" value="200 * 200">200 * 200</mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-md-3 mb-4">
+                                        <mat-form-field class="w-100 f-16">
+                                            <mat-label>Source<span class="text-danger ms-2">*</span></mat-label>
+                                            <mat-select>
+                                                <mat-option class="text-capitalize" value="test">test</mat-option>
+                                                <mat-option class="text-capitalize" value="new">new</mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-md-3 mb-4">
+                                        <mat-form-field class="w-100 f-16">
+                                            <mat-label>Media Type<span class="text-danger ms-2">*</span></mat-label>
+                                            <mat-select>
+                                                <mat-option class="text-capitalize" value="mp4">mp4</mat-option>
+                                                <mat-option class="text-capitalize" value="3gp">3gp</mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-md-3 mb-4">
+                                        <mat-form-field class="example-full-width w-100 f-16">
+                                            <mat-label>Length<span class="text-danger ms-2">*</span></mat-label>
+                                            <input matInput />
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-md-3 mb-4">
+                                        <mat-form-field class="w-100 f-16">
+                                            <mat-label>Genres<span class="text-danger ms-2">*</span></mat-label>
+                                            <mat-select>
+                                                <mat-option class="text-capitalize" value="comedy">comedy</mat-option>
+                                                <mat-option class="text-capitalize" value="horror">horror</mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-md-3 mb-4">
+                                        <mat-form-field class="w-100 f-16">
+                                            <mat-label>Source Vendor<span class="text-danger ms-2">*</span></mat-label>
+                                            <mat-select>
+                                                <mat-option class="text-capitalize" value="new">new</mat-option>
+                                                <mat-option class="text-capitalize" value="test">test</mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                    </div>
+                                </div>  
+
+                            </div>
+                            <div class="tab-pane fade" id="upload-media" role="tabpanel" aria-labelledby="upload-media-tab">
+                                <mat-accordion>
+                                    <mat-expansion-panel>
+                                      <mat-expansion-panel-header>
+                                        <mat-panel-title>
+                                            <h4 class="m-0 mt-md-0 mt-3">Upload Trailer</h4>
+                                        </mat-panel-title>
+                                        <mat-panel-description (click)="$event.stopPropagation()">
+                                            <mat-checkbox class="example-margin me-3 mt-md-0 mt-2" [(ngModel)]="subtitlesAllowed" color="primary">Subtitles</mat-checkbox> 
+                                            <mat-form-field class="f-14 w-100 mxw-250" floatLabel="never">
+                                                <mat-label>Select Languages:</mat-label>
+                                                <mat-select [formControl]="languagesControl" multiple>
+                                                    <mat-select-trigger>
+                                                        <!-- <mat-chip-list>
+                                                            <mat-chip *ngFor="let category of languagesControl.value" class="f-12" [removable]="true"
+                                                                (removed)="onCatRemoved(category)" color="primary" selected>
+                                                                {{ category }}
+                                                                <mat-icon matChipRemove>cancel</mat-icon>
+                                                            </mat-chip>
+                                                        </mat-chip-list> -->
+                                                        <h4 class="m-0 fw-bold">{{languagesControl.value.length}} Language(s) Selected</h4>
+                                                    </mat-select-trigger>
+                                    
+                                                    <mat-option *ngFor="let category of languages" class="f-14" [value]="category">
+                                                        {{ category }}
+                                                    </mat-option>
+                                                </mat-select>
+                                            </mat-form-field>
+                                        </mat-panel-description>
+                                      </mat-expansion-panel-header>
+                                      <div class="row">
+                                          <div class="col-md-6">
+                                            <mat-form-field class="example-full-width w-100 f-16">
+                                                <mat-label>Media URL<span class="text-danger ms-2">*</span></mat-label>
+                                                <input matInput />
+                                            </mat-form-field>
+                                            <mat-form-field class="example-full-width w-100 f-16">
+                                                <mat-label>Audio Source URL<span class="text-danger ms-2">*</span></mat-label>
+                                                <input matInput />
+                                            </mat-form-field>
+                                          </div>
+                                          
+                                          <div class="col-md-6" *ngIf="subtitlesAllowed">
+                                            <ng-container *ngFor="let subtitle of languagesControl.value">
+                                                <mat-form-field class="example-full-width w-100 f-16">
+                                                    <mat-label>{{subtitle}} Subtitles URL<span class="text-danger ms-2">*</span></mat-label>
+                                                    <input matInput />
+                                                </mat-form-field>
+                                            </ng-container>  
+                                          </div>
+                                      </div>
+                                    </mat-expansion-panel>
+                                  </mat-accordion>
+                            </div>
+                            <div class="tab-pane fade" id="upload-full-media" role="tabpanel" aria-labelledby="upload-full-media-tab">
+                                <ng-container *ngIf="!isWebSeries">
+                                    <mat-accordion>
+                                        <mat-expansion-panel>
+                                          <mat-expansion-panel-header>
+                                            <mat-panel-title>
+                                                <h4 class="m-0 mt-md-0 mt-3">Upload Media</h4>
+                                            </mat-panel-title>
+                                            <mat-panel-description (click)="$event.stopPropagation()">
+                                                <mat-checkbox class="example-margin me-3 mt-md-0 mt-2" [(ngModel)]="mediaSubtitlesAllowed" color="primary">Subtitles</mat-checkbox> 
+                                                <mat-form-field class="f-14 w-100 mxw-250" floatLabel="never">
+                                                    <mat-label>Select Languages:</mat-label>
+                                                    <mat-select [formControl]="languagesControl" multiple>
+                                                        <mat-select-trigger>
+                                                            <!-- <mat-chip-list>
+                                                                <mat-chip *ngFor="let category of languagesControl.value" class="f-12" [removable]="true"
+                                                                    (removed)="onCatRemoved(category)" color="primary" selected>
+                                                                    {{ category }}
+                                                                    <mat-icon matChipRemove>cancel</mat-icon>
+                                                                </mat-chip>
+                                                            </mat-chip-list> -->
+                                                            <h4 class="m-0 fw-bold">{{languagesControl.value.length}} Language(s) Selected</h4>
+                                                        </mat-select-trigger>
+                                        
+                                                        <mat-option *ngFor="let category of languages" class="f-14" [value]="category">
+                                                            {{ category }}
+                                                        </mat-option>
+                                                    </mat-select>
+                                                </mat-form-field>
+                                            </mat-panel-description>
+                                          </mat-expansion-panel-header>
+                                          <div class="row">
+                                              <div class="col-md-6">
+                                                <mat-form-field class="example-full-width w-100 f-16">
+                                                    <mat-label>Media URL<span class="text-danger ms-2">*</span></mat-label>
+                                                    <input matInput />
+                                                </mat-form-field>
+                                                <mat-form-field class="example-full-width w-100 f-16">
+                                                    <mat-label>Audio Source URL<span class="text-danger ms-2">*</span></mat-label>
+                                                    <input matInput />
+                                                </mat-form-field>
+                                                <div class="d-flex">
+                                                    <mat-form-field class="w-100 f-16">
+                                                        <mat-label>Intro Duration (sec)<span class="text-danger ms-2">*</span></mat-label>
+                                                        <mat-select>
+                                                            <mat-option value="10">10</mat-option>
+                                                            <mat-option value="20">20</mat-option>
+                                                        </mat-select>
+                                                    </mat-form-field>
+                                                    <div class="mx-2"></div>
+                                                    <mat-form-field class="w-100 f-16">
+                                                        <mat-label>Skip End (sec)<span class="text-danger ms-2">*</span></mat-label>
+                                                        <mat-select>
+                                                            <mat-option value="10">10</mat-option>
+                                                            <mat-option value="20">20</mat-option>
+                                                        </mat-select>
+                                                    </mat-form-field>
+                                                </div>
+                                              </div>
+                                              
+                                              <div class="col-md-6" *ngIf="mediaSubtitlesAllowed">
+                                                <ng-container *ngFor="let subtitle of languagesControl.value">
+                                                    <mat-form-field class="example-full-width w-100 f-16">
+                                                        <mat-label>{{subtitle}} Subtitles URL<span class="text-danger ms-2">*</span></mat-label>
+                                                        <input matInput />
+                                                    </mat-form-field>
+                                                </ng-container>  
+                                              </div>
+                                          </div>
+                                        </mat-expansion-panel>
+                                    </mat-accordion>
+                                </ng-container>
+                                <ng-container *ngIf="isWebSeries">
+                                    <div class="p-2 webseries-data">
+                                        <!-- <div class="container-fluid"> -->
+                                            <div class="row m-0 disabled-row align-items-center">
+                                                <div class="col-md-1 f-14">
+                                                    Series
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <mat-form-field class="example-full-width w-100 f-14" floatLabel="never">
+                                                        <mat-label>Intro URL<span class="text-danger ms-2">*</span></mat-label>
+                                                        <input matInput />
+                                                    </mat-form-field>
+                                                </div>
+                                                <div class="col-md-2 text-end">
+                                                    <mat-checkbox class="example-margin me-3 f-14 mt-md-0 mt-2" [(ngModel)]="mediaSubtitlesAllowed" color="primary">Subtitles</mat-checkbox> 
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <mat-form-field class="f-14 w-100 mxw-250" floatLabel="never">
+                                                        <mat-label>Select Languages:</mat-label>
+                                                        <mat-select [formControl]="languagesControl" multiple>
+                                                            <mat-select-trigger>
+                                                                <!-- <mat-chip-list>
+                                                                    <mat-chip *ngFor="let category of languagesControl.value" class="f-12" [removable]="true"
+                                                                        (removed)="onCatRemoved(category)" color="primary" selected>
+                                                                        {{ category }}
+                                                                        <mat-icon matChipRemove>cancel</mat-icon>
+                                                                    </mat-chip>
+                                                                </mat-chip-list> -->
+                                                                <h4 class="m-0 fw-bold f-14">{{languagesControl.value.length}} Language(s) Selected</h4>
+                                                            </mat-select-trigger>
+                                            
+                                                            <mat-option *ngFor="let category of languages" class="f-14" [value]="category">
+                                                                {{ category }}
+                                                            </mat-option>
+                                                        </mat-select>
+                                                    </mat-form-field>
+                                                </div>
+                                                <div class="col-md-2 text-end">
+                                                    <button class="btn btn-primary px-3 f-14">Add Episode</button>
+                                                </div>
+                                            </div>
+                                        <!-- </div> -->
+
+                                        <mat-accordion class="mt-4 d-block">
+                                            <mat-expansion-panel>
+                                              <mat-expansion-panel-header class="px-3">
+                                                <mat-panel-title>
+                                                    <h4 class="m-0 mt-md-0 mt-3 me-3 ws-nowrap">Episode 1 - </h4>
+                                                    <mat-form-field class="example-full-width w-100 f-14 mxw-250" floatLabel="never"  (click)="$event.stopPropagation()">
+                                                        <mat-label>Title of Episode</mat-label>
+                                                        <input matInput />
+                                                    </mat-form-field>
+                                                </mat-panel-title>
+                                                <mat-panel-description>
+                                                </mat-panel-description>
+                                              </mat-expansion-panel-header>
+                                              <div class="row">
+                                                  <div class="col-md-3">
+                                                    <label for="fileUploader" class="file-uploader mt-4 size-xl cursor-pointer d-flex flex-column align-items-center justify-content-center">
+                                                        <span class="material-icons icon f-36">
+                                                            photo_camera
+                                                        </span>
+                                                        <!-- <img src="https://picsum.photos/536/353" alt="Image" class="img-fluid" /> -->
+                                                        <span class="f-14">
+                                                            500 &times; 500
+                                                        </span>
+                                                    </label>
+                                                    <input type="file" id="fileUploader" class="d-none" />                                                      
+                                                  </div>
+                                                  <div class="col-md-9">
+                                                      <div class="row">
+                                                          <div class="col-md-6">
+                                                            <mat-form-field class="example-full-width w-100 f-16">
+                                                                <mat-label>Media URL<span class="text-danger ms-2">*</span></mat-label>
+                                                                <input matInput />
+                                                            </mat-form-field>
+                                                            <mat-form-field class="example-full-width w-100 f-16">
+                                                                <mat-label>Audio Source URL<span class="text-danger ms-2">*</span></mat-label>
+                                                                <input matInput />
+                                                            </mat-form-field>
+                                                            <!-- <div class="d-flex"> -->
+                                                                <mat-form-field class="w-100 f-16">
+                                                                    <mat-label>Intro Duration (sec)<span class="text-danger ms-2">*</span></mat-label>
+                                                                    <mat-select>
+                                                                        <mat-option value="10">10</mat-option>
+                                                                        <mat-option value="20">20</mat-option>
+                                                                    </mat-select>
+                                                                </mat-form-field>
+                                                                <!-- <div class="mx-2"></div> -->
+                                                                <mat-form-field class="w-100 f-16">
+                                                                    <mat-label>Skip End (sec)<span class="text-danger ms-2">*</span></mat-label>
+                                                                    <mat-select>
+                                                                        <mat-option value="10">10</mat-option>
+                                                                        <mat-option value="20">20</mat-option>
+                                                                    </mat-select>
+                                                                </mat-form-field>
+                                                            <!-- </div> -->
+                                                          </div>
+                                                          
+                                                          <div class="col-md-6" *ngIf="mediaSubtitlesAllowed">
+                                                            <ng-container *ngFor="let subtitle of languagesControl.value">
+                                                                <mat-form-field class="example-full-width w-100 f-16">
+                                                                    <mat-label>{{subtitle}} Subtitles URL<span class="text-danger ms-2">*</span></mat-label>
+                                                                    <input matInput />
+                                                                </mat-form-field>
+                                                            </ng-container>  
+                                                          </div>
+                                                      </div>
+                                                  </div>
+                                              </div>
+                                            </mat-expansion-panel>
+                                        </mat-accordion>
+
+                                    </div>
+                                </ng-container>
+                            </div>
+                          </div>
+                    </div>
+                </ng-container>
+              </div>
+        </div>
+        <div class="col-md-2 left-panel">
+            <button class="btn btn-primary f-16" (click)="toggleView()">
+                toggle movie / webseries view
+            </button>
+        </div>
+    </div>
+</div>

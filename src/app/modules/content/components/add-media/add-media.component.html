@@ -1,0 +1,78 @@
+<div class="add-modal">
+    <div class="add-modal-header py-4 px-5 d-flex justify-content-between align-items-center p-3">
+        <h2 class="m-0">Movies - Add Media</h2>
+        <button class="bg-transparent p-0 border-0" (click)="dialogRef.close()">
+            <span class="close material-icons align-middle">
+                close
+            </span>
+        </button>
+    </div>
+    <div
+        class="add-modal-body overflow-auto p-3 p-md-0">
+        <ng-container *ngIf="showFirstSteps">
+            <div class="d-flex align-items-center h-100 justify-content-center">
+                <div class="language-form-control w-100">
+                    <mat-form-field class="f-16 w-100">
+                        <mat-label>Select Languages:</mat-label>
+                        <mat-select [formControl]="languagesControl" multiple>
+                            <mat-select-trigger>
+                                <mat-chip-list>
+                                    <mat-chip *ngFor="let category of languagesControl.value" class="f-13" [removable]="true"
+                                        (removed)="onCatRemoved(category)" color="primary" selected>
+                                        {{ category }}
+                                        <mat-icon matChipRemove>cancel</mat-icon>
+                                    </mat-chip>
+                                </mat-chip-list>
+                            </mat-select-trigger>
+            
+                            <mat-option *ngFor="let category of languages" class="f-15" [value]="category">
+                                {{ category }}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <div *ngIf="languagesControl.value.length !== 0">
+                        <h4 class="mb-3"> <b>Select Main</b> from below selected languages</h4>
+                        <div>
+                            <ng-container *ngFor="let language of languagesControl.value">
+                                <label [attr.for]="language" class="btn f-14 languages-btn px-4 mb-3 me-3"
+                                [class.active]="mainLanguage === language">
+                                        {{language}}
+                                </label>
+                                <input type="radio" [(ngModel)]="mainLanguage" class="d-none" [value]="language" name="mainLanguage" [attr.id]="language">
+                            </ng-container>
+                        </div>
+                    </div>
+
+                </div>
+        
+                <button class="btn bg-transparent ms-5 border-0 shadow-none"
+                (click)="goNextSteps()"
+                [disabled]="languagesControl.value.length === 0">
+                    <span class="material-icons-outlined go-btn f-30">
+                        arrow_circle_right
+                    </span>
+                </button>
+            </div>
+        </ng-container>
+        <ng-container *ngIf="!showFirstSteps">
+            <!-- <p>second steps</p> -->
+            <app-media-information [selectedLanguages]="languagesControl.value" [mainLanguage]="mainLanguage"></app-media-information>
+        </ng-container>
+    </div>
+    <div class="add-modal-footer align-items-center justify-content-between py-4 px-5 border-top text-end"
+    [class.d-flex]="!showFirstSteps">
+        <button class="btn bg-transparent border-0 p-0 shadow-none"
+        (click)="showFirstSteps = true"
+        *ngIf="!showFirstSteps">
+            <span class="material-icons-outlined go-btn f-25">
+                arrow_circle_left
+            </span>
+        </button>
+        <div>
+            <button class="cancel-btn btn f-15 text-danger shadow-none me-3 bg-transparent border-0"
+            [disabled]="showFirstSteps"
+                (click)="dialogRef.close()">Cancel</button>
+            <button class="cancel-btn btn f-15 shadow-none text-success" [disabled]="showFirstSteps">Save</button>
+        </div>
+    </div>
+</div>

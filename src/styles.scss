@@ -67,4 +67,31 @@ table {
             border-radius: 15px;
         }
     }
+    &.xxl-modal {
+        max-width: 90vw !important;
+        mat-expansion-panel-header {
+            background-color: #f1f1f1;
+        }
+        mat-panel-title {
+            flex-grow: 3;
+        }
+        @media (max-width: 767.99px) {
+            mat-expansion-panel {
+                mat-expansion-panel-header {
+                    height: auto;
+                    padding: 0 10px;
+                    .mat-content {
+                        flex-wrap: wrap;
+                    }
+                }
+                mat-panel-description {
+                    flex-wrap: wrap;
+                }
+            }
+        }
+    }
+}
+
+.mat-chip.mat-standard-chip.mat-chip-selected.mat-primary {
+    background-color: $matChipBgColor;
 }
