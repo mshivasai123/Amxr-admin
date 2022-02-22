@@ -12,8 +12,8 @@ export interface PeriodicElement {
 }
 
 const ELEMENT_DATA: PeriodicElement[] = [
-  { languageName : 'English', cost: 12,offerPercentage: "10%", status : 'active', offerValidity: '30 days',date : 'Jan 12th 2022' },
-  { languageName : 'Telugu', cost: 12,offerPercentage: "10%", status : 'inactive', offerValidity: '30 days',date : 'Jan 12th 2022' }
+  { languageName : 'English', cost: 12,offerPercentage: "10%", status : 'Active', offerValidity: '30 days',date : 'Jan 12th 2022' },
+  { languageName : 'Telugu', cost: 12,offerPercentage: "10%", status : 'InActive', offerValidity: '30 days',date : 'Jan 12th 2022' }
 ];
 
 
@@ -31,7 +31,7 @@ export class ManagePlansComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  displayedColumns: string[] = ['languageName', 'cost','offerPercentage','status','offerValidity','date', 'action'];
+  displayedColumns: string[] = ['languageName', 'cost','offerPercentage','offerValidity','date','status', 'action'];
   dataSource = ELEMENT_DATA;
 
   addPlans() {

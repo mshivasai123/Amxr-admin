@@ -16,8 +16,8 @@ export interface PeriodicElement {
 }
 
 const ELEMENT_DATA: PeriodicElement[] = [
-  { logo: "", name :'Prasad',email : 'email@email.com', phone: '678484039343',loginToken: 'AS22334DF34',contentCount: 234, totalViews: 343452,approxCost: 345445, status : 'active', date: 'Jan 12th 2022' },
-  { logo: "", name :'Prasad',email : 'email@email.com', phone: '678484039343',loginToken: 'AS22334DF34',contentCount: 234, totalViews: 343452,approxCost: 345445, status : 'inactive', date: 'Jan 12th 2022' }
+  { logo: "", name :'Prasad',email : 'email@email.com', phone: '678484039343',loginToken: 'AS22334DF34',contentCount: 234, totalViews: 343452,approxCost: 345445, status : 'Active', date: 'Jan 12th 2022' },
+  { logo: "", name :'Prasad',email : 'email@email.com', phone: '678484039343',loginToken: 'AS22334DF34',contentCount: 234, totalViews: 343452,approxCost: 345445, status : 'InActive', date: 'Jan 12th 2022' }
 ];
 
 
@@ -35,7 +35,7 @@ export class MediaProviderComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  displayedColumns: string[] = ['logo','name','email','phone','loginToken','contentCount','totalViews','approxCost','status','date', 'action'];
+  displayedColumns: string[] = ['logo','name','email','phone','loginToken','contentCount','totalViews','approxCost','date','status', 'action'];
   dataSource = ELEMENT_DATA;
 
   addProvider() {

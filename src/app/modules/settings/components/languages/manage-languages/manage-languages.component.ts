@@ -6,11 +6,12 @@ export interface PeriodicElement {
   languageName: string;
   showInAudio: string;
   showInSubtitles: string;
+  status:string;
 }
 
 const ELEMENT_DATA: PeriodicElement[] = [
-  { languageName : 'English', showInAudio: "yes",showInSubtitles: "yes" },
-  { languageName : 'Telugu', showInAudio: "no",showInSubtitles: "no" }
+  { languageName : 'English', showInAudio: "yes",showInSubtitles: "yes" , status: 'Active'},
+  { languageName : 'Telugu', showInAudio: "no",showInSubtitles: "no", status: 'InActive' }
 ];
 
 
@@ -28,7 +29,7 @@ export class ManageLanguagesComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  displayedColumns: string[] = ['languageName', 'showInAudio','showInSubtitles', 'action'];
+  displayedColumns: string[] = ['languageName', 'showInAudio','showInSubtitles','status', 'action'];
   dataSource = ELEMENT_DATA;
 
 

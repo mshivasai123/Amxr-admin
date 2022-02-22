@@ -10,8 +10,8 @@ export interface PeriodicElement {
 }
 
 const ELEMENT_DATA: PeriodicElement[] = [
-  { icon : "", name: "UA+", status : 'active', date: 'July 12th 2022' },
-  { icon : "", name: "A", status : 'inactive', date: 'July 12th 2022' }
+  { icon : "", name: "UA+", status : 'Active', date: 'July 12th 2022' },
+  { icon : "", name: "A", status : 'InActive', date: 'July 12th 2022' }
 ];
 
 
@@ -29,7 +29,7 @@ export class ManageCertificationsComponent implements OnInit {
   ngOnInit(): void {
   }
   
-  displayedColumns: string[] = ['icon', 'name','status','date', 'action'];
+  displayedColumns: string[] = ['icon', 'name','date','status', 'action'];
   dataSource = ELEMENT_DATA;
 
   addCertificate() {

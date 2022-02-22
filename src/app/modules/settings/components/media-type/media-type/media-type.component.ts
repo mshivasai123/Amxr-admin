@@ -10,8 +10,8 @@ export interface PeriodicElement {
 }
 
 const ELEMENT_DATA: PeriodicElement[] = [
-  { mediaType: "2D", status : 'active', date: 'Jan 12th 2022' },
-  { mediaType: "3D-TB", status : 'inactive', date: 'Jan 12th 2022' }
+  { mediaType: "2D", status : 'Active', date: 'Jan 12th 2022' },
+  { mediaType: "3D-TB", status : 'InActive', date: 'Jan 12th 2022' }
 ];
 
 
@@ -29,7 +29,7 @@ export class MediaTypeComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  displayedColumns: string[] = ['mediaType','status','date', 'action'];
+  displayedColumns: string[] = ['mediaType','date','status', 'action'];
   dataSource = ELEMENT_DATA;
 
   addMediaType() {

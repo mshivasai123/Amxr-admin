@@ -5,11 +5,12 @@ import { AddGenresComponent } from '../add-genres/add-genres.component';
 export interface PeriodicElement {
   genresName: string;
   showInApp: string;
+  status: string;
 }
 
 const ELEMENT_DATA: PeriodicElement[] = [
-  { genresName : 'Thriller', showInApp: "yes" },
-  { genresName : 'Suspence', showInApp: "no" }
+  { genresName : 'Thriller', showInApp: "yes", status: 'Active' },
+  { genresName : 'Suspence', showInApp: "no", status: 'InActive' }
 ];
 
 
@@ -27,7 +28,7 @@ export class ManageGenresComponent implements OnInit {
   ngOnInit(): void {
   }
   
-  displayedColumns: string[] = ['genresName', 'showInApp', 'action'];
+  displayedColumns: string[] = ['genresName', 'showInApp','status', 'action'];
   dataSource = ELEMENT_DATA;
 
   addGener() {

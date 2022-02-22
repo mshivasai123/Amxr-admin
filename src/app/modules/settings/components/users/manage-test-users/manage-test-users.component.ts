@@ -7,14 +7,14 @@ export interface PeriodicElement {
   userName: string;
   email: string;
   phone : string;
-  otp : string;
+  // otp : string;
   status : string;
   date : string;
 }
 
 const ELEMENT_DATA: PeriodicElement[] = [
-  { userName : "Prasad", email: "email@email.com", phone : '93499283032', otp: '23423', status: 'active', date: 'Jan 12th 2022' },
-  { userName : "Shiva", email: "test@email.com", phone : '93499283032', otp: '23423', status: 'inactive', date: 'Jan 12th 2022' }
+  { userName : "Prasad", email: "email@email.com", phone : '93499283032',  status: 'Active', date: 'Jan 12th 2022' },
+  { userName : "Shiva", email: "test@email.com", phone : '93499283032',  status: 'InActive', date: 'Jan 12th 2022' }
 ];
 
 
@@ -32,7 +32,7 @@ export class ManageTestUsersComponent implements OnInit {
   ngOnInit(): void {
   }  
   
-  displayedColumns: string[] = ['userName', 'email','phone','otp','status','date', 'action'];
+  displayedColumns: string[] = ['userName', 'email','phone','date','status', 'action'];
   dataSource = ELEMENT_DATA;
 
   addusers() {

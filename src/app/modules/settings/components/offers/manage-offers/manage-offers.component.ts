@@ -11,8 +11,8 @@ export interface PeriodicElement {
 }
 
 const ELEMENT_DATA: PeriodicElement[] = [
-  { offerName : 'Refer', offerCode: "CO66734",offerPercentage: "10%", offerStatus : 'active', offerValidity: 'July 12th 2022' },
-  { offerName : 'Refer', offerCode: "CO66734",offerPercentage: "10%", offerStatus : 'inactive', offerValidity: 'July 12th 2022' }
+  { offerName : 'Refer', offerCode: "CO66734",offerPercentage: "10%", offerStatus : 'Active', offerValidity: 'July 12th 2022' },
+  { offerName : 'Refer', offerCode: "CO66734",offerPercentage: "10%", offerStatus : 'InActive', offerValidity: 'July 12th 2022' }
 ];
 
 
@@ -30,7 +30,7 @@ export class ManageOffersComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  displayedColumns: string[] = ['offerName', 'offerCode','offerPercentage','offerStatus','offerValidity', 'action'];
+  displayedColumns: string[] = ['offerName', 'offerCode','offerPercentage','offerValidity','offerStatus', 'action'];
   dataSource = ELEMENT_DATA;
 
   addOffer() {
