@@ -21,15 +21,15 @@
                     </div>
                     <div>
                         <label for="fileUpload" class="file-uploader cursor-pointer d-flex align-items-center justify-content-center">
-                            <span class="material-icons f-36">
+                            <span class="material-icons f-36" *ngIf="!objectURL">
                                 photo_camera
                             </span>
-                            <!-- <img src="https://picsum.photos/536/353" alt="Image" class="img-fluid" /> -->
+                            <img *ngIf="objectURL" [src]="objectURL" alt="Image" class="img-fluid" />
                         </label>
                         <span class="f-14 m-3">
                             500 &times; 500
                         </span>
-                        <input type="file" id="fileUpload" class="d-none" />
+                        <input type="file" id="fileUpload" (change)="uploadImage($event)" class="d-none" />
                     </div>
                 </div>
                 <div class="col-lg-4 col-sm-2">
