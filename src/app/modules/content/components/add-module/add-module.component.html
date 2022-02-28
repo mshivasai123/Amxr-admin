@@ -1,0 +1,52 @@
+<div class="add-modal">
+    <div class="add-modal-header py-4 px-5 d-flex justify-content-between align-items-center p-3">
+        <h2 class="m-0">Add Module</h2>
+        <button class="bg-transparent p-0 border-0" (click)="dialogRef.close()">
+            <span class="close material-icons align-middle">
+                close
+            </span>
+        </button>
+    </div>
+    <div class="add-modal-body mt-4 overflow-auto py-3 px-4 px-sm-5 py-sm-4 mx-0 mx-md-3">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-8 col-sm-10">
+                    <div class="row">
+                        <div class="col-md-5 mb-4">
+                            <mat-form-field class="example-full-width w-100 f-16">
+                                <mat-label>Module Name<span class="text-danger ms-2">*</span></mat-label>
+                                <input matInput />
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-5 mb-4">
+                            <mat-form-field class="example-full-width w-100 f-16">
+                                <mat-label>Module Type<span class="text-danger ms-2">*</span></mat-label>
+                                <input matInput />
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div>
+                        <label for="fileUpload" class="file-uploader cursor-pointer d-flex align-items-center justify-content-center">
+                            <span class="material-icons f-36">
+                                photo_camera
+                            </span>
+                            <!-- <img src="https://picsum.photos/536/353" alt="Image" class="img-fluid" /> -->
+                        </label>
+                        <span class="f-14 m-3">
+                            500 &times; 500
+                        </span>
+                        <input type="file" id="fileUpload" class="d-none" />
+                    </div>
+                </div>
+                <div class="col-lg-4 col-sm-2">
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="add-modal-footer py-4 px-5 border-top text-end">
+        <button class="cancel-btn btn f-15 text-danger shadow-none me-3 bg-transparent border-0"
+        (click)="dialogRef.close()">Cancel</button>
+        <button class="cancel-btn btn f-15 shadow-none text-success">Save</button>
+    </div>
+</div>

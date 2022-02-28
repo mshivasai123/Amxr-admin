@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { AddModuleComponent } from '../add-module/add-module.component';
+import { MatDialog } from '@angular/material/dialog';
 
 
 export interface PeriodicElement {
@@ -23,9 +25,18 @@ export class RootComponent implements OnInit {
   displayedColumns: string[] = ['image', 'moduleName', 'moduleType', 'updatedDate', 'status', 'action'];
   dataSource = ELEMENT_DATA;
 
-  constructor() { }
+  constructor(
+    public dialog: MatDialog
+  ) { }
 
   ngOnInit(): void {
+  }
+
+  addModule() {
+    const dialogRef = this.dialog.open(AddModuleComponent, {
+      width: '1000px',
+      panelClass: ['add-modal']
+    });
   }
 
 }
