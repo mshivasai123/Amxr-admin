@@ -1,4 +1,6 @@
-<app-header></app-header>
-<div class="main-content-wrapper">
+<ng-container *ngIf="showHeader">
+    <app-header></app-header>
+</ng-container>
+<div [class.main-content-wrapper]="showHeader">
     <router-outlet></router-outlet>
 </div>

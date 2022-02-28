@@ -1,0 +1,42 @@
+<div class="container-fluid login-wrapper pt-4">
+    <div class="login-form">
+        <form class="w-100">
+            <h1 class="text-center login-text-color mb-5 pb-4">Access Panel</h1>
+            <ng-container *ngIf="!showPassword">
+                <div>
+                    <mat-form-field class="example-full-width text-white mb-4 w-100 f-15">
+                        <mat-label class="text-uppercase f-14">Enter Email Id</mat-label>
+                        <input matInput />
+                    </mat-form-field>
+                </div>
+                <div>
+                    <mat-form-field class="example-full-width text-white w-100 f-15">
+                        <mat-label class="text-uppercase f-14">Enter Password</mat-label>
+                        <input matInput />
+                    </mat-form-field>
+                </div>
+                <button class="d-block login-text-color btn bg-transparent border-0 p-0 f-14 text-uppercase"
+                type="button" (click)="showPassword = true;"
+                >Forgot Password?</button>
+                <div class="text-end">
+                    <button mat-raised-button type="button" class="btn login-btn-bg f-13 p-3 mt-3 text-uppercase"
+                    (click)="login()">Login</button>
+                </div>
+            </ng-container>
+            <ng-container *ngIf="showPassword">
+                <div>
+                    <mat-form-field class="example-full-width text-white mb-4 w-100 f-15">
+                        <mat-label class="text-uppercase f-14">Enter Email Id</mat-label>
+                        <input matInput />
+                    </mat-form-field>
+                </div>
+                <button class="d-block login-text-color btn bg-transparent border-0 p-0 f-14 text-uppercase"
+                type="button" (click)="showPassword = false;"
+                >Login</button>
+                <div class="text-end">
+                    <button mat-raised-button type="button" class="btn login-btn-bg f-13 p-3 mt-3 text-uppercase">Send Password</button>
+                </div>
+            </ng-container>
+        </form>
+    </div>
+</div>
