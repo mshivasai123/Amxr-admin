@@ -13,8 +13,10 @@ export class AppComponent {
   constructor(private router: Router) {
           // on route change to '/login', set the variable showHead to false
           router.events.forEach((event) => {
+            
             if (event instanceof NavigationStart) {
-              if (event['url'] == '/login') {
+              console.log(event['url'])
+              if (event['url'] == '/login' || event['url'] == '/') {
                 this.showHeader = false;
               } else {
                 // console.log("NU")

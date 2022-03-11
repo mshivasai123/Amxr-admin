@@ -1,18 +1,18 @@
 <div class="container-fluid login-wrapper pt-4">
     <div class="login-form">
-        <form class="w-100">
+        <form class="w-100" [formGroup]="loginForm">
             <h1 class="text-center login-text-color mb-5 pb-4">Access Panel</h1>
             <ng-container *ngIf="!showPassword">
                 <div>
                     <mat-form-field class="example-full-width text-white mb-4 w-100 f-15">
                         <mat-label class="text-uppercase f-14">Enter Email Id</mat-label>
-                        <input matInput />
+                        <input matInput  formControlName="email"/>
                     </mat-form-field>
                 </div>
                 <div>
                     <mat-form-field class="example-full-width text-white w-100 f-15">
                         <mat-label class="text-uppercase f-14">Enter Password</mat-label>
-                        <input matInput />
+                        <input matInput formControlName="password"/>
                     </mat-form-field>
                 </div>
                 <button class="d-block login-text-color btn bg-transparent border-0 p-0 f-14 text-uppercase"

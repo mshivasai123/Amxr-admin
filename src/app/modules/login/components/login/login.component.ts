@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { LoginService } from '../../services/login.service';
 
 @Component({
   selector: 'app-login',
@@ -8,15 +10,32 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent implements OnInit {
   showPassword = false;
+  loginForm : FormGroup; 
   constructor(
-    private router: Router
+    private router: Router,
+    public formBuilder : FormBuilder,
+    public loginService : LoginService
   ) {}
 
   ngOnInit(): void {
+    this.initForm();
+  }
+
+  initForm(){
+    this.loginForm =  this.formBuilder.group({
+      email: ['', Validators.required],
+      password: ['', Validators.required],
+    });
   }
 
   login() {
-    this.router.navigate(['/subscribers']);
+    console.log("submit",this.loginForm.getRawValue());
+    const payload = this.loginForm.getRawValue()
+    this.loginService.loginUser(payload).subscribe(responce=>{
+       if(responce){
+         this.router.navigate(['/subscribers']);
+       }
+    })
   }
 
 }
