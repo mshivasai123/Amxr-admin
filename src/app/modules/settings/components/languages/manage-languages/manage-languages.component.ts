@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { ConformationComponent } from 'src/app/shared/model/conformation/conformation.component';
 import { AddLanguagesComponent } from '../add-languages/add-languages.component';
+import { LanguagesService } from '../languages.service';
 
 export interface PeriodicElement {
+  id : number;
   languageName: string;
   showInAudio: string;
   showInSubtitles: string;
@@ -10,8 +13,8 @@ export interface PeriodicElement {
 }
 
 const ELEMENT_DATA: PeriodicElement[] = [
-  { languageName : 'English', showInAudio: "yes",showInSubtitles: "yes" , status: 'Active'},
-  { languageName : 'Telugu', showInAudio: "no",showInSubtitles: "no", status: 'InActive' }
+  { id : 1 , languageName : 'English', showInAudio: "yes",showInSubtitles: "yes" , status: 'Active'},
+  { id : 2 , languageName : 'Telugu', showInAudio: "no",showInSubtitles: "no", status: 'InActive' }
 ];
 
 
@@ -22,11 +25,23 @@ const ELEMENT_DATA: PeriodicElement[] = [
 })
 export class ManageLanguagesComponent implements OnInit {
 
+  selectedLanguage : any;
+
   constructor(
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    public languageService : LanguagesService
   ) { }
 
   ngOnInit(): void {
+    this.getLanguage();
+  }
+
+  getLanguage(){
+    this.languageService.getLanguage().subscribe(response =>{
+      this.dataSource = ELEMENT_DATA 
+      // this.dataSource = response  
+      console.log("getGener",this.dataSource);
+    })
   }
 
   displayedColumns: string[] = ['languageName', 'showInAudio','showInSubtitles','status', 'action'];
@@ -37,6 +52,35 @@ export class ManageLanguagesComponent implements OnInit {
     const dialogRef = this.dialog.open(AddLanguagesComponent, {
       width: '1000px',
       panelClass: ['add-modal']
+    });
+  }
+
+  deleteLanguage() {
+    const dialogRef = this.dialog.open(ConformationComponent, {
+      width: '500px',
+      panelClass: ['add-modal']
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if(result == 'submited'){
+        this.languageService.deleteLanguage(this.selectedLanguage).subscribe(response=>{
+          if(response){
+            console.log(response);
+          }
+        })
+      }
+    });
+  
+  }
+
+  selectLanguage(data:any){
+    this.selectedLanguage = data;
+  }
+
+  editLanguage(){
+    const dialogRef = this.dialog.open(AddLanguagesComponent, {
+      width: '1000px',
+      panelClass: ['edit-modal'],
+      data: this.selectedLanguage,
     });
   }
 

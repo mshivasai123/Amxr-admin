@@ -12,11 +12,28 @@ export class GenresService {
   baseUrl = environment.basicUrl;
 
   constructor(
-    private http : HttpClient
+    private http: HttpClient
   ) { }
 
-  getGener() : Observable<any> {
-     const endPoint = this.baseUrl + `genres` 
-     return this.http.get(endPoint)
+  getGener(): Observable<any> {
+    const endPoint = this.baseUrl + `genres`
+    return this.http.get(endPoint)
+  }
+
+  addMultyGener(data: any): Observable<any> {
+    const endPoint = this.baseUrl + `genres/multi-add`
+    return this.http.post(endPoint, data)
+  }
+
+  editGener(data: any): Observable<any> {
+    const endPoint = this.baseUrl + `genres/update/${data.id}`
+    const req = { name: data.name, showInApp: data.showInApp }
+    return this.http.post(endPoint, req)
+  }
+
+  deleteGener(data: any): Observable<any> {
+    const endPoint = this.baseUrl + `genres/delete/${data.id}`
+    const req = { name: data.name }
+    return this.http.post(endPoint, req)
   }
 }
