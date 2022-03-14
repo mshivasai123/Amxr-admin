@@ -27,7 +27,7 @@ export class AddLanguagesComponent implements OnInit {
     if(data){
     this.title = 'Edit Language';
     this.editMode = true;
-    this.multiLanguageForm.controls['multyLanguage'].setValue([{name:data.languageName,showInAudio: data?.showInAudio === 'yes' ? true : false,showInSubtitles: data?.showInSubtitles === 'yes' ? true : false}]);
+    this.multiLanguageForm.controls['multyLanguage'].setValue([{name:data.name,showInAudio: data?.showInAudio,showInSubtitles: data?.showInSubtitles}]);
     }
   }
 
@@ -52,14 +52,11 @@ export class AddLanguagesComponent implements OnInit {
 
 
   onSubmit(){
-    console.log(this.multiLanguageForm.getRawValue().multyLanguage);
     if(this.multiLanguageForm.getRawValue().multyLanguage){
       const requestParams = this.multiLanguageForm.getRawValue().multyLanguage
-      this.dialogRef.close();
       this.languageService.addMultyLanguage(requestParams).subscribe(response=>{
-        console.log(response);
         if(response){
-            this.dialogRef.close();
+          this.closeModel('submited');
         }
       })
     }
@@ -70,10 +67,9 @@ export class AddLanguagesComponent implements OnInit {
     editData.id = this.data.id
     this.languageService.editLanguage(editData).subscribe(response =>{
       if(response){
-        this.closeModel();
+        this.closeModel('submited');
       }
     })
-    this.closeModel();
   }
 
   createLanguage() {
@@ -84,8 +80,8 @@ export class AddLanguagesComponent implements OnInit {
     })
   }
 
-  closeModel(){
-    this.dialogRef.close();
+  closeModel(data:any){
+    this.dialogRef.close(data);
     this.editMode = false;
     this.title = 'Add Language'
   }

@@ -31,10 +31,10 @@
       <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 bg-transparent shadow-none custom-table w-100">
   
         <!-- Position Column -->
-        <ng-container matColumnDef="genresName">
+        <ng-container matColumnDef="name">
           <th mat-header-cell *matHeaderCellDef> Genres Name </th>
           <td mat-cell *matCellDef="let element" class="ws-nowrap">
-            {{element.genresName}}
+            {{element.name}}
           </td>
         </ng-container>
   
@@ -42,7 +42,7 @@
         <ng-container matColumnDef="showInApp">
           <th mat-header-cell *matHeaderCellDef class="ws-nowrap"> Show in APP </th>
           <td mat-cell *matCellDef="let element" class="ws-nowrap text-capitalize" 
-          [class.text-success]="element.showInApp === 'yes'" [class.text-danger]="element.showInApp === 'no'" > {{element.showInApp}} </td>
+          [class.text-success]="element.showInApp === 'true'" [class.text-danger]="element.showInApp === 'false'" > {{element.showInApp}} </td>
         </ng-container>
 
          <!-- Status Column -->

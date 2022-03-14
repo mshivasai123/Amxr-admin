@@ -28,12 +28,12 @@ export class GenresService {
   editGener(data: any): Observable<any> {
     const endPoint = `api/genres/update/${data.id}`
     const req = { name: data.name, showInApp: data.showInApp }
-    return this.http.post(endPoint, req)
+    return this.http.put(endPoint, req)
   }
 
   deleteGener(data: any): Observable<any> {
     const endPoint = `api/genres/delete/${data.id}`
     const req = { name: data.name }
-    return this.http.post(endPoint, req)
+    return this.http.delete(endPoint)
   }
 }

@@ -31,47 +31,47 @@
             class="mat-elevation-z8 bg-transparent shadow-none custom-table w-100">
 
             <!-- Position Column -->
-            <ng-container matColumnDef="offerName">
+            <ng-container matColumnDef="name">
                 <th mat-header-cell *matHeaderCellDef> Offer Name </th>
                 <td mat-cell *matCellDef="let element" class="ws-nowrap">
-                    {{element.offerName}}
+                    {{element.name}}
                 </td>
             </ng-container>
 
             <!-- Name Column -->
-            <ng-container matColumnDef="offerCode">
+            <ng-container matColumnDef="discountCode">
                 <th mat-header-cell *matHeaderCellDef class="ws-nowrap"> Offer Code </th>
                 <td mat-cell *matCellDef="let element" class="ws-nowrap text-capitalize">
-                    {{element.offerCode}} </td>
+                    {{element.discountCode}} </td>
             </ng-container>
 
             <!-- Name Column -->
-            <ng-container matColumnDef="offerPercentage">
+            <ng-container matColumnDef="discountInPercentage">
                 <th mat-header-cell *matHeaderCellDef class="ws-nowrap"> Offer Percentage </th>
                 <td mat-cell *matCellDef="let element" class="ws-nowrap text-capitalize">
-                    {{element.offerPercentage}} </td>
+                    {{element.discountInPercentage}} </td>
             </ng-container>
 
             <!-- Name Column -->
-            <ng-container matColumnDef="offerStatus">
+            <ng-container matColumnDef="status">
                 <th mat-header-cell *matHeaderCellDef class="ws-nowrap"> Offer Status </th>
                 <td mat-cell *matCellDef="let element" class="ws-nowrap text-capitalize"
-                    [class.text-success]="element.offerStatus === 'active'" [class.text-danger]="element.offerStatus === 'inactive'">
-                    {{element.offerStatus}} </td>
+                    [class.text-success]="element.status === 'active'" [class.text-danger]="element.offerStatus === 'inactive'">
+                    {{element.status}} </td>
             </ng-container>
 
             <!-- Name Column -->
-            <ng-container matColumnDef="offerValidity">
+            <ng-container matColumnDef="validityEndDateTime">
                 <th mat-header-cell *matHeaderCellDef class="ws-nowrap"> Offer Validity </th>
                 <td mat-cell *matCellDef="let element" class="ws-nowrap text-capitalize">
-                    {{element.offerValidity}} </td>
+                    {{getDate(element.validityEndDateTime)}} </td>
             </ng-container>
 
             <!-- Action Column -->
             <ng-container matColumnDef="action">
                 <th mat-header-cell *matHeaderCellDef> Action </th>
                 <td mat-cell *matCellDef="let element">
-                    <button class="bg-transparent border-0" mat-button [matMenuTriggerFor]="menu">
+                    <button class="bg-transparent border-0" mat-button [matMenuTriggerFor]="menu" (click)="selectOffer(element)">
                         <span class="material-icons align-middle">
                             more_vert
                         </span>
@@ -80,7 +80,8 @@
             </ng-container>
             <mat-menu #menu="matMenu">
                 <button mat-menu-item class="text-white">Active / Inactive</button>
-                <button mat-menu-item class="text-white">Delete</button>
+                <button mat-menu-item class="text-white" (click)="editOffer()">Edit Offer</button>
+                <button mat-menu-item class="text-white" (click)="deleteOffer()">Delete</button>
             </mat-menu>
 
             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

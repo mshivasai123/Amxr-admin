@@ -7,6 +7,7 @@
             </span>
         </button>
     </div>
+    <form [formGroup]="userForm">
     <div class="add-modal-body mt-4 overflow-auto py-3 px-4 px-sm-5 py-sm-4 mx-0 mx-md-3">
         <div class="container-fluid">
             <div class="row">
@@ -15,19 +16,19 @@
                         <div class="col-md-5 mb-4">
                             <mat-form-field class="example-full-width w-100 f-16">
                                 <mat-label>Test User Name<span class="text-danger ms-2">*</span></mat-label>
-                                <input matInput />
+                                <input matInput formControlName="name"/>
                             </mat-form-field>
                         </div>
                         <div class="col-md-5 offset-md-1 mb-4">
                             <mat-form-field class="example-full-width w-100 f-16">
                                 <mat-label>Email<span class="text-danger ms-2">*</span></mat-label>
-                                <input matInput type="email" />
+                                <input matInput type="email" formControlName="email" />
                             </mat-form-field>
                         </div>
                         <div class="col-md-5 mb-4">
                             <mat-form-field class="example-full-width w-100 f-16">
                                 <mat-label>Phone<span class="text-danger ms-2">*</span></mat-label>
-                                <input matInput type="number" />
+                                <input matInput type="number" formControlName="mobile"/>
                             </mat-form-field>
                         </div>
                         <div class="col-md-5 offset-md-1 mb-4">
@@ -40,8 +41,8 @@
                               <mat-form-field class="w-100 f-16">
                                 <mat-label>Validity<span class="text-danger ms-2">*</span></mat-label>  
                                 <mat-date-range-input [rangePicker]="picker">
-                                  <input matStartDate placeholder="Start date">
-                                  <input matEndDate placeholder="End date">
+                                  <input matStartDate placeholder="Start date" formControlName="createdAt">
+                                  <input matEndDate placeholder="End date" formControlName="updatedAt">
                                 </mat-date-range-input>
                                 <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                                 <mat-date-range-picker #picker></mat-date-range-picker>
@@ -58,6 +59,8 @@
     <div class="add-modal-footer py-4 px-5 border-top text-end">
         <button class="cancel-btn btn f-15 text-danger shadow-none me-3 bg-transparent border-0"
         (click)="dialogRef.close()">Cancel</button>
-        <button class="cancel-btn btn f-15 shadow-none text-success">Add</button>
+        <button *ngIf="!editMode" class="cancel-btn btn f-15 shadow-none text-success" type="submit" (click)="onSubmit()">Add</button>
+        <button *ngIf="editMode" class="cancel-btn btn f-15 shadow-none text-success" type="submit" (click)="editUser()">Edit</button>
     </div>
+</form>
 </div>

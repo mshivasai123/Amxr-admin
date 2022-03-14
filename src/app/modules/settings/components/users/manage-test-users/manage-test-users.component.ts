@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { ConformationComponent } from 'src/app/shared/model/conformation/conformation.component';
 import { AddUsersComponent } from '../add-users/add-users.component';
+import { UsersService } from '../users.service';
 
 
 export interface PeriodicElement {
@@ -25,14 +27,30 @@ const ELEMENT_DATA: PeriodicElement[] = [
 })
 export class ManageTestUsersComponent implements OnInit {
 
+  selectedUser : any;
+
   constructor(
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    public usersService : UsersService
   ) { }
 
   ngOnInit(): void {
+    this.getUsers();
   }  
+
+  getDate(date:Date){
+    let newDate = new Date(date);
+    return `${newDate.getDate()}-${newDate.getMonth()}-${newDate.getFullYear()}`
+  }
+
+  getUsers(){
+    this.usersService.getUser().subscribe(response =>{
+      this.dataSource = response?.data;
+      console.log("getUser",this.dataSource);
+    })
+  }
   
-  displayedColumns: string[] = ['userName', 'email','phone','date','status', 'action'];
+  displayedColumns: string[] = [ 'email','mobile','createdAt','status', 'action'];
   dataSource = ELEMENT_DATA;
 
   addusers() {
@@ -40,6 +58,46 @@ export class ManageTestUsersComponent implements OnInit {
       width: '1000px',
       panelClass: ['add-modal']
     });
+    dialogRef.afterClosed().subscribe(result => {
+      if(result == 'submited'){
+        this.getUsers()
+      }
+    });
+  }
+
+
+  selectUser(data:any){
+    this.selectedUser = data;
+  }
+
+  editUser(){
+    const dialogRef = this.dialog.open(AddUsersComponent, {
+      width: '1000px',
+      panelClass: ['edit-modal'],
+      data: this.selectedUser,
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if(result == 'submited'){
+        this.getUsers()
+      }
+    });
+  }
+
+  deleteUser() {
+    const dialogRef = this.dialog.open(ConformationComponent, {
+      width: '500px',
+      panelClass: ['add-modal']
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if(result == 'submited'){
+        this.usersService.deleteUser(this.selectedUser).subscribe(response=>{
+          if(response){
+            this.getUsers()
+          }
+        })
+      }
+    });
+  
   }
 
 }

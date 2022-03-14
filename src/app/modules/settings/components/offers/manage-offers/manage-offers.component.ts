@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { ConformationComponent } from 'src/app/shared/model/conformation/conformation.component';
 import { AddOffersComponent } from '../add-offers/add-offers.component';
+import { OffersService } from '../offers.service';
 
 export interface PeriodicElement {
   offerName: string;
@@ -22,15 +24,31 @@ const ELEMENT_DATA: PeriodicElement[] = [
   styleUrls: ['./manage-offers.component.scss']
 })
 export class ManageOffersComponent implements OnInit {
+  
+  selectedOffer: any;
 
   constructor(
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    public offersService : OffersService,
   ) { }
 
   ngOnInit(): void {
+    this.getOffers();
   }
 
-  displayedColumns: string[] = ['offerName', 'offerCode','offerPercentage','offerValidity','offerStatus', 'action'];
+  getDate(date:Date){
+    let newDate = new Date(date);
+    return `${newDate.getDate()}-${newDate.getMonth()}-${newDate.getFullYear()}`
+  }
+
+  getOffers(){
+    this.offersService.getOffer().subscribe(response =>{
+      this.dataSource = response?.data;
+      console.log("getOffer",this.dataSource);
+    })
+  }
+
+  displayedColumns: string[] = ['name', 'discountCode','discountInPercentage','validityEndDateTime','status', 'action'];
   dataSource = ELEMENT_DATA;
 
   addOffer() {
@@ -38,6 +56,45 @@ export class ManageOffersComponent implements OnInit {
       width: '1000px',
       panelClass: ['add-modal']
     });
+    dialogRef.afterClosed().subscribe(result => {
+      if(result == 'submited'){
+        this.getOffers()
+      }
+    });
+  }
+
+  selectOffer(data:any){
+    this.selectedOffer = data;
+  }
+
+  editOffer(){
+    const dialogRef = this.dialog.open(AddOffersComponent, {
+      width: '1000px',
+      panelClass: ['edit-modal'],
+      data: this.selectedOffer,
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if(result == 'submited'){
+        this.getOffers()
+      }
+    });
+  }
+
+  deleteOffer() {
+    const dialogRef = this.dialog.open(ConformationComponent, {
+      width: '500px',
+      panelClass: ['add-modal']
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if(result == 'submited'){
+        this.offersService.deleteOffer(this.selectedOffer).subscribe(response=>{
+          if(response){
+            this.getOffers()
+          }
+        })
+      }
+    });
+  
   }
 
 }

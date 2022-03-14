@@ -38,13 +38,11 @@ export class ManageLanguagesComponent implements OnInit {
 
   getLanguage(){
     this.languageService.getLanguage().subscribe(response =>{
-      this.dataSource = ELEMENT_DATA 
-      // this.dataSource = response  
-      console.log("getGener",this.dataSource);
+      this.dataSource = response?.data
     })
   }
 
-  displayedColumns: string[] = ['languageName', 'showInAudio','showInSubtitles','status', 'action'];
+  displayedColumns: string[] = ['name', 'showInAudio','showInSubtitles','status', 'action'];
   dataSource = ELEMENT_DATA;
 
 
@@ -52,6 +50,11 @@ export class ManageLanguagesComponent implements OnInit {
     const dialogRef = this.dialog.open(AddLanguagesComponent, {
       width: '1000px',
       panelClass: ['add-modal']
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if(result == 'submited'){
+        this.getLanguage()
+      }
     });
   }
 
@@ -69,7 +72,6 @@ export class ManageLanguagesComponent implements OnInit {
         })
       }
     });
-  
   }
 
   selectLanguage(data:any){
@@ -81,6 +83,11 @@ export class ManageLanguagesComponent implements OnInit {
       width: '1000px',
       panelClass: ['edit-modal'],
       data: this.selectedLanguage,
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if(result == 'submited'){
+        this.getLanguage()
+      }
     });
   }
 

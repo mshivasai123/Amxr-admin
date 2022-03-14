@@ -30,7 +30,8 @@ export class ManageGenresComponent implements OnInit {
   constructor(
     public dialog: MatDialog,
     private generService : GenresService 
-  ) { }
+  ) { 
+  }
 
   ngOnInit(): void {
     this.getGener();
@@ -38,19 +39,23 @@ export class ManageGenresComponent implements OnInit {
 
   getGener(){
     this.generService.getGener().subscribe(response =>{
-      this.dataSource = ELEMENT_DATA 
-      // this.dataSource = response  
+      this.dataSource = response?.data;
       console.log("getGener",this.dataSource);
     })
   }
   
-  displayedColumns: string[] = ['genresName', 'showInApp','status', 'action'];
-  dataSource = ELEMENT_DATA;
+  displayedColumns: string[] = ['name', 'showInApp','status', 'action'];
+  dataSource : any;
 
   addGener() {
     const dialogRef = this.dialog.open(AddGenresComponent, {
       width: '1000px',
       panelClass: ['add-modal']
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if(result == 'submited'){
+        this.getGener()
+      }
     });
   }
 
@@ -63,7 +68,7 @@ export class ManageGenresComponent implements OnInit {
       if(result == 'submited'){
         this.generService.deleteGener(this.selectedGener).subscribe(response=>{
           if(response){
-            console.log(response);
+            this.getGener()
           }
         })
       }
@@ -76,11 +81,15 @@ export class ManageGenresComponent implements OnInit {
   }
 
   editGener(){
-    console.log(this.selectedGener);
     const dialogRef = this.dialog.open(AddGenresComponent, {
       width: '1000px',
       panelClass: ['edit-modal'],
       data: this.selectedGener,
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if(result == 'submited'){
+        this.getGener()
+      }
     });
   }
 

@@ -23,11 +23,11 @@ export class AddGenresComponent implements OnInit {
     public generService : GenresService,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) { 
-    this.initForm();
+    this.initForm();  
     if(data){
     this.title = 'Edit Gener';
     this.editMode = true;
-    this.multiGenerForm.controls['multyGener'].setValue([{name:data.genresName,showInApp: data?.showInApp === 'yes' ? true : false}]);
+    this.multiGenerForm.controls['multyGener'].setValue([{name:data.name,showInApp: data?.showInApp}]);
     }
   }
 
@@ -57,9 +57,8 @@ export class AddGenresComponent implements OnInit {
       const requestParams = this.multiGenerForm.getRawValue().multyGener
       this.dialogRef.close();
       this.generService.addMultyGener(requestParams).subscribe(response=>{
-        console.log(response);
         if(response){
-            this.dialogRef.close();
+          this.closeModel('submited');
         }
       })
     }
@@ -70,10 +69,9 @@ export class AddGenresComponent implements OnInit {
     editData.id = this.data.id
     this.generService.editGener(editData).subscribe(response =>{
       if(response){
-        this.closeModel();
+        this.closeModel('submited');
       }
     })
-    this.closeModel();
   }
 
   createGener() {
@@ -83,8 +81,8 @@ export class AddGenresComponent implements OnInit {
     })
   }
 
-  closeModel(){
-    this.dialogRef.close();
+  closeModel(data?:any){
+    this.dialogRef.close(data);
     this.editMode = false;
     this.title = 'Add Gener'
   }

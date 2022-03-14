@@ -15,23 +15,23 @@ export class LanguagesService {
   ) { }
 
   getLanguage(): Observable<any> {
-    const endPoint = this.baseUrl + `languages`
+    const endPoint = `api/languages`
     return this.http.get(endPoint)
   }
 
   addMultyLanguage(data: any): Observable<any> {
-    const endPoint = this.baseUrl + `languages/multi-add`
+    const endPoint = `api/languages/multi-add`
     return this.http.post(endPoint, data)
   }
 
   editLanguage(data: any): Observable<any> {
-    const endPoint = this.baseUrl + `languages/update/${data.id}`
+    const endPoint = `api/languages/update/${data.id}`
     const req = { name: data.name, showInAudio: data.showInAudio , showInSubtitles: data.showInSubtitles }
     return this.http.post(endPoint, req)
   }
 
   deleteLanguage(data: any): Observable<any> {
-    const endPoint = this.baseUrl + `languages/delete/${data.id}`
+    const endPoint = `api/languages/delete/${data.id}`
     const req = { name: data.name }
     return this.http.post(endPoint, req)
   }

@@ -22,7 +22,7 @@ export class AuthInterceptorInterceptor implements HttpInterceptor {
         if (this.authService.getToken() && !request.url.endsWith('users/login')) {
             let cloned = request.clone({
                 setHeaders: {
-                    Authoriztion: `Bearer ${localStorage.getItem("token")}`
+                    Authorization: `Bearer ${localStorage.getItem("token")}`
                 }
             });
             
