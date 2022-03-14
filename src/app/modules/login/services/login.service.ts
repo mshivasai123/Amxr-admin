@@ -15,7 +15,7 @@ export class LoginService {
   ) { }
 
   loginUser(data: {email : string ,password : string}) : Observable<any> {
-    const endpoint = this.baseUrl + `users/login`
+    const endpoint =  `api/users/login`//'http://localhost:4200/api/' +
     return this.http.post(endpoint , data)
   }
 }

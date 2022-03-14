@@ -1,0 +1,12 @@
+{
+    "/api/*": {
+        "target": "http://ec2-65-0-87-95.ap-south-1.compute.amazonaws.com:8080",
+        "secure": false,
+        "logLevel": "debug",
+        "changeOrigin":true,
+        "headers": {
+            "Connection": "keep-alive"
+        },
+        "pathRewrite": {"^/api" : "http://ec2-65-0-87-95.ap-south-1.compute.amazonaws.com:8080"}
+    }
+}
