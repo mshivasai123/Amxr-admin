@@ -25,16 +25,17 @@ export class AuthInterceptorInterceptor implements HttpInterceptor {
                     Authoriztion: `Bearer ${localStorage.getItem("token")}`
                 }
             });
+            
             cloned = request.clone({
                 headers: cloned.headers.set('Content-Type', 'application/json')
             })
-            return next.handle(cloned).pipe(
+            return next.handle(cloned);
+        } else {
+            return next.handle(request).pipe(
                 catchError(async (error: HttpErrorResponse) => {
                     return throwError(error);
                 })
             ) as any;
-        } else {
-            return next.handle(request);
         }
     }   
 }

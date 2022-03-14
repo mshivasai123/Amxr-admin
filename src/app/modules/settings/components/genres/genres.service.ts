@@ -16,23 +16,23 @@ export class GenresService {
   ) { }
 
   getGener(): Observable<any> {
-    const endPoint = this.baseUrl + `genres`
+    const endPoint = `api/genres`
     return this.http.get(endPoint)
   }
 
   addMultyGener(data: any): Observable<any> {
-    const endPoint = this.baseUrl + `genres/multi-add`
+    const endPoint = `api/genres/multi-add`
     return this.http.post(endPoint, data)
   }
 
   editGener(data: any): Observable<any> {
-    const endPoint = this.baseUrl + `genres/update/${data.id}`
+    const endPoint = `api/genres/update/${data.id}`
     const req = { name: data.name, showInApp: data.showInApp }
     return this.http.post(endPoint, req)
   }
 
   deleteGener(data: any): Observable<any> {
-    const endPoint = this.baseUrl + `genres/delete/${data.id}`
+    const endPoint = `api/genres/delete/${data.id}`
     const req = { name: data.name }
     return this.http.post(endPoint, req)
   }

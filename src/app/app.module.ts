@@ -5,7 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HeaderModule } from './shared/modules/header/header.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptorInterceptor } from './shared/interceptor/auth-interceptor.interceptor';
 import { AuthService } from './shared/services/auth.service';
 import { ErrorHandlerService } from './shared/services/error-handler.service';
@@ -22,7 +22,12 @@ import { ErrorHandlerService } from './shared/services/error-handler.service';
     HttpClientModule
   ],
   providers: [
-    AuthInterceptorInterceptor, AuthService ,
+    AuthService ,
+    {
+       provide: HTTP_INTERCEPTORS,
+       useClass: AuthInterceptorInterceptor,
+       multi: true
+    },
     { provide : ErrorHandler , useClass: ErrorHandlerService}
   ],
   bootstrap: [AppComponent]
