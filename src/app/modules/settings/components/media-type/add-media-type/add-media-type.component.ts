@@ -44,7 +44,7 @@ export class AddMediaTypeComponent implements OnInit {
     this.multyType.push(this.createType());
   }
 
-  get TypeFormGroups () {
+  get typeFormGroups () {
     this.formData = this.multiTypeForm.get('multyType') as FormArray
     return this.multiTypeForm.get('multyType') as FormArray
   }
