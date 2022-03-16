@@ -24,7 +24,7 @@ export class AddUsersComponent implements OnInit {
     if(data){
     this.title = 'Edit User';
     this.editMode = true;
-    this.userForm.patchValue({name:data.name,email: data?.email,mobile : data.mobile,status: data?.status});
+    this.userForm.patchValue({name:data.name,email: data?.email,mobile : data.mobile,status: data?.status,updatedAt: data.updatedAt,createdAt: data.createdAt});
   }
 }
 
@@ -38,7 +38,9 @@ export class AddUsersComponent implements OnInit {
       password: [''],
       roleId: [''],
       mobile: [''],
-      status: ['']
+      createdAt: [''],
+      updatedAt: [''],
+      status: [''],
     })
   }
 
