@@ -42,10 +42,7 @@ export class AddCertificationsComponent implements OnInit {
     console.log(this.certificationForm.getRawValue());
     if(this.certificationForm.getRawValue()){
       const requestParams = this.certificationForm.getRawValue();
-      console.log(requestParams)
-      console.log('this.file',this.file)
       requestParams.fileData = this.file;
-      console.log('requestParams',requestParams);
       this.certificationsService.addCertification(requestParams).subscribe(response=>{
         if(response){
           this.closeModel('submited');

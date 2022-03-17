@@ -19,10 +19,11 @@ export class CertificationsService {
   
   addCertification(data: any): Observable<any> {
     console.log(data)
-    let headers: HttpHeaders = new HttpHeaders()
-    headers.append('Content-Type', 'multipart/form-data;');
+    const fData : FormData = new FormData
+    fData.append("mediaCertificateName", data.name);
+    fData.append("fileData", data.fileData);
     const endPoint = `api/media-certificates/add`
-    return this.http.post(endPoint, data,{ headers: headers })
+    return this.http.post(endPoint, fData)
   }
 
   editCertification(data: any): Observable<any> {

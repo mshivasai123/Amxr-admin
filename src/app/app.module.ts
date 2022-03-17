@@ -9,6 +9,8 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptorInterceptor } from './shared/interceptor/auth-interceptor.interceptor';
 import { AuthService } from './shared/services/auth.service';
 import { ErrorHandlerService } from './shared/services/error-handler.service';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+import { HttpErrorInterceptor } from './shared/interceptor/error-interceptor.interceptor';
 
 @NgModule({
   declarations: [
@@ -19,7 +21,8 @@ import { ErrorHandlerService } from './shared/services/error-handler.service';
     AppRoutingModule,
     HeaderModule,
     BrowserAnimationsModule,
-    HttpClientModule
+    HttpClientModule,
+    MatSnackBarModule
   ],
   providers: [
     AuthService ,
@@ -27,6 +30,11 @@ import { ErrorHandlerService } from './shared/services/error-handler.service';
        provide: HTTP_INTERCEPTORS,
        useClass: AuthInterceptorInterceptor,
        multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: HttpErrorInterceptor,
+      multi: true
     },
     { provide : ErrorHandler , useClass: ErrorHandlerService}
   ],
