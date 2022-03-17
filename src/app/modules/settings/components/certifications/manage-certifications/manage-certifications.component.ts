@@ -37,13 +37,16 @@ export class ManageCertificationsComponent implements OnInit {
 
   getCertifications(){
     this.certificationsService.getCertification().subscribe(response =>{
-      // this.dataSource = response?.data;
-      this.dataSource = ELEMENT_DATA;
-      console.log("getGener",this.dataSource);
+      this.dataSource = response?.data;
     })
   }
+
+  getDate(date:Date){
+    let newDate = new Date(date);
+    return `${newDate.getDate()}-${newDate.getMonth()}-${newDate.getFullYear()}`
+  }
   
-  displayedColumns: string[] = ['icon', 'name','date','status', 'action'];
+  displayedColumns: string[] = ['icon', 'mediaCertificateName','createdAt','status', 'action'];
   dataSource = ELEMENT_DATA;
 
   addCertificate() {

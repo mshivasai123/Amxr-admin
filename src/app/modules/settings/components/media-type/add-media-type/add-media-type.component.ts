@@ -26,7 +26,7 @@ export class AddMediaTypeComponent implements OnInit {
     if(data){
     this.title = 'Edit Media Type';
     this.editMode = true;
-    // this.multiGenerForm.controls['multyType'].setValue([{name:data.name,showInApp: data?.showInApp}]);
+    this.multiTypeForm.controls['multyType'].setValue([{name:data.name,showInApp: data?.showInApp}]);
     }
   }
 
@@ -54,7 +54,6 @@ export class AddMediaTypeComponent implements OnInit {
     console.log(this.multiTypeForm.getRawValue().multyType);
     if(this.multiTypeForm.getRawValue().multyType){
       const requestParams = this.multiTypeForm.getRawValue().multyType
-      this.dialogRef.close();
       this.mediatypeService.addMultyType(requestParams).subscribe(response=>{
         if(response){
           this.closeModel('submited');
@@ -76,7 +75,7 @@ export class AddMediaTypeComponent implements OnInit {
   createType() {
     return this.fb.group({
       name: [''],
-      showInApp: [true]
+      showInApp: [false]
     })
   }
 

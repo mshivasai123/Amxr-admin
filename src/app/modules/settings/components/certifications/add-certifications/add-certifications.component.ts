@@ -24,7 +24,7 @@ export class AddCertificationsComponent implements OnInit {
     if(data){
     this.title = 'Edit Certificate';
     this.editMode = true;
-    this.certificationForm.patchValue({name:data.name,fileData: data?.fileData});
+    this.certificationForm.patchValue({mediaCertificateName:data.mediaCertificateName,fileData: data?.fileData});
     }
   }
 
@@ -33,7 +33,7 @@ export class AddCertificationsComponent implements OnInit {
   
   initForm() {
     this.certificationForm = this.fb.group({
-      name: [''],
+      mediaCertificateName: [''],
       fileData: [''],
     })
   }
@@ -60,6 +60,7 @@ export class AddCertificationsComponent implements OnInit {
   editCertification() {
     let editData = this.certificationForm.getRawValue()
     editData.id = this.data.id
+    editData.fileData = this.file;
     this.certificationsService.editCertification(editData).subscribe(response => {
       if (response) {
         this.closeModel('submited');

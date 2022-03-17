@@ -20,7 +20,7 @@ export class CertificationsService {
   addCertification(data: any): Observable<any> {
     console.log(data)
     const fData : FormData = new FormData
-    fData.append("mediaCertificateName", data.name);
+    fData.append("mediaCertificateName", data.mediaCertificateName);
     fData.append("fileData", data.fileData);
     const endPoint = `api/media-certificates/add`
     return this.http.post(endPoint, fData)
@@ -28,8 +28,10 @@ export class CertificationsService {
 
   editCertification(data: any): Observable<any> {
     const endPoint = `api/media-certificates/update/${data.id}`
-    const req = { mediaCertificateName : data.name, fileData: data.fileData}
-    return this.http.put(endPoint, req)
+    const fData : FormData = new FormData
+    fData.append("mediaCertificateName", data.mediaCertificateName);
+    fData.append("fileData", data.fileData);
+    return this.http.put(endPoint, fData)
   }
 
   deleteCertification(data: any): Observable<any> {

@@ -35,13 +35,18 @@ export class MediaTypeComponent implements OnInit {
     this.getType();
   }
 
+  getDate(date:Date){
+    let newDate = new Date(date);
+    return `${newDate.getDate()}-${newDate.getMonth()}-${newDate.getFullYear()}`
+  }
+
   getType(){
     this.mediatypeService.getType().subscribe(response =>{
       this.dataSource = response?.data;
     })
   }
 
-  displayedColumns: string[] = ['mediaType', 'date','status', 'action'];
+  displayedColumns: string[] = ['name', 'createdAt','status', 'action'];
   dataSource : any;
 
   addType() {
@@ -50,6 +55,7 @@ export class MediaTypeComponent implements OnInit {
       panelClass: ['add-modal']
     });
     dialogRef.afterClosed().subscribe(result => {
+      console.log('submited',result)
       if(result == 'submited'){
         this.getType()
       }

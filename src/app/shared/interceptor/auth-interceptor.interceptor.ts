@@ -26,9 +26,10 @@ export class AuthInterceptorInterceptor implements HttpInterceptor {
                 }
             });
             
-            cloned = request.clone({
-                headers: cloned.headers.set('Content-Type', 'application/json')
-            })
+            // cloned = request.clone({
+            //     headers: cloned.headers.set('Boundary', 'MyBoundary')
+            // })
+            
             return next.handle(cloned);
         } else {
             return next.handle(request).pipe(
