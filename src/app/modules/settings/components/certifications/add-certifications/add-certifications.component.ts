@@ -2,6 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import {DomSanitizer} from '@angular/platform-browser';
+import { environment } from 'src/environments/environment';
 import { CertificationsService } from '../certifications.service';
 @Component({
   selector: 'app-add-certifications',
@@ -14,6 +15,7 @@ export class AddCertificationsComponent implements OnInit {
   title = 'Add Certificate'
   editMode = false;
   certificationForm : FormGroup;
+  baseUrl = environment.basicUrl;
   constructor(
     public dialogRef: MatDialogRef<AddCertificationsComponent>,private sanitizer:DomSanitizer,
     public fb : FormBuilder,
@@ -24,6 +26,8 @@ export class AddCertificationsComponent implements OnInit {
     if(data){
     this.title = 'Edit Certificate';
     this.editMode = true;
+    let fileD = this.baseUrl + data?.certificateData
+    this.objectURL = this.sanitizer.bypassSecurityTrustUrl(fileD);
     this.certificationForm.patchValue({mediaCertificateName:data.mediaCertificateName,fileData: data?.fileData});
     }
   }

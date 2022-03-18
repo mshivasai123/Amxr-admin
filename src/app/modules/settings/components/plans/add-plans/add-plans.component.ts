@@ -13,6 +13,8 @@ export class AddPlansComponent implements OnInit {
     title : string = 'Add Sub.Plan';
     editMode = false;
     planForm : FormGroup;
+    finnalcost : number;
+    discountPrice : number;
 
   constructor(
     public dialogRef: MatDialogRef<AddPlansComponent>,
@@ -26,8 +28,11 @@ export class AddPlansComponent implements OnInit {
     this.title = 'Edit Sub.Plan';
     this.editMode = true;
     console.log(this.planForm)
+    this.finnalcost = data?.actualCost;
+    this.calculateCost();
     this.planForm.patchValue({name:data.name,actualCost: data?.actualCost,discountInPercentage : data.discountInPercentage,days: data?.days});
-    }
+    this.calculateCost();  
+  }
   }
 
   ngOnInit(): void {
@@ -37,9 +42,9 @@ export class AddPlansComponent implements OnInit {
     this.planForm = this.fb.group({
       name: [''],
       days: [''],
-      actualCost: [''],
+      actualCost: [],
       currencyType: [''],
-      discountInPercentage: ['']
+      discountInPercentage: []
     })
   }
 
@@ -53,6 +58,13 @@ export class AddPlansComponent implements OnInit {
         }
       })
     }
+  }
+
+  calculateCost(){
+    let discount : number =  this.planForm.getRawValue().discountInPercentage;
+    this.finnalcost  =  this.planForm.getRawValue().actualCost;
+    let desc : any = this.finnalcost - ((this.finnalcost * discount) / 100)
+    this.discountPrice = parseInt(desc); 
   }
 
   closeModel(data?:any){

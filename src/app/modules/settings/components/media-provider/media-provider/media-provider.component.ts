@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { DomSanitizer } from '@angular/platform-browser';
 import { ConformationComponent } from 'src/app/shared/model/conformation/conformation.component';
+import { environment } from 'src/environments/environment';
 import { AddMediaProviderComponent } from '../add-media-provider/add-media-provider.component';
 import { ProviderService } from '../provider.service';
 
@@ -31,26 +33,40 @@ const ELEMENT_DATA: PeriodicElement[] = [
 export class MediaProviderComponent implements OnInit {
 
   selectedProvider : any;
+  baseUrl = environment.basicUrl;
 
   constructor(
     public dialog: MatDialog,
-    public providerService : ProviderService
+    public providerService : ProviderService,
+    private sanitizer: DomSanitizer,
   ) { }
 
   ngOnInit(): void {
     this.getProviders();
   }
 
+  getDate(date:Date){
+    let newDate = new Date(date);
+    return `${newDate.getDate()}-${newDate.getMonth()}-${newDate.getFullYear()}`
+  }
+
+  startAndEndDate(start:Date,end:Date){
+    let startDate = new Date(start);
+    let endDate = new Date(end);
+    return `${startDate.getDate()}-${startDate.getMonth()}-${startDate.getFullYear()} - ${endDate.getDate()}-${endDate.getMonth()}-${endDate.getFullYear()}`
+  }
+
   getProviders(){
     this.providerService.getProvider().subscribe(response =>{
-      // this.dataSource = response?.data;
-      this.dataSource = ELEMENT_DATA;
-      console.log("getProvider",this.dataSource);
+      this.dataSource = response?.data;
+      this.dataSource.forEach((element:any,i:number) => {
+        this.dataSource[i].status = element?.status === true ? 'active' : 'in-active'
+      });
     })
   }
 
-  displayedColumns: string[] = ['logo','name','email','phone','loginToken','contentCount','totalViews','approxCost','date','status', 'action'];
-  dataSource = ELEMENT_DATA;
+  displayedColumns: string[] = ['logo','mediaProviderName','email','contact','loginToken','contentCount','totalViews','approxCost','contentValidityStartDate','status', 'action'];
+  dataSource : any;
 
   addProvider() {
     const dialogRef = this.dialog.open(AddMediaProviderComponent, {

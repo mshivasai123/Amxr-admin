@@ -16,6 +16,11 @@ export class UsersService {
     return this.http.get(endPoint)
   }
 
+  getRole(): Observable<any> {
+    const endPoint = `api/roles`
+    return this.http.get(endPoint)
+  }
+
   addUser(data: any): Observable<any> {
     const endPoint = `api/users/add`
     return this.http.post(endPoint, data)

@@ -7,6 +7,7 @@
             </span>
         </button>
     </div>
+    <form [formGroup]="providerForm">
     <div class="add-modal-body mt-4 overflow-auto py-3 px-4 px-sm-5 py-sm-4 mx-0 mx-md-3">
         <div class="container-fluid">
             <div class="row">
@@ -15,19 +16,19 @@
                         <div class="col-md-6 mb-4">
                             <mat-form-field class="example-full-width w-100 f-16">
                                 <mat-label>Provider Name<span class="text-danger ms-2">*</span></mat-label>
-                                <input matInput />
+                                <input matInput formControlName="mediaProviderName"/>
                             </mat-form-field>
                         </div>
                         <div class="col-md-6 mb-4">
                             <mat-form-field class="example-full-width w-100 f-16">
                                 <mat-label>Provider Email ID<span class="text-danger ms-2">*</span></mat-label>
-                                <input matInput type="email" />
+                                <input matInput type="email" formControlName="email"/>
                             </mat-form-field>
                         </div>
                         <div class="col-md-6 mb-4">
                             <mat-form-field class="example-full-width w-100 f-16">
                                 <mat-label>Provider Phone<span class="text-danger ms-2">*</span></mat-label>
-                                <input matInput type="number" />
+                                <input matInput type="number"  formControlName="contact"/>
                             </mat-form-field>
                         </div>
                         <div class="col-md-6 mb-4">
@@ -40,8 +41,8 @@
                               <mat-form-field class="w-100 f-16">
                                 <mat-label>Content Validity Duration<span class="text-danger ms-2">*</span></mat-label>  
                                 <mat-date-range-input [rangePicker]="picker">
-                                  <input matStartDate placeholder="Start date">
-                                  <input matEndDate placeholder="End date">
+                                  <input matStartDate placeholder="Start date" formControlName="contentValidityStartDate" >
+                                  <input matEndDate placeholder="End date" formControlName="contentValidityEndDate">
                                 </mat-date-range-input>
                                 <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                                 <mat-date-range-picker #picker></mat-date-range-picker>
@@ -50,27 +51,27 @@
                         <div class="col-md-4 mb-4">
                             <mat-form-field class="example-full-width w-100 f-16">
                                 <mat-label>Exclusive(%)<span class="text-danger ms-2">*</span></mat-label>
-                                <input matInput type="number"/>
+                                <input matInput type="number" formControlName="exclusivePercentage" />
                             </mat-form-field>
                         </div>
                         <div class="col-md-4 mb-4">
                             <mat-form-field class="example-full-width w-100 f-16">
                                 <mat-label>Non-Exclusive(%)<span class="text-danger ms-2">*</span></mat-label>
-                                <input matInput type="number"/>
+                                <input matInput type="number" formControlName="nonExclusivePercentage"/>
                             </mat-form-field>
                         </div>
                     </div>
                     <div>
                         <label for="fileUpload" class="file-uploader cursor-pointer d-flex align-items-center justify-content-center">
-                            <span class="material-icons f-36">
+                            <span class="material-icons f-36" *ngIf="!objectURL">
                                 photo_camera
                             </span>
-                            <!-- <img src="https://picsum.photos/536/353" alt="Image" class="img-fluid" /> -->
+                            <img *ngIf="objectURL" [src]="objectURL" alt="Image" class="img-fluid" />
                         </label>
                         <span class="f-14 m-3">
                             500 &times; 500
                         </span>
-                        <input type="file" id="fileUpload" class="d-none" />
+                        <input type="file" id="fileUpload" (change)="uploadImage($event)" formControlName="fileData" class="d-none" />
                     </div>
                 </div>
                 <div class="col-lg-4 col-sm-2">
@@ -82,6 +83,8 @@
     <div class="add-modal-footer py-4 px-5 border-top text-end">
         <button class="cancel-btn btn f-15 text-danger shadow-none me-3 bg-transparent border-0"
         (click)="dialogRef.close()">Cancel</button>
-        <button class="cancel-btn btn f-15 shadow-none text-success">Save</button>
+        <button *ngIf="!editMode" class="cancel-btn btn f-15 shadow-none text-success" type="submit" (click)="onSubmit()">Add</button>
+        <button *ngIf="editMode" class="cancel-btn btn f-15 shadow-none text-success" type="submit" (click)="editProvider()">Edit</button>
     </div>
+   </form>
 </div>

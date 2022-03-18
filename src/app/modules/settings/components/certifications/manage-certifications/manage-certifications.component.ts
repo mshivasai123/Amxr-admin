@@ -38,6 +38,9 @@ export class ManageCertificationsComponent implements OnInit {
   getCertifications(){
     this.certificationsService.getCertification().subscribe(response =>{
       this.dataSource = response?.data;
+      this.dataSource.forEach((element:any,i:number) => {
+        this.dataSource[i].status = element?.status === true ? 'active' : 'in-active'
+      });
     })
   }
 
@@ -45,9 +48,15 @@ export class ManageCertificationsComponent implements OnInit {
     let newDate = new Date(date);
     return `${newDate.getDate()}-${newDate.getMonth()}-${newDate.getFullYear()}`
   }
+
+  startAndEndDate(start:Date,end:Date){
+    let startDate = new Date(start);
+    let endDate = new Date(end);
+    return `${startDate.getDate()}-${startDate.getMonth()}-${startDate.getFullYear()} - ${endDate.getDate()}-${endDate.getMonth()}-${endDate.getFullYear()}`
+  }
   
   displayedColumns: string[] = ['icon', 'mediaCertificateName','createdAt','status', 'action'];
-  dataSource = ELEMENT_DATA;
+  dataSource : any;
 
   addCertificate() {
     const dialogRef = this.dialog.open(AddCertificationsComponent, {

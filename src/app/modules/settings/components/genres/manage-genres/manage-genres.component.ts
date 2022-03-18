@@ -40,7 +40,10 @@ export class ManageGenresComponent implements OnInit {
   getGener(){
     this.generService.getGener().subscribe(response =>{
       this.dataSource = response?.data;
-      console.log("getGener",this.dataSource);
+      this.dataSource.forEach((element:any,i:number) => {
+        this.dataSource[i].showInApp = element?.showInApp === true ? 'yes' : 'no'
+        this.dataSource[i].status = element?.status === true ? 'active' : 'in-active'
+      });
     })
   }
   

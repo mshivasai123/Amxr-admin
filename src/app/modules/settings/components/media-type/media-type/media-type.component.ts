@@ -40,9 +40,18 @@ export class MediaTypeComponent implements OnInit {
     return `${newDate.getDate()}-${newDate.getMonth()}-${newDate.getFullYear()}`
   }
 
+  startAndEndDate(start:Date,end:Date){
+    let startDate = new Date(start);
+    let endDate = new Date(end);
+    return `${startDate.getDate()}-${startDate.getMonth()}-${startDate.getFullYear()} - ${endDate.getDate()}-${endDate.getMonth()}-${endDate.getFullYear()}`
+  }
+
   getType(){
     this.mediatypeService.getType().subscribe(response =>{
       this.dataSource = response?.data;
+      this.dataSource.forEach((element:any,i:number) => {
+        this.dataSource[i].status = element?.status === true ? 'active' : 'in-active'
+      });
     })
   }
 

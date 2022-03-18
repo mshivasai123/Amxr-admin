@@ -41,7 +41,9 @@ export class ManagePlansComponent implements OnInit {
   getPlan(){
     this.plansService.getPlan().subscribe(response =>{
       this.dataSource = response?.data;
-      console.log("getPlan",this.dataSource);
+      this.dataSource.forEach((element:any,i:number) => {
+        this.dataSource[i].status = element?.status === true ? 'active' : 'in-active'
+      });
     })
   }
 
@@ -63,6 +65,12 @@ export class ManagePlansComponent implements OnInit {
   getDate(date:Date){
     let newDate = new Date(date);
     return `${newDate.getDate()}-${newDate.getMonth()}-${newDate.getFullYear()}`
+  }
+
+  startAndEndDate(start:Date,end:Date){
+    let startDate = new Date(start);
+    let endDate = new Date(end);
+    return `${startDate.getDate()}-${startDate.getMonth()}-${startDate.getFullYear()} - ${endDate.getDate()}-${endDate.getMonth()}-${endDate.getFullYear()}`
   }
 
   selectPlan(data:any){

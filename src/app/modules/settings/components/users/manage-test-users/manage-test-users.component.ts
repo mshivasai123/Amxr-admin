@@ -43,10 +43,18 @@ export class ManageTestUsersComponent implements OnInit {
     return `${newDate.getDate()}-${newDate.getMonth()}-${newDate.getFullYear()}`
   }
 
+  startAndEndDate(start:Date,end:Date){
+    let startDate = new Date(start);
+    let endDate = new Date(end);
+    return `${startDate.getDate()}-${startDate.getMonth()}-${startDate.getFullYear()} - ${endDate.getDate()}-${endDate.getMonth()}-${endDate.getFullYear()}`
+  }
+
   getUsers(){
     this.usersService.getUser().subscribe(response =>{
       this.dataSource = response?.data;
-      console.log("getUser",this.dataSource);
+      this.dataSource.forEach((element:any,i:number) => {
+        this.dataSource[i].status = element?.status === true ? 'active' : 'in-active'
+      });
     })
   }
   

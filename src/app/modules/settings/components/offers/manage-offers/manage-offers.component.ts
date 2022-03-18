@@ -41,15 +41,23 @@ export class ManageOffersComponent implements OnInit {
     return `${newDate.getDate()}-${newDate.getMonth()}-${newDate.getFullYear()}`
   }
 
+  startAndEndDate(start:Date,end:Date){
+    let startDate = new Date(start);
+    let endDate = new Date(end);
+    return `${startDate.getDate()}-${startDate.getMonth()}-${startDate.getFullYear()} - ${endDate.getDate()}-${endDate.getMonth()}-${endDate.getFullYear()}`
+  }
+
   getOffers(){
     this.offersService.getOffer().subscribe(response =>{
       this.dataSource = response?.data;
-      console.log("getOffer",this.dataSource);
+      this.dataSource.forEach((element:any,i:number) => {
+        this.dataSource[i].status = element?.status === true ? 'active' : 'in-active'
+      });
     })
   }
 
   displayedColumns: string[] = ['name', 'discountCode','discountInPercentage','validityEndDateTime','status', 'action'];
-  dataSource = ELEMENT_DATA;
+  dataSource : any;
 
   addOffer() {
     const dialogRef = this.dialog.open(AddOffersComponent, {

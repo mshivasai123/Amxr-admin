@@ -34,15 +34,16 @@
             <ng-container matColumnDef="logo">
                 <th mat-header-cell *matHeaderCellDef class="ws-nowrap"> Logo </th>
                 <td mat-cell *matCellDef="let element" class="ws-nowrap text-capitalize">
-                    {{element.logo}} </td>
+                   <img [src]="element.logo" />    
+                </td>
             </ng-container>
 
 
             <!-- Name Column -->
-            <ng-container matColumnDef="name">
+            <ng-container matColumnDef="mediaProviderName">
                 <th mat-header-cell *matHeaderCellDef class="ws-nowrap"> Name </th>
                 <td mat-cell *matCellDef="let element" class="ws-nowrap text-capitalize">
-                    {{element.name}} </td>
+                    {{element.mediaProviderName}} </td>
             </ng-container>
 
             <!-- Name Column -->
@@ -52,10 +53,10 @@
                     {{element.email}} </td>
             </ng-container>
             <!-- Name Column -->
-            <ng-container matColumnDef="phone">
+            <ng-container matColumnDef="contact">
                 <th mat-header-cell *matHeaderCellDef class="ws-nowrap"> Phone </th>
                 <td mat-cell *matCellDef="let element" class="ws-nowrap text-capitalize">
-                    {{element.phone}} </td>
+                    {{element.contact}} </td>
             </ng-container>
             <!-- Name Column -->
             <ng-container matColumnDef="loginToken">
@@ -90,15 +91,15 @@
                 <th mat-header-cell *matHeaderCellDef class="ws-nowrap"> Status </th>
                 <td mat-cell *matCellDef="let element" class="ws-nowrap text-capitalize"
                     [class.text-success]="element.status === 'active'"
-                    [class.text-danger]="element.status === 'inactive'">
+                    [class.text-danger]="element.status === 'in-active'">
                     {{element.status}} </td>
             </ng-container>
 
             <!-- Name Column -->
-            <ng-container matColumnDef="date">
+            <ng-container matColumnDef="contentValidityStartDate">
                 <th mat-header-cell *matHeaderCellDef class="ws-nowrap"> Date </th>
                 <td mat-cell *matCellDef="let element" class="ws-nowrap text-capitalize">
-                    {{element.date}} </td>
+                   {{startAndEndDate(element.contentValidityStartDate , element.contentValidityEndDate)}} </td>
             </ng-container>
 
             <!-- Action Column -->

@@ -23,8 +23,10 @@
                             <mat-form-field class="w-100 f-16">
                                 <mat-label>Days<span class="text-danger ms-2">*</span></mat-label>
                                 <mat-select formControlName="days">
-                                    <mat-option value="10">10</mat-option>
-                                    <mat-option value="20">20</mat-option>
+                                    <mat-option value="1month">1month</mat-option>
+                                    <mat-option value="3month">3month</mat-option>
+                                    <mat-option value="6month">6month</mat-option>
+                                    <mat-option value="12month">12month</mat-option>
                                 </mat-select>
                             </mat-form-field>
                         </div>
@@ -32,8 +34,10 @@
                             <mat-form-field class="w-100 f-16">
                                 <mat-label>Currency<span class="text-danger ms-2">*</span></mat-label>
                                 <mat-select formControlName="currencyType">
-                                    <mat-option value="USD">Dollar($)</mat-option>
-                                    <mat-option value="INR">Rupee(₹)</mat-option>
+                                    <mat-option value="USD">USD</mat-option>
+                                    <mat-option value="INR">INR</mat-option>
+                                    <mat-option value="GBP">GBP</mat-option>
+                                    <mat-option value="Euro">Euro</mat-option>
                                 </mat-select>
                             </mat-form-field>
                         </div>
@@ -46,14 +50,14 @@
                         <div class="col-md-3 mb-4">
                             <mat-form-field class="example-full-width w-100 f-16">
                                 <mat-label>Discount(%)<span class="text-danger ms-2">*</span></mat-label>
-                                <input matInput type="number" formControlName="discountInPercentage"/>
+                                <input matInput type="number" (change)="calculateCost()" formControlName="discountInPercentage"/>
                             </mat-form-field>
                         </div>
                         <div class="col-md-6 mb-4">
                             <div class="d-flex ms-4 h-100 align-items-center">
                                 <h4 class="mb-0 me-2">Final Cost:</h4>
                                 <span class="f-17">
-                                    <del>300</del> / 250
+                                    <del>{{finnalcost}}</del> / {{discountPrice}}
                                 </span>
                             </div>
                         </div>

@@ -27,12 +27,12 @@ export class LanguagesService {
   editLanguage(data: any): Observable<any> {
     const endPoint = `api/languages/update/${data.id}`
     const req = { name: data.name, showInAudio: data.showInAudio , showInSubtitles: data.showInSubtitles }
-    return this.http.post(endPoint, req)
+    return this.http.put(endPoint, req)
   }
 
   deleteLanguage(data: any): Observable<any> {
     const endPoint = `api/languages/delete/${data.id}`
     const req = { name: data.name }
-    return this.http.post(endPoint, req)
+    return this.http.delete(endPoint)
   }
 }

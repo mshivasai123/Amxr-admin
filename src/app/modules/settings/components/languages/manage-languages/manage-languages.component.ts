@@ -38,7 +38,12 @@ export class ManageLanguagesComponent implements OnInit {
 
   getLanguage(){
     this.languageService.getLanguage().subscribe(response =>{
-      this.dataSource = response?.data
+      this.dataSource = response?.data;
+      this.dataSource.forEach((element:any,i:number) => {
+        this.dataSource[i].showInAudio = element?.showInAudio === true ? 'yes' : 'no',
+        this.dataSource[i].showInSubtitles = element?.showInSubtitles === true ? 'yes' : 'no', 
+        this.dataSource[i].status = element?.status === true ? 'active' : 'in-active'
+      });
     })
   }
 
@@ -67,7 +72,7 @@ export class ManageLanguagesComponent implements OnInit {
       if(result == 'submited'){
         this.languageService.deleteLanguage(this.selectedLanguage).subscribe(response=>{
           if(response){
-            console.log(response);
+            this.getLanguage()
           }
         })
       }

@@ -18,18 +18,32 @@ export class ProviderService {
 
   
   addProvider(data: any): Observable<any> {
-    console.log(data)
     const fData : FormData = new FormData
-    fData.append("mediaCertificateName", data.name);
+    fData.append("mediaCertificateName", data.mediaProviderName);
     fData.append("fileData", data.fileData);
+    fData.append("email", data.email);
+    fData.append("contact", data.contact);
+    fData.append("contentValidityStartDate", data.contentValidityStartDate);
+    fData.append("contentValidityEndDate", data.contentValidityEndDate);
+    fData.append("exclusivePercentage", data.exclusivePercentage);
+    fData.append("nonExclusivePercentage", data.nonExclusivePercentage);
     const endPoint = `api/media-providers/add`
     return this.http.post(endPoint, fData)
   }
 
   editProvider(data: any): Observable<any> {
     const endPoint = `api/media-providers/update/${data.id}`
-    const req = { mediaCertificateName : data.name, fileData: data.fileData}
-    return this.http.put(endPoint, req)
+    console.log(data)
+    const fData : FormData = new FormData
+    fData.append("mediaCertificateName", data.mediaProviderName);
+    fData.append("fileData", data.fileData);
+    fData.append("email", data.email);
+    fData.append("contact", data.contact);
+    fData.append("contentValidityStartDate", data.contentValidityStartDate);
+    fData.append("contentValidityEndDate", data.contentValidityEndDate);
+    fData.append("exclusivePercentage", data.exclusivePercentage);
+    fData.append("nonExclusivePercentage", data.nonExclusivePercentage);
+    return this.http.put(endPoint, fData)
   }
 
   deleteProvider(data: any): Observable<any> {
