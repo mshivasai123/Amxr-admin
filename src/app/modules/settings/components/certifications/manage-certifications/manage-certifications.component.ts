@@ -58,7 +58,7 @@ export class ManageCertificationsComponent implements OnInit {
     return `${startDate.getDate()}-${startDate.getMonth()}-${startDate.getFullYear()} - ${endDate.getDate()}-${endDate.getMonth()}-${endDate.getFullYear()}`
   }
   
-  displayedColumns: string[] = ['certificateData', 'mediaCertificateName','createdAt','status', 'action'];
+  displayedColumns: string[] = ['certificateData', 'mediaCertificateName','status', 'action'];
   dataSource : any;
 
   addCertificate() {
