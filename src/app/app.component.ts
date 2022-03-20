@@ -15,7 +15,6 @@ export class AppComponent {
           router.events.forEach((event) => {
             
             if (event instanceof NavigationStart) {
-              console.log(event['url'])
               if (event['url'] == '/login' || event['url'] == '/') {
                 this.showHeader = false;
               } else {
