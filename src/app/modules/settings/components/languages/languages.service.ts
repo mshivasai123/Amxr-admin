@@ -24,9 +24,14 @@ export class LanguagesService {
     return this.http.post(endPoint, data)
   }
 
-  editLanguage(data: any): Observable<any> {
+  editLanguage(data: any,key?: string): Observable<any> {
     const endPoint = `api/languages/update/${data.id}`
-    const req = { name: data.name, showInAudio: data.showInAudio , showInSubtitles: data.showInSubtitles }
+    let req;
+    if(key == 'status') {
+      req = { status : data.status }
+    } else {
+      req = { name: data.name, showInAudio: data.showInAudio , showInSubtitles: data.showInSubtitles }
+    }
     return this.http.put(endPoint, req)
   }
 

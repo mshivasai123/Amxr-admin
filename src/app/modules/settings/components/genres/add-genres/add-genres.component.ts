@@ -27,6 +27,7 @@ export class AddGenresComponent implements OnInit {
     if(data){
     this.title = 'Edit Gener';
     this.editMode = true;
+    data.showInApp = data?.showInApp === 'yes' ? true : false,
     this.multiGenerForm.controls['multyGener'].setValue([{name:data.name,showInApp: data?.showInApp}]);
     }
   }
@@ -55,7 +56,6 @@ export class AddGenresComponent implements OnInit {
     console.log(this.multiGenerForm.getRawValue().multyGener);
     if(this.multiGenerForm.getRawValue().multyGener){
       const requestParams = this.multiGenerForm.getRawValue().multyGener
-      this.dialogRef.close();
       this.generService.addMultyGener(requestParams).subscribe(response=>{
         if(response){
           this.closeModel('submited');
@@ -77,11 +77,14 @@ export class AddGenresComponent implements OnInit {
   createGener() {
     return this.fb.group({
       name: [''],
-      showInApp: [true]
+      showInApp: [false]
     })
   }
 
   closeModel(data?:any){
+    if(this.data){
+      this.data.showInApp = this.data.showInApp === true ? 'yes' : 'no'
+    }
     this.dialogRef.close(data);
     this.editMode = false;
     this.title = 'Add Gener'

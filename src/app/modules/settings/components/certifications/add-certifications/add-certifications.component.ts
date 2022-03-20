@@ -26,7 +26,7 @@ export class AddCertificationsComponent implements OnInit {
     if(data){
     this.title = 'Edit Certificate';
     this.editMode = true;
-    let fileD = this.baseUrl + data?.certificateData
+    let fileD = data?.certificateData
     this.objectURL = this.sanitizer.bypassSecurityTrustUrl(fileD);
     this.certificationForm.patchValue({mediaCertificateName:data.mediaCertificateName,fileData: data?.fileData});
     }

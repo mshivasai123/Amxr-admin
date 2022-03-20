@@ -26,6 +26,8 @@ const ELEMENT_DATA: PeriodicElement[] = [
 export class ManageLanguagesComponent implements OnInit {
 
   selectedLanguage : any;
+  searchedKeyword: string;
+  statusKey: any;
 
   constructor(
     public dialog: MatDialog,
@@ -80,10 +82,23 @@ export class ManageLanguagesComponent implements OnInit {
   }
 
   selectLanguage(data:any){
+    this.statusKey = data.status == "active" ? "in-active" : "active"
     this.selectedLanguage = data;
   }
 
-  editLanguage(){
+  editLanguage(data?:string){
+    if(data == 'status'){
+      this.selectedLanguage.status = this.selectedLanguage.status == true ? "active" : "in-active";
+      let request = {
+        id : this.selectedLanguage.id,
+        status : this.statusKey == "active" ? true : false
+      }
+      this.languageService.editLanguage(request,'status').subscribe(response =>{
+        if(response){
+          this.getLanguage()
+        }
+      })
+    } else {
     const dialogRef = this.dialog.open(AddLanguagesComponent, {
       width: '1000px',
       panelClass: ['edit-modal'],
@@ -94,6 +109,7 @@ export class ManageLanguagesComponent implements OnInit {
         this.getLanguage()
       }
     });
+   }
   }
 
 }

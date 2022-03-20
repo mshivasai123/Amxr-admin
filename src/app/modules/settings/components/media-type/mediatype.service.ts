@@ -21,9 +21,14 @@ export class MediatypeService {
     return this.http.post(endPoint, data)
   }
 
-  editType(data: any): Observable<any> {
+  editType(data: any,key?: string): Observable<any> {
     const endPoint = `api/media-types/update/${data.id}`
-    const req = { name: data.name, showInApp: data.showInApp }
+    let req;
+    if(key == 'status') {
+      req = { status : data.status }
+    } else {
+      req = { name: data.name, showInApp: data.showInApp }
+    }
     return this.http.put(endPoint, req)
   }
 

@@ -11,6 +11,8 @@ import { AuthService } from './shared/services/auth.service';
 import { ErrorHandlerService } from './shared/services/error-handler.service';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import { HttpErrorInterceptor } from './shared/interceptor/error-interceptor.interceptor';
+import { FormsModule } from '@angular/forms';
+import { Ng2SearchPipeModule } from 'ng2-search-filter'
 
 @NgModule({
   declarations: [
@@ -20,6 +22,8 @@ import { HttpErrorInterceptor } from './shared/interceptor/error-interceptor.int
     BrowserModule,
     AppRoutingModule,
     HeaderModule,
+    FormsModule,
+    Ng2SearchPipeModule,
     BrowserAnimationsModule,
     HttpClientModule,
     MatSnackBarModule

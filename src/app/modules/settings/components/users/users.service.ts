@@ -26,9 +26,12 @@ export class UsersService {
     return this.http.post(endPoint, data)
   }
 
-  editUser(data: any): Observable<any> {
+  editUser(data: any,key?:string): Observable<any> {
     const endPoint = `api/users/update/${data.id}`
-    const req = { email: data.email,password : data.password, mobile : data.mobile}
+    let req = data;
+    if(key == 'status') {
+      req = { status : data.status }
+    } 
     return this.http.put(endPoint, req)
   }
 

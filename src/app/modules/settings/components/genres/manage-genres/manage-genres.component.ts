@@ -26,6 +26,8 @@ const ELEMENT_DATA: PeriodicElement[] = [
 export class ManageGenresComponent implements OnInit {
 
   selectedGener: any;
+  searchedKeyword: string;
+  statusKey: any;
 
   constructor(
     public dialog: MatDialog,
@@ -80,20 +82,34 @@ export class ManageGenresComponent implements OnInit {
   }
 
   selectGener(data:any){
+    this.statusKey = data.status == "active" ? "in-active" : "active"
     this.selectedGener = data;
   }
 
-  editGener(){
-    const dialogRef = this.dialog.open(AddGenresComponent, {
-      width: '1000px',
-      panelClass: ['edit-modal'],
-      data: this.selectedGener,
-    });
-    dialogRef.afterClosed().subscribe(result => {
-      if(result == 'submited'){
-        this.getGener()
+  editGener(data?:string){
+    if(data == 'status'){
+      this.selectedGener.status = this.selectedGener.status == true ? "active" : "in-active";
+      let request = {
+        id : this.selectedGener.id,
+        status : this.statusKey == "active" ? true : false
       }
-    });
+      this.generService.editGener(request,'status').subscribe(response =>{
+        if(response){
+          this.getGener()
+        }
+      })
+    } else {
+      const dialogRef = this.dialog.open(AddGenresComponent, {
+        width: '1000px',
+        panelClass: ['edit-modal'],
+        data: this.selectedGener,
+      });
+      dialogRef.afterClosed().subscribe(result => {
+        if(result == 'submited'){
+          this.getGener()
+        }
+      });
+    }
   }
 
 }

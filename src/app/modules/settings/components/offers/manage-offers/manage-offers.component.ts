@@ -26,6 +26,8 @@ const ELEMENT_DATA: PeriodicElement[] = [
 export class ManageOffersComponent implements OnInit {
   
   selectedOffer: any;
+  statusKey: any;
+  searchedKeyword: string;
 
   constructor(
     public dialog: MatDialog,
@@ -72,20 +74,34 @@ export class ManageOffersComponent implements OnInit {
   }
 
   selectOffer(data:any){
+    this.statusKey = data.status == "active" ? "in-active" : "active"
     this.selectedOffer = data;
   }
 
-  editOffer(){
-    const dialogRef = this.dialog.open(AddOffersComponent, {
-      width: '1000px',
-      panelClass: ['edit-modal'],
-      data: this.selectedOffer,
-    });
-    dialogRef.afterClosed().subscribe(result => {
-      if(result == 'submited'){
-        this.getOffers()
+  editOffer(data?:string){
+    if(data == 'status'){
+      this.selectedOffer.status = this.selectedOffer.status == true ? "active" : "in-active";
+      let request = {
+        id : this.selectedOffer.id,
+        status : this.statusKey == "active" ? true : false
       }
-    });
+      this.offersService.editOffer(request,'status').subscribe(response =>{
+        if(response){
+          this.getOffers();
+        }
+      })
+    }else {
+      const dialogRef = this.dialog.open(AddOffersComponent, {
+        width: '1000px',
+        panelClass: ['edit-modal'],
+        data: this.selectedOffer,
+      });
+      dialogRef.afterClosed().subscribe(result => {
+        if(result == 'submited'){
+          this.getOffers()
+        }
+      });
+    }
   }
 
   deleteOffer() {

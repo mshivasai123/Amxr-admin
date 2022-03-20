@@ -21,9 +21,14 @@ export class OffersService {
     return this.http.post(endPoint, data)
   }
 
-  editOffer(data: any): Observable<any> {
+  editOffer(data: any,key?:string): Observable<any> {
     const endPoint = `api/offers/update/${data.id}`
-    const req = { name: data.name, discountCode: data.discountCode ,discountInPercentage: data.discountInPercentage,validityEndDateTime:data.validityEndDateTime,validityStartDateTime: data.validityStartDateTime}
+    let req;
+    if(key == 'status') {
+      req = { status : data.status }
+    } else {
+      req = { name: data.name, discountCode: data.discountCode ,discountInPercentage: data.discountInPercentage,validityEndDateTime:data.validityEndDateTime,validityStartDateTime: data.validityStartDateTime}
+    }
     return this.http.put(endPoint, req)
   }
 

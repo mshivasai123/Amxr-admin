@@ -25,9 +25,14 @@ export class GenresService {
     return this.http.post(endPoint, data)
   }
 
-  editGener(data: any): Observable<any> {
+  editGener(data: any,key?: string): Observable<any> {
     const endPoint = `api/genres/update/${data.id}`
-    const req = { name: data.name, showInApp: data.showInApp }
+    let req;
+    if(key == 'status') {
+      req = { status : data.status }
+    } else {
+      req = { name: data.name, showInApp: data.showInApp }
+    }
     return this.http.put(endPoint, req)
   }
 

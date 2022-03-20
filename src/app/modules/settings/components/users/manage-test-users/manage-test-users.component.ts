@@ -28,6 +28,8 @@ const ELEMENT_DATA: PeriodicElement[] = [
 export class ManageTestUsersComponent implements OnInit {
 
   selectedUser : any;
+  searchedKeyword: string;
+  statusKey: any;
 
   constructor(
     public dialog: MatDialog,
@@ -58,8 +60,8 @@ export class ManageTestUsersComponent implements OnInit {
     })
   }
   
-  displayedColumns: string[] = [ 'email','mobile','createdAt','status', 'action'];
-  dataSource = ELEMENT_DATA;
+  displayedColumns: string[] = [ 'email','mobile','passCode','createdAt','status', 'action'];
+  dataSource : any;
 
   addusers() {
     const dialogRef = this.dialog.open(AddUsersComponent, {
@@ -75,10 +77,23 @@ export class ManageTestUsersComponent implements OnInit {
 
 
   selectUser(data:any){
+    this.statusKey = data.status == "active" ? "in-active" : "active"
     this.selectedUser = data;
   }
 
-  editUser(){
+  editUser(data?:any){
+    if(data == 'status'){
+      this.selectedUser.status = this.selectedUser.status == true ? "active" : "in-active";
+      let request = {
+        id : this.selectedUser.id,
+        status : this.statusKey == "active" ? true : false
+      }
+      this.usersService.editUser(request,'status').subscribe(response =>{
+        if(response){
+          this.getUsers()
+        }
+      })
+    } else {
     const dialogRef = this.dialog.open(AddUsersComponent, {
       width: '1000px',
       panelClass: ['edit-modal'],
@@ -89,6 +104,7 @@ export class ManageTestUsersComponent implements OnInit {
         this.getUsers()
       }
     });
+  }
   }
 
   deleteUser() {

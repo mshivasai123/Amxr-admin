@@ -26,6 +26,7 @@ export class AddUsersComponent implements OnInit {
     if(data){
     this.title = 'Edit User';
     this.editMode = true;
+    console.log(data)
     this.userForm.patchValue({name:data.name,email: data?.email,mobile : data.mobile,status: data?.status, roleId:data.roleId, validityStartDate: data.validityStartDate,validityEndDate: data.validityEndDate});
     console.log(this.userForm.getRawValue())
   }
@@ -44,8 +45,8 @@ export class AddUsersComponent implements OnInit {
   initForm(){
     this.userForm = this.fb.group({
       email: [''],
-      roleId: [''],
-      mobile: [''],
+      roleId: [],
+      mobile: [],
       validityStartDate: [''],
       validityEndDate: [''],
       status: [''],

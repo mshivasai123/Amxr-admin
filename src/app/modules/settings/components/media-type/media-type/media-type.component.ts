@@ -25,6 +25,8 @@ const ELEMENT_DATA: PeriodicElement[] = [
 export class MediaTypeComponent implements OnInit {
 
   selectedType : any;
+  searchedKeyword: string;
+  statusKey: any;
 
   constructor(
     public dialog: MatDialog,
@@ -89,10 +91,23 @@ export class MediaTypeComponent implements OnInit {
   }
 
   selectType(data:any){
+    this.statusKey = data.status == "active" ? "in-active" : "active"
     this.selectedType = data;
   }
 
-  editType(){
+  editType(data?:any){
+    if(data == 'status'){
+      this.selectedType.status = this.selectedType.status == true ? "active" : "in-active";
+      let request = {
+        id : this.selectedType.id,
+        status : this.statusKey == "active" ? true : false
+      }
+      this.mediatypeService.editType(request,'status').subscribe(response =>{
+        if(response){
+          this.getType()
+        }
+      })
+    } else {
     const dialogRef = this.dialog.open(AddMediaTypeComponent, {
       width: '1000px',
       panelClass: ['edit-modal'],
@@ -103,6 +118,7 @@ export class MediaTypeComponent implements OnInit {
         this.getType()
       }
     });
+   }
   }
 
 

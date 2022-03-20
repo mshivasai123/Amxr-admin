@@ -19,6 +19,8 @@ import { AddCertificationsComponent } from './components/certifications/add-cert
 import { AddUsersComponent } from './components/users/add-users/add-users.component';
 import { AddMediaTypeComponent } from './components/media-type/add-media-type/add-media-type.component';
 import { AddMediaProviderComponent } from './components/media-provider/add-media-provider/add-media-provider.component';
+import { FormsModule } from '@angular/forms';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
 
 const routes: Routes = [
   {
@@ -85,6 +87,8 @@ const routes: Routes = [
   imports: [
     CommonModule,
     MaterialModule,
+    FormsModule,
+    Ng2SearchPipeModule,
     RouterModule.forChild(routes)
   ],
   entryComponents : []

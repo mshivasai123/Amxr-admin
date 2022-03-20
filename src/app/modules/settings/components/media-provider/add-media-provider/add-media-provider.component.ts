@@ -31,11 +31,11 @@ export class AddMediaProviderComponent implements OnInit {
     if (data) {
       this.title = 'Edit Media Provider';
       this.editMode = true;
-      let fileD = this.baseUrl + data?.profileImage
-      this.src = this.sanitizer.bypassSecurityTrustUrl(fileD);
+      let fileD = data?.profileImage
+      this.objectURL = this.sanitizer.bypassSecurityTrustUrl(fileD);
       this.providerForm.patchValue({ 
         mediaProviderName: data.mediaProviderName, 
-        fileData: this.src, email: data.email, contact: data.contact, 
+        fileData: this.objectURL, email: data.email, contact: data.contact, 
         contentValidityStartDate: data.contentValidityStartDate, 
         contentValidityEndDate: data.contentValidityEndDate,
         exclusivePercentage: data.exclusivePercentage,

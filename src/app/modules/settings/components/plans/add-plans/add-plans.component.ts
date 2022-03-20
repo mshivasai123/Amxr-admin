@@ -30,7 +30,7 @@ export class AddPlansComponent implements OnInit {
     console.log(this.planForm)
     this.finnalcost = data?.actualCost;
     this.calculateCost();
-    this.planForm.patchValue({name:data.name,actualCost: data?.actualCost,discountInPercentage : data.discountInPercentage,days: data?.days});
+    this.planForm.patchValue({name:data.name,actualCost: data?.actualCost,discountInPercentage : data.discountInPercentage,days: data?.days,currencyType:data.currencyType});
     this.calculateCost();  
   }
   }
@@ -51,7 +51,8 @@ export class AddPlansComponent implements OnInit {
   onSubmit(){
     console.log(this.planForm.getRawValue());
     if(this.planForm.getRawValue()){
-      const requestParams = this.planForm.getRawValue()
+      const requestParams = this.planForm.getRawValue();
+      requestParams.finalCost = this.discountPrice;
       this.plansService.addPlan(requestParams).subscribe(response=>{
         if(response){
           this.closeModel('submited');
@@ -76,6 +77,7 @@ export class AddPlansComponent implements OnInit {
   editPlan(){
     let editData = this.planForm.getRawValue()
     editData.id = this.data.id
+    editData.finalCost = this.discountPrice;
     this.plansService.editPlan(editData).subscribe(response =>{
       if(response){
         this.closeModel('submited');

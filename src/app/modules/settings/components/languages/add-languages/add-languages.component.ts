@@ -27,6 +27,8 @@ export class AddLanguagesComponent implements OnInit {
     if(data){
     this.title = 'Edit Language';
     this.editMode = true;
+    data.showInAudio = data?.showInAudio === 'yes' ? true : false,
+    data.showInSubtitles = data?.showInSubtitles === 'yes' ? true : false,
     this.multiLanguageForm.controls['multyLanguage'].setValue([{name:data.name,showInAudio: data?.showInAudio,showInSubtitles: data?.showInSubtitles}]);
     }
   }
@@ -80,7 +82,12 @@ export class AddLanguagesComponent implements OnInit {
     })
   }
 
-  closeModel(data:any){
+  closeModel(data?:any){
+    console.log(data);
+    if(this.data){
+      this.data.showInAudio = this.data?.showInAudio === true ? 'yes' : 'no'
+      this.data.showInSubtitles = this.data?.showInSubtitles === true ? 'yes' : 'no'
+    }
     this.dialogRef.close(data);
     this.editMode = false;
     this.title = 'Add Language'

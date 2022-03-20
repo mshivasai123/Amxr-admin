@@ -34,6 +34,8 @@ export class MediaProviderComponent implements OnInit {
 
   selectedProvider : any;
   baseUrl = environment.basicUrl;
+  searchedKeyword: string;
+  statusKey: any;
 
   constructor(
     public dialog: MatDialog,
@@ -60,12 +62,13 @@ export class MediaProviderComponent implements OnInit {
     this.providerService.getProvider().subscribe(response =>{
       this.dataSource = response?.data;
       this.dataSource.forEach((element:any,i:number) => {
+        this.dataSource[i].profileImage = 'api/'+element.profileImage
         this.dataSource[i].status = element?.status === true ? 'active' : 'in-active'
       });
     })
   }
 
-  displayedColumns: string[] = ['logo','mediaProviderName','email','contact','loginToken','contentCount','totalViews','approxCost','contentValidityStartDate','status', 'action'];
+  displayedColumns: string[] = ['profileImage','mediaProviderName','email','contact','loginToken','contentCount','totalViews','approxCost','contentValidityStartDate','status', 'action'];
   dataSource : any;
 
   addProvider() {
@@ -81,10 +84,24 @@ export class MediaProviderComponent implements OnInit {
   }
 
   selectProvider(data:any){
+    this.statusKey = data.status == "active" ? "in-active" : "active"
     this.selectedProvider = data;
   }
 
-  editProvider(){
+  editProvider(data?:string){
+    if(data == 'status'){
+      this.selectedProvider.status = this.selectedProvider.status == true ? "active" : "in-active";
+      let request = {
+        id : this.selectedProvider.id,
+        status : this.statusKey == "active" ? true : false,
+        mediaCertificateName : this.selectedProvider.mediaProviderName
+      }
+      this.providerService.editProvider(request,'status').subscribe(response =>{
+        if(response){
+          this.getProviders()
+        }
+      })
+    } else {
     const dialogRef = this.dialog.open(AddMediaProviderComponent, {
       width: '1000px',
       panelClass: ['edit-modal'],
@@ -95,6 +112,7 @@ export class MediaProviderComponent implements OnInit {
         this.getProviders()
       }
     });
+  }
   }
 
   deleteProvider() {

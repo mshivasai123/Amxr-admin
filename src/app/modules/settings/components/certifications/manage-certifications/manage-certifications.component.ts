@@ -25,6 +25,8 @@ const ELEMENT_DATA: PeriodicElement[] = [
 export class ManageCertificationsComponent implements OnInit {
 
   selectedCertification: any
+  searchedKeyword: string;
+  statusKey: any;
 
   constructor(
     public dialog: MatDialog,
@@ -39,6 +41,7 @@ export class ManageCertificationsComponent implements OnInit {
     this.certificationsService.getCertification().subscribe(response =>{
       this.dataSource = response?.data;
       this.dataSource.forEach((element:any,i:number) => {
+        this.dataSource[i].certificateData = 'api/'+element.certificateData
         this.dataSource[i].status = element?.status === true ? 'active' : 'in-active'
       });
     })
@@ -55,7 +58,7 @@ export class ManageCertificationsComponent implements OnInit {
     return `${startDate.getDate()}-${startDate.getMonth()}-${startDate.getFullYear()} - ${endDate.getDate()}-${endDate.getMonth()}-${endDate.getFullYear()}`
   }
   
-  displayedColumns: string[] = ['icon', 'mediaCertificateName','createdAt','status', 'action'];
+  displayedColumns: string[] = ['certificateData', 'mediaCertificateName','createdAt','status', 'action'];
   dataSource : any;
 
   addCertificate() {
@@ -71,10 +74,24 @@ export class ManageCertificationsComponent implements OnInit {
   }
 
   selectCertification(data:any){
+    this.statusKey = data.status == "active" ? "in-active" : "active"
     this.selectedCertification = data;
   }
 
-  editCertification(){
+  editCertification(data?:string){
+    if(data == 'status'){
+      this.selectedCertification.status = this.selectedCertification.status == true ? "active" : "in-active";
+      let request = {
+        id : this.selectedCertification.id,
+        status : this.statusKey == "active" ? true : false,
+        mediaCertificateName : this.selectedCertification.mediaCertificateName
+      }
+      this.certificationsService.editCertification(request,'status').subscribe(response =>{
+        if(response){
+          this.getCertifications()
+        }
+      })
+    } else {
     const dialogRef = this.dialog.open(AddCertificationsComponent, {
       width: '1000px',
       panelClass: ['edit-modal'],
@@ -85,6 +102,7 @@ export class ManageCertificationsComponent implements OnInit {
         this.getCertifications()
       }
     });
+   }
   }
 
   deleteCertification() {

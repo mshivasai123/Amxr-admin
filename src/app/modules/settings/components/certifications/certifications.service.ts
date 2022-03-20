@@ -26,11 +26,17 @@ export class CertificationsService {
     return this.http.post(endPoint, fData)
   }
 
-  editCertification(data: any): Observable<any> {
+  editCertification(data: any,key?:string): Observable<any> {
     const endPoint = `api/media-certificates/update/${data.id}`
     const fData : FormData = new FormData
     fData.append("mediaCertificateName", data.mediaCertificateName);
-    fData.append("fileData", data.fileData);
+    if(key == 'status') {
+      fData.append("status", data.status);
+    } else {
+      if(data.fileData){
+      fData.append("fileData", data.fileData);
+      }
+    }
     return this.http.put(endPoint, fData)
   }
 

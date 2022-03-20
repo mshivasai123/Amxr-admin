@@ -8,7 +8,7 @@
                         my_location
                     </span>
                 </span>
-                <input type="text" class="form-control f-16 shadow-none border-0 bg-transparent" placeholder="Search">
+                <input type="text" [(ngModel)]="searchedKeyword" class="form-control f-16 shadow-none border-0 bg-transparent" placeholder="Search">
                 <button class="input-group-text bg-transparent border-0 p-0">
                     <span class="material-icons f-20">
                         search
@@ -27,7 +27,7 @@
     </mat-menu>
 
     <div class="w-100 overflow-auto">
-        <table mat-table [dataSource]="dataSource"
+        <table mat-table [dataSource]="dataSource | filter:searchedKeyword"
             class="mat-elevation-z8 bg-transparent shadow-none custom-table w-100">
 
             <!-- Position Column -->
@@ -80,7 +80,7 @@
                 </td>
             </ng-container>
             <mat-menu #menu="matMenu">
-                <button mat-menu-item class="text-white">Active / Inactive</button>
+                <button mat-menu-item class="text-white text-capitalize" (click)="editOffer('status')">{{statusKey}}</button>
                 <button mat-menu-item class="text-white" (click)="editOffer()">Edit Offer</button>
                 <button mat-menu-item class="text-white" (click)="deleteOffer()">Delete</button>
             </mat-menu>

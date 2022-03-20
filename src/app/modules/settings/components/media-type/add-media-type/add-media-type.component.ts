@@ -80,6 +80,9 @@ export class AddMediaTypeComponent implements OnInit {
   }
 
   closeModel(data?:any){
+    if(this.data){
+      this.data.showInApp = this.data.showInApp === true ? 'yes' : 'no'
+    }
     this.dialogRef.close(data);
     this.editMode = false;
     this.title = 'Add Type'

@@ -28,6 +28,8 @@ const ELEMENT_DATA: PeriodicElement[] = [
 export class ManagePlansComponent implements OnInit {
 
   selectedPlan: any;
+  statusKey: any;
+  searchedKeyword: string;
 
   constructor(
     public dialog: MatDialog,
@@ -47,7 +49,7 @@ export class ManagePlansComponent implements OnInit {
     })
   }
 
-  displayedColumns: string[] = ['name', 'actualCost','discountInPercentage','offerValidity','createdAt','status', 'action'];
+  displayedColumns: string[] = ['name', 'actualCost','finalCost','discountInPercentage','offerValidity','createdAt','status', 'action'];
   dataSource : any;
 
   addPlans() {
@@ -74,20 +76,34 @@ export class ManagePlansComponent implements OnInit {
   }
 
   selectPlan(data:any){
+    this.statusKey = data.status == "active" ? "in-active" : "active"
     this.selectedPlan = data;
   }
 
-  editPlan(){
-    const dialogRef = this.dialog.open(AddPlansComponent, {
-      width: '1000px',
-      panelClass: ['edit-modal'],
-      data: this.selectedPlan,
-    });
-    dialogRef.afterClosed().subscribe(result => {
-      if(result == 'submited'){
-        this.getPlan()
+  editPlan(data?:string){
+    if(data == 'status'){
+      this.selectedPlan.status = this.selectedPlan.status == true ? "active" : "in-active";
+      let request = {
+        id : this.selectedPlan.id,
+        status : this.statusKey == "active" ? true : false
       }
-    });
+      this.plansService.editPlan(request,'status').subscribe(response =>{
+        if(response){
+          this.getPlan();
+        }
+      })
+    }else {
+      const dialogRef = this.dialog.open(AddPlansComponent, {
+        width: '1000px',
+        panelClass: ['edit-modal'],
+        data: this.selectedPlan,
+      });
+      dialogRef.afterClosed().subscribe(result => {
+        if(result == 'submited'){
+          this.getPlan()
+        }
+      });
+    }
   }
 
   deletePlan() {
