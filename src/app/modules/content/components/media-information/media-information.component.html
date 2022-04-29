@@ -1,5 +1,5 @@
 <div class="container-fluid media-info h-100">
-    <div class="row h-100">
+    <div class="row h-100 justify-content-center">
         <!-- <div class="col-md-2 p-0 left-panel">
             <h4 class="p-3 border-bottom">Selected Languages</h4>
 
@@ -13,7 +13,7 @@
               </ul>
 
         </div> -->
-        <div class="col-md-8 px-4 py-3">
+        <div class="col-md-12 px-4 py-3">
             <div class="tab-content" id="myTabContent">
                 <ng-container *ngFor="let lang of selectedLanguages; let i = index">
                     <div class="tab-pane fade" id="{{lang}}" role="tabpanel" 
@@ -34,11 +34,11 @@
                                   Upload Full Media
                               </button>
                             </li>
-                            <li class="ms-md-auto">
+                            <!-- <li class="ms-md-auto">
                                 <button class="bg-transparnet f-14 border-0"> 
                                     Copy data to all languages
                                 </button>
-                            </li>
+                            </li> -->
                           </ul>
                           <div class="tab-content mb-4" id="pills-tabContent">
                             <div class="tab-pane fade show active" id="media-info" role="tabpanel" aria-labelledby="media-info-tab">
@@ -237,9 +237,9 @@
                                   </mat-accordion>
                             </div>
                             <div class="tab-pane fade" id="upload-full-media" role="tabpanel" aria-labelledby="upload-full-media-tab">
-                                <button class="btn btn-primary f-16 mb-3 d-block ms-auto" >
+                                <!-- <button class="btn btn-primary f-16 mb-3 d-block ms-auto" >
                                      {{mediaTypeData}}
-                                </button>
+                                </button> -->
                                 <ng-container *ngIf="!isWebSeries">
                                     <mat-accordion>
                                         <mat-expansion-panel>

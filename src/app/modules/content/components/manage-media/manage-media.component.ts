@@ -41,7 +41,7 @@ export class ManageMediaComponent implements OnInit {
 
   addMedia() {
     const dialogRef = this.dialog.open(AddMediaComponent, {
-      width: '1300px',
+      width: '1100px',
       panelClass: ['add-modal', 'xxl-modal'],
       data : this.duplicate
     });

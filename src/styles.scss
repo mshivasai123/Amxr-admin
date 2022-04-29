@@ -18,7 +18,7 @@ html {
 
 p,
 table {
-    font-size: 1.6rem;
+    font-size: 1.6rem;  
 }
 
 .ws-nowrap {
@@ -100,4 +100,11 @@ table {
 
 .mat-chip.mat-standard-chip.mat-chip-selected.mat-primary {
     background-color: $matChipBgColor;
+}
+
+.mat-radio-button.mat-accent .mat-radio-inner-circle, .mat-radio-button.mat-accent .mat-radio-ripple .mat-ripple-element:not(.mat-radio-persistent-ripple), .mat-radio-button.mat-accent.mat-radio-checked .mat-radio-persistent-ripple, .mat-radio-button.mat-accent:active .mat-radio-persistent-ripple {
+    background-color: #179cc7;
+}
+.mat-radio-button.mat-accent.mat-radio-checked .mat-radio-outer-circle {
+    border-color: #179cc7;
 }

@@ -10,55 +10,58 @@
     <div
         class="add-modal-body overflow-auto p-3 p-md-0">
         <ng-container *ngIf="showFirstSteps">
-            <div class="d-flex align-items-center h-100 justify-content-center">
-                <div class="language-form-control w-100">
-                    <mat-form-field class="f-16 w-100">
-                        <mat-label>Select Languages:</mat-label>
-                        <!-- <mat-select [formControl]="languagesControl" multiple>
-                            <mat-select-trigger>
+            <div class="d-flex align-items-center flex-column h-100 justify-content-center">
+                <div class="d-flex">
+
+                    <div class="language-form-control w-100">
+                        <mat-form-field class="f-16 w-100">
+                            <mat-label>Select Languages:</mat-label>
+                            <!-- <mat-select [formControl]="languagesControl" multiple>
+                                <mat-select-trigger>
+                                    <mat-chip-list>
+                                        <mat-chip *ngFor="let category of languagesControl.value" class="f-13" [removable]="true"
+                                            (removed)="onCatRemoved(category)" color="primary" selected>
+                                            {{ category }}
+                                            <mat-icon matChipRemove>cancel</mat-icon>
+                                        </mat-chip>
+                                    </mat-chip-list>
+                                </mat-select-trigger>
+                
+                                <mat-option *ngFor="let category of languages" class="f-15" [value]="category">
+                                    {{ category }}
+                                </mat-option>
+                            </mat-select> -->
+                            <mat-select [(ngModel)]='category' (selectionChange)="selectedLanguage()">
+                                <mat-select-trigger>
                                 <mat-chip-list>
-                                    <mat-chip *ngFor="let category of languagesControl.value" class="f-13" [removable]="true"
+                                    <mat-chip class="f-13" [removable]="true"
                                         (removed)="onCatRemoved(category)" color="primary" selected>
                                         {{ category }}
                                         <mat-icon matChipRemove>cancel</mat-icon>
                                     </mat-chip>
                                 </mat-chip-list>
-                            </mat-select-trigger>
+                                </mat-select-trigger>
+                                <mat-option *ngFor="let language of languages" class="f-15" [value]="language">
+                                    {{ language }}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
             
-                            <mat-option *ngFor="let category of languages" class="f-15" [value]="category">
-                                {{ category }}
-                            </mat-option>
-                        </mat-select> -->
-                        <mat-select [(ngModel)]='category' (selectionChange)="selectedLanguage()">
-                            <mat-select-trigger>
-                            <mat-chip-list>
-                                <mat-chip class="f-13" [removable]="true"
-                                    (removed)="onCatRemoved(category)" color="primary" selected>
-                                    {{ category }}
-                                    <mat-icon matChipRemove>cancel</mat-icon>
-                                </mat-chip>
-                            </mat-chip-list>
-                            </mat-select-trigger>
-                            <mat-option *ngFor="let language of languages" class="f-15" [value]="language">
-                                {{ language }}
-                            </mat-option>
-                        </mat-select>
-                    </mat-form-field>
+                    <button class="btn bg-transparent ms-5 border-0 shadow-none"
+                    (click)="goNextSteps()"
+                    [disabled]="!category">
+                        <span class="material-icons-outlined go-btn f-30">
+                            arrow_circle_right
+                        </span>
+                    </button>
                 </div>
-        
-                <button class="btn bg-transparent ms-5 border-0 shadow-none"
-                (click)="goNextSteps()"
-                [disabled]="!category">
-                    <span class="material-icons-outlined go-btn f-30">
-                        arrow_circle_right
-                    </span>
-                </button>
-                <div>
-                    <!-- <mat-radio-group
+                <div class="radio-group">
+                    <mat-radio-group
                               [(ngModel)]="firstGroup">
-                    <mat-radio-button class="example-radio-button" [value]="Attach to Batch Id">Attach to Batch Id</mat-radio-button><br>
-                    <mat-radio-button class="example-radio-button" [value]="Create New Batch Id">Create New Batch Id</mat-radio-button><br>
-                    </mat-radio-group> -->
+                    <mat-radio-button class="example-radio-button mb-2 f-13" >Attach to Batch Id</mat-radio-button><br>
+                    <mat-radio-button class="example-radio-button f-13" >Create New Batch Id</mat-radio-button><br>
+                    </mat-radio-group>
                 </div>
             </div>
         </ng-container>
