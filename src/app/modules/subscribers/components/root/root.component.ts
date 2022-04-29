@@ -16,9 +16,9 @@ export interface PeriodicElement {
 }
 
 const ELEMENT_DATA: PeriodicElement[] = [
-  { image: 1, userName: 'Shiva', userType: 'Test', userId:'1234',  email: "test@gmail.com", phone: '9992223331', plan: "6 months", expiry: '6th Jan 2022', date: "6th Jan 2022", status: "completed" },
-  { image: 2, userName: 'Shiva', userType: 'Subscriber', userId:'1233',email: "test@gmail.com", phone: '9992223331', plan: "6 months", expiry: '6th Jan 2022', date: "6th Jan 2022", status: "Active / Expried" },
-  { image: 3, userName: 'Sai', userType: 'Test',userId:'1236', email: "test@gmail.com", phone: '9992223331', plan: "6 months", expiry: '6th Jan 2022', date: "6th Jan 2022", status: "completed" }
+  { image: 1, userName: 'Shiva', userType: 'Test', userId:'123456',  email: "test@gmail.com", phone: '9992223331', plan: "6 months", expiry: '6th Jan 2022', date: "6th Jan 2022", status: "completed" },
+  { image: 2, userName: 'Shiva', userType: 'Subscriber', userId:'123355',email: "test@gmail.com", phone: '9992223331', plan: "6 months", expiry: '6th Jan 2022', date: "6th Jan 2022", status: "Active / Expried" },
+  { image: 3, userName: 'Sai', userType: 'Test',userId:'123633', email: "test@gmail.com", phone: '9992223331', plan: "6 months", expiry: '6th Jan 2022', date: "6th Jan 2022", status: "completed" }
 ];
 
 @Component({
@@ -27,7 +27,7 @@ const ELEMENT_DATA: PeriodicElement[] = [
   styleUrls: ['./root.component.scss']
 })
 export class RootComponent implements OnInit {
-  displayedColumns: string[] = ['select', 'image', 'userName','userType','userId', 'email', 'phone', 'plan', 'expiry', 'date', 'status', 'action'];
+  displayedColumns: string[] = ['select', 'image','userId', 'userName','userType', 'email', 'phone', 'plan', 'expiry', 'date', 'status', 'action'];
   dataSource = ELEMENT_DATA;
   selection = new SelectionModel<PeriodicElement>(true, []);
   // contextMenuPosition = { x: '0px', y: '0px' };

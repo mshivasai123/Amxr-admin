@@ -50,7 +50,7 @@
             
                     <button class="btn bg-transparent ms-5 border-0 shadow-none"
                     (click)="goNextSteps()"
-                    [disabled]="!category">
+                    [disabled]="!category || !firstGroup">
                         <span class="material-icons-outlined go-btn f-30">
                             arrow_circle_right
                         </span>
@@ -59,8 +59,8 @@
                 <div class="radio-group">
                     <mat-radio-group
                               [(ngModel)]="firstGroup">
-                    <mat-radio-button class="example-radio-button mb-2 f-13" >Attach to Batch Id</mat-radio-button><br>
-                    <mat-radio-button class="example-radio-button f-13" >Create New Batch Id</mat-radio-button><br>
+                    <mat-radio-button class="example-radio-button mb-2 f-13" value="qdqd">Attach to Batch Id</mat-radio-button><br>
+                    <mat-radio-button class="example-radio-button f-13" value="qdqds">Create New Batch Id</mat-radio-button><br>
                     </mat-radio-group>
                 </div>
             </div>

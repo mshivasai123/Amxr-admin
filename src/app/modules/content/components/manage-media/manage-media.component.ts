@@ -28,7 +28,7 @@ const ELEMENT_DATA: PeriodicElement[] = [
 })
 export class ManageMediaComponent implements OnInit {
 
-  displayedColumns: string[] = ['poster', 'mediaId', 'batchId' , 'title', 'mediaType', 'languages', 'subtitles', 'genres', 'updatedDate', 'status', 'action'];
+  displayedColumns: string[] = ['poster','batchId' , 'mediaId',  'title', 'mediaType', 'languages', 'subtitles', 'genres', 'updatedDate', 'status', 'action'];
   dataSource = ELEMENT_DATA;
   duplicate : boolean = false;
 
