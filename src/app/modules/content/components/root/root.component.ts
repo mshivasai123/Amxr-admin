@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AddModuleComponent } from '../add-module/add-module.component';
 import { MatDialog } from '@angular/material/dialog';
+import { ManageMediaService } from '../../manage-media.service';
 
 
 export interface PeriodicElement {
@@ -24,12 +25,19 @@ const ELEMENT_DATA: PeriodicElement[] = [
 export class RootComponent implements OnInit {
   displayedColumns: string[] = ['image', 'moduleName', 'moduleType', 'updatedDate', 'status', 'action'];
   dataSource = ELEMENT_DATA;
+  mediaType:string;
 
   constructor(
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    public manageMediaService : ManageMediaService
   ) { }
 
   ngOnInit(): void {
+  }
+
+  type(event:string){
+     console.log(event)
+     this.manageMediaService.mediaType.next(event);
   }
 
   addModule() {

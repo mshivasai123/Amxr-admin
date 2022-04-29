@@ -1,13 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { AddMediaComponent } from '../add-media/add-media.component';
-import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 export interface PeriodicElement {
   poster: string;
   mediaId: string;
+  batchId: string;
   title: string;
   mediaType: string;
-  languages : string;
+  languages: string;
   subtitles: string;
   genres: string;
   updatedDate: string;
@@ -15,8 +16,8 @@ export interface PeriodicElement {
 }
 
 const ELEMENT_DATA: PeriodicElement[] = [
-  { poster: '', mediaId: 'TEL2343432323', title: "Title",mediaType:'2D,3D',languages:'Telugu,Hindi',subtitles:'English, Kannada',genres:'Crime, Thriller', updatedDate: '6th Jan 2021', status: "Active / Inactive" },
-  { poster: '', mediaId: 'TEL2343432323', title: "Title",mediaType:'2D,3D',languages:'Telugu,Hindi',subtitles:'English, Kannada',genres:'Crime, Thriller', updatedDate: '6th Jan 2021', status: "Active / Inactive" }
+  { poster: '', mediaId: 'TEL2343432323', batchId: '2343432323', title: "Title", mediaType: '2D', languages: 'Telugu', subtitles: 'English', genres: 'Crime', updatedDate: '6th Jan 2021', status: "active" },
+  { poster: '', mediaId: 'TEL2343432323', batchId: '2343432323', title: "Title", mediaType: '2D', languages: 'Telugu', subtitles: 'English', genres: 'Crime', updatedDate: '6th Jan 2021', status: "in-active" }
 ];
 
 
@@ -26,9 +27,10 @@ const ELEMENT_DATA: PeriodicElement[] = [
   styleUrls: ['./manage-media.component.scss']
 })
 export class ManageMediaComponent implements OnInit {
-  
-  displayedColumns: string[] = ['poster', 'mediaId', 'title','mediaType','languages','subtitles','genres', 'updatedDate', 'status', 'action'];
+
+  displayedColumns: string[] = ['poster', 'mediaId', 'batchId' , 'title', 'mediaType', 'languages', 'subtitles', 'genres', 'updatedDate', 'status', 'action'];
   dataSource = ELEMENT_DATA;
+  duplicate : boolean = false;
 
   constructor(
     public dialog: MatDialog
@@ -40,8 +42,13 @@ export class ManageMediaComponent implements OnInit {
   addMedia() {
     const dialogRef = this.dialog.open(AddMediaComponent, {
       width: '1300px',
-      panelClass: ['add-modal','xxl-modal']
+      panelClass: ['add-modal', 'xxl-modal'],
+      data : this.duplicate
     });
+  }
+
+  duplicateMedia(type:boolean){
+     this.duplicate = type
   }
 
 }

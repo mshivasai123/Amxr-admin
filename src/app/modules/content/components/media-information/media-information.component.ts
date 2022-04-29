@@ -15,6 +15,7 @@ import {
   ControlValueAccessor,
   NG_VALUE_ACCESSOR,
 } from '@angular/forms';
+import { ManageMediaService } from '../../manage-media.service';
 
 
 export const YEAR_MODE_FORMATS = {
@@ -52,6 +53,7 @@ export const YEAR_MODE_FORMATS = {
 export class MediaInformationComponent implements OnInit {
   @Input() selectedLanguages: any = [];
   @Input() mainLanguage: any = '';
+  mediaTypeData: string = '';
   _max: Moment;
   _min: Moment;
   _inputCtrl: FormControl = new FormControl();
@@ -61,7 +63,12 @@ export class MediaInformationComponent implements OnInit {
   mediaSubtitlesAllowed = true;
   isWebSeries = false;
 
-  constructor() { }
+  constructor(public manageMediaService : ManageMediaService) {
+    this.manageMediaService.mediaType.subscribe(data=>{
+      this.mediaTypeData = data;
+      return this.isWebSeries = (data === 'Movies') ? false : true;
+    })
+   }
 
   ngOnInit(): void {
     console.log(this.selectedLanguages, this.mainLanguage);

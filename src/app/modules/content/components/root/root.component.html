@@ -71,7 +71,7 @@
         <ng-container matColumnDef="action">
           <th mat-header-cell *matHeaderCellDef> Action </th>
           <td mat-cell *matCellDef="let element">
-            <button class="bg-transparent border-0" mat-button [matMenuTriggerFor]="menu">
+            <button class="bg-transparent border-0" mat-button [matMenuTriggerFor]="menu" (click)='type(element.moduleName)'>
               <span class="material-icons align-middle">
                 more_vert
               </span>

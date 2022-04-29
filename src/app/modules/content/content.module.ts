@@ -9,6 +9,7 @@ import { MediaInformationComponent } from './components/media-information/media-
 import { FormsModule } from '@angular/forms';
 import { MediaRightPanelComponent } from './components/media-right-panel/media-right-panel.component';
 import { AddModuleComponent } from './components/add-module/add-module.component';
+import {MatRadioModule} from '@angular/material/radio';
 
 const routes: Routes = [
   {

@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
+import {MAT_DIALOG_DATA} from '@angular/material/dialog';
 
 @Component({
   selector: 'app-add-media',
@@ -10,29 +11,31 @@ import { MatDialogRef } from '@angular/material/dialog';
 export class AddMediaComponent implements OnInit {
 
   languagesControl = new FormControl([]);
+  languageList: string[] = []; 
   languages: string[] = ['Telugu','English', 'Hindi', 'Tamil', 'Kannada'];
   showFirstSteps = true;
   mainLanguage = '';
+  category: any;
+  mediaDuplicate: boolean;
+  firstGroup:string;
   
   constructor(
+    @Inject(MAT_DIALOG_DATA) public data: any,
     public dialogRef: MatDialogRef<AddMediaComponent>
   ) { }
 
   ngOnInit(): void {
+    this.mediaDuplicate = this.data;
   }
 
   onCatRemoved(cat: string) {
-    const categories = this.languagesControl.value as string[];
-    this.removeFirst(categories, cat);
-    this.languagesControl.setValue(categories); 
+    this.mainLanguage = cat;
+    this.category = ''
   }
 
-  private removeFirst(array: any, toRemove: any): void {
-
-    const index = array.indexOf(toRemove);
-    if (index !== -1) {
-      array.splice(index, 1);
-    }
+  selectedLanguage(){
+    this.languageList.push(this.category);
+    console.log(this.languageList)
   }
 
   goNextSteps() {
