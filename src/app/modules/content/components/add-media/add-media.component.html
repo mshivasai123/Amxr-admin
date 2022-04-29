@@ -32,7 +32,7 @@
                                 </mat-option>
                             </mat-select> -->
                             <mat-select [(ngModel)]='category' (selectionChange)="selectedLanguage()">
-                                <mat-select-trigger>
+                                <!-- <mat-select-trigger>
                                 <mat-chip-list>
                                     <mat-chip class="f-13" [removable]="true"
                                         (removed)="onCatRemoved(category)" color="primary" selected>
@@ -40,7 +40,7 @@
                                         <mat-icon matChipRemove>cancel</mat-icon>
                                     </mat-chip>
                                 </mat-chip-list>
-                                </mat-select-trigger>
+                                </mat-select-trigger> -->
                                 <mat-option *ngFor="let language of languages" class="f-15" [value]="language">
                                     {{ language }}
                                 </mat-option>

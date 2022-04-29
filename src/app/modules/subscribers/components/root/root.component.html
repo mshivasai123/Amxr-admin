@@ -24,8 +24,8 @@
     </div>
   </div>
   <mat-menu #actionMenu="matMenu">
-    <button mat-menu-item class="text-white">Action Item 1</button>
-    <button mat-menu-item class="text-white">Action Item 2</button>
+    <button mat-menu-item class="text-white">Send Sms</button>
+    <button mat-menu-item class="text-white">Add User</button>
   </mat-menu>
 
   <div class="w-100 overflow-auto">
@@ -65,6 +65,18 @@
         <td mat-cell *matCellDef="let element" class="ws-nowrap"> {{element.userName}} </td>
       </ng-container>
 
+      <!-- User Type -->
+      <ng-container matColumnDef="userType">
+        <th mat-header-cell *matHeaderCellDef class="ws-nowrap"> User Type </th>
+        <td mat-cell *matCellDef="let element" class="ws-nowrap"> {{element.userType}} </td>
+      </ng-container>
+
+      <!-- Id -->
+      <ng-container matColumnDef="userId">
+        <th mat-header-cell *matHeaderCellDef class="ws-nowrap"> User Id </th>
+        <td mat-cell *matCellDef="let element" class="ws-nowrap"> {{element.userId}} </td>
+      </ng-container>
+
       <!-- Weight Column -->
       <ng-container matColumnDef="email">
         <th mat-header-cell *matHeaderCellDef> Email </th>
@@ -86,14 +98,14 @@
 
       <!-- Symbol Column -->
       <ng-container matColumnDef="expiry">
-        <th mat-header-cell *matHeaderCellDef> Expiry </th>
+        <th mat-header-cell *matHeaderCellDef> Valid Until </th>
         <td mat-cell *matCellDef="let element" class="ws-nowrap"> {{element.expiry}} </td>
       </ng-container>
 
 
       <!-- Symbol Column -->
       <ng-container matColumnDef="date">
-        <th mat-header-cell *matHeaderCellDef> Date </th>
+        <th mat-header-cell *matHeaderCellDef> Joining Date </th>
         <td mat-cell *matCellDef="let element" class="ws-nowrap"> {{element.date}} </td>
       </ng-container>
 
@@ -116,8 +128,9 @@
         </td>
       </ng-container>
       <mat-menu #menu="matMenu">
-        <button mat-menu-item class="text-white">Item 1</button>
-        <button mat-menu-item class="text-white">Item 2</button>
+        <button mat-menu-item class="text-white">Edit</button>
+        <button mat-menu-item class="text-white">Active/Inactive</button>
+        <button mat-menu-item class="text-white">Delete</button>
       </mat-menu>
 
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

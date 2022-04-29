@@ -5,6 +5,8 @@ import { MatMenuTrigger } from '@angular/material/menu';
 export interface PeriodicElement {
   image: number;
   userName: string;
+  userType: string;
+  userId: string;
   email: string;
   phone: string;
   plan: string,
@@ -14,9 +16,9 @@ export interface PeriodicElement {
 }
 
 const ELEMENT_DATA: PeriodicElement[] = [
-  { image: 1, userName: 'Shiva', email: "test@gmail.com", phone: '9992223331', plan: "6 months", expiry: '6th Jan 2022', date: "6th Jan 2022", status: "completed" },
-  { image: 2, userName: 'Shiva', email: "test@gmail.com", phone: '9992223331', plan: "6 months", expiry: '6th Jan 2022', date: "6th Jan 2022", status: "Active / Expried" },
-  { image: 3, userName: 'Sai', email: "test@gmail.com", phone: '9992223331', plan: "6 months", expiry: '6th Jan 2022', date: "6th Jan 2022", status: "completed" }
+  { image: 1, userName: 'Shiva', userType: 'Test', userId:'1234',  email: "test@gmail.com", phone: '9992223331', plan: "6 months", expiry: '6th Jan 2022', date: "6th Jan 2022", status: "completed" },
+  { image: 2, userName: 'Shiva', userType: 'Subscriber', userId:'1233',email: "test@gmail.com", phone: '9992223331', plan: "6 months", expiry: '6th Jan 2022', date: "6th Jan 2022", status: "Active / Expried" },
+  { image: 3, userName: 'Sai', userType: 'Test',userId:'1236', email: "test@gmail.com", phone: '9992223331', plan: "6 months", expiry: '6th Jan 2022', date: "6th Jan 2022", status: "completed" }
 ];
 
 @Component({
@@ -25,7 +27,7 @@ const ELEMENT_DATA: PeriodicElement[] = [
   styleUrls: ['./root.component.scss']
 })
 export class RootComponent implements OnInit {
-  displayedColumns: string[] = ['select', 'image', 'userName', 'email', 'phone', 'plan', 'expiry', 'date', 'status', 'action'];
+  displayedColumns: string[] = ['select', 'image', 'userName','userType','userId', 'email', 'phone', 'plan', 'expiry', 'date', 'status', 'action'];
   dataSource = ELEMENT_DATA;
   selection = new SelectionModel<PeriodicElement>(true, []);
   // contextMenuPosition = { x: '0px', y: '0px' };
