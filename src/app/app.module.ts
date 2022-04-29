@@ -12,6 +12,7 @@ import { ErrorHandlerService } from './shared/services/error-handler.service';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import { HttpErrorInterceptor } from './shared/interceptor/error-interceptor.interceptor';
 import { FormsModule } from '@angular/forms';
+import { AuthGuard } from './shared/services/auth.guard';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,7 @@ import { FormsModule } from '@angular/forms';
     MatSnackBarModule
   ],
   providers: [
-    AuthService ,
+    AuthService , AuthGuard,
     {
        provide: HTTP_INTERCEPTORS,
        useClass: AuthInterceptorInterceptor,
