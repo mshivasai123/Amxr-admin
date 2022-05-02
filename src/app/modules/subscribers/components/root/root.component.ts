@@ -1,6 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { SelectionModel } from '@angular/cdk/collections';
 import { MatMenuTrigger } from '@angular/material/menu';
+import { MatDialog } from '@angular/material/dialog';
+import { AddSubscribersComponent } from '../../add-subscribers/add-subscribers.component';
 
 export interface PeriodicElement {
   image: number;
@@ -34,7 +36,9 @@ export class RootComponent implements OnInit {
   // @ViewChild(MatMenuTrigger)
   // contextMenu: MatMenuTrigger;
 
-  constructor() { }
+  constructor(
+    public dialog: MatDialog,
+  ) { }
 
   ngOnInit(): void {
   }
@@ -50,6 +54,18 @@ export class RootComponent implements OnInit {
     this.isAllSelected() ?
       this.selection.clear() :
       this.dataSource.forEach(row => this.selection.select(row));
+  }
+
+  addSubscriber() {
+    const dialogRef = this.dialog.open(AddSubscribersComponent, {
+      width: '1000px',
+      panelClass: ['add-modal']
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if(result == 'submited'){
+        console.log('submited')
+      }
+    });
   }
 
 
