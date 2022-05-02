@@ -50,13 +50,13 @@
             
                     <button class="btn bg-transparent ms-5 border-0 shadow-none"
                     (click)="goNextSteps()"
-                    [disabled]="!category || !firstGroup">
+                    [disabled]="!category || (mediaDuplicate && !firstGroup)">
                         <span class="material-icons-outlined go-btn f-30">
                             arrow_circle_right
                         </span>
                     </button>
                 </div>
-                <div class="radio-group">
+                <div class="radio-group" *ngIf='mediaDuplicate'>
                     <mat-radio-group
                               [(ngModel)]="firstGroup">
                     <mat-radio-button class="example-radio-button mb-2 f-13" value="qdqd">Attach to Batch Id</mat-radio-button><br>

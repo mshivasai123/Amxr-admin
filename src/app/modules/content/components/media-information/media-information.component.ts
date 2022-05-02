@@ -16,6 +16,11 @@ import {
   NG_VALUE_ACCESSOR,
 } from '@angular/forms';
 import { ManageMediaService } from '../../manage-media.service';
+import { DomSanitizer } from '@angular/platform-browser';
+import { CertificationsService } from 'src/app/modules/settings/components/certifications/certifications.service';
+import { MediatypeService } from 'src/app/modules/settings/components/media-type/mediatype.service';
+import { GenresService } from 'src/app/modules/settings/components/genres/genres.service';
+import { ProviderService } from 'src/app/modules/settings/components/media-provider/provider.service';
 
 
 export const YEAR_MODE_FORMATS = {
@@ -62,16 +67,112 @@ export class MediaInformationComponent implements OnInit {
   subtitlesAllowed = true;
   mediaSubtitlesAllowed = true;
   isWebSeries = false;
+  objectURL_1:any = '';
+  objectURL_2:any = '';
+  objectURL_3:any = '';
+  objectURL_4:any = '';
+  file:any
+  certification:any=[];
+  mediaType:any=[];
+  mediaGener:any=[];
+  mediaProvider:any=[];
 
-  constructor(public manageMediaService : ManageMediaService) {
+  constructor(
+    public manageMediaService : ManageMediaService,
+    private sanitizer:DomSanitizer,
+    public certificationsService : CertificationsService,
+    public mediatypeService : MediatypeService,
+    private generService : GenresService,
+    public providerService : ProviderService, 
+    ) {
     this.manageMediaService.mediaType.subscribe(data=>{
       this.mediaTypeData = data;
       return this.isWebSeries = (data === 'Movies') ? false : true;
     })
    }
 
+
+
   ngOnInit(): void {
-    console.log(this.selectedLanguages, this.mainLanguage);
+    this.getCertifications();
+    this.getType();
+    this.getGener();
+    this.getProviders();
+  }
+
+  
+  getCertifications(){
+    this.certificationsService.getCertification().subscribe(response =>{
+      response?.data.forEach((element:any) => {
+        this.certification.push(element.mediaCertificateName)
+      });
+    })
+  }
+
+  getType(){
+    this.mediatypeService.getType().subscribe(response =>{
+      response?.data.forEach((element:any) => {
+        this.mediaType.push(element.name)
+      });
+    })
+  }
+
+  getGener(){
+    this.generService.getGener().subscribe(response =>{
+      response?.data.forEach((element:any) => {
+        this.mediaGener.push(element.name)
+      });
+    })
+  }
+
+  getProviders(){
+    this.providerService.getProvider().subscribe(response =>{
+      response?.data.forEach((element:any) => {
+        this.mediaProvider.push(element.mediaProviderName)
+      });
+    })
+  }
+
+  uploadImage(event: any,id: number){
+    console.log(event)
+    this.file = event.target.files[0]
+    // let dataObject:any = 'this'+'.'+'objectURL_'+id
+    // console.log(dataObject)
+    if (this.objectURL_1) {
+     // revoke the old object url to avoid using more memory than needed
+     URL.revokeObjectURL(this.objectURL_1);  
+   }
+   const fileD = this.file;
+   this.objectURL_1 = this.sanitizer.bypassSecurityTrustUrl(URL.createObjectURL(fileD));
+   if(id === 1){
+    if (this.objectURL_1) {
+      // revoke the old object url to avoid using more memory than needed
+      URL.revokeObjectURL(this.objectURL_1);  
+    }
+    const fileD = this.file;
+    this.objectURL_1 = this.sanitizer.bypassSecurityTrustUrl(URL.createObjectURL(fileD));
+   } else if(id === 2){
+    if (this.objectURL_2) {
+      // revoke the old object url to avoid using more memory than needed
+      URL.revokeObjectURL(this.objectURL_2);  
+    }
+    const fileD = this.file;
+    this.objectURL_2 = this.sanitizer.bypassSecurityTrustUrl(URL.createObjectURL(fileD));
+   }else if(id === 3){
+    if (this.objectURL_3) {
+      // revoke the old object url to avoid using more memory than needed
+      URL.revokeObjectURL(this.objectURL_3);  
+    }
+    const fileD = this.file;
+    this.objectURL_3 = this.sanitizer.bypassSecurityTrustUrl(URL.createObjectURL(fileD));
+   }else if(id === 4){
+    if (this.objectURL_4) {
+      // revoke the old object url to avoid using more memory than needed
+      URL.revokeObjectURL(this.objectURL_4);  
+    }
+    const fileD = this.file;
+    this.objectURL_4 = this.sanitizer.bypassSecurityTrustUrl(URL.createObjectURL(fileD));
+   }
   }
 
   onCatRemoved(cat: string) {

@@ -46,51 +46,55 @@
                                 <div class="images-list">
                                     <div class="d-inline-block  mb-4 me-4">
                                         <label for="fileUploadM" class="file-uploader size-m cursor-pointer d-flex flex-column align-items-center justify-content-center">
-                                            <span class="material-icons icon f-36">
+                                            <span class="material-icons icon f-36" *ngIf="!objectURL_1">
                                                 photo_camera
                                             </span>
                                             <!-- <img src="https://picsum.photos/536/353" alt="Image" class="img-fluid" /> -->
-                                            <span class="f-14">
+                                            <span class="f-14" *ngIf="!objectURL_1">
                                                 500 &times; 500
                                             </span>
+                                            <img *ngIf="objectURL_1" [src]="objectURL_1" alt="Image" class="img-fluid" />
                                         </label>
-                                        <input type="file" id="fileUploadM" class="d-none" />
+                                        <input type="file" id="fileUploadM" (change)="uploadImage($event,1)" class="d-none" />
                                     </div>
                                     <div class="d-inline-block mb-4 me-4">
                                         <label for="fileUploadL" class="file-uploader size-l cursor-pointer d-flex flex-column align-items-center justify-content-center">
-                                            <span class="material-icons icon f-36">
+                                            <span class="material-icons icon f-36" *ngIf="!objectURL_2">
                                                 photo_camera
                                             </span>
                                             <!-- <img src="https://picsum.photos/536/353" alt="Image" class="img-fluid" /> -->
-                                            <span class="f-14">
+                                            <span class="f-14" *ngIf="!objectURL_2">
                                                 500 &times; 500
                                             </span>
+                                            <img *ngIf="objectURL_2" [src]="objectURL_2" alt="Image" class="img-fluid" />
                                         </label>
-                                        <input type="file" id="fileUploadL" class="d-none" />
+                                        <input type="file" id="fileUploadL" (change)="uploadImage($event,2)" class="d-none" />
                                     </div>
                                     <div class="d-inline-block mb-4 me-4">
                                         <label for="fileUploadXl" class="file-uploader size-xl cursor-pointer d-flex flex-column align-items-center justify-content-center">
-                                            <span class="material-icons icon f-36">
+                                            <span class="material-icons icon f-36" *ngIf="!objectURL_3">
                                                 photo_camera
                                             </span>
                                             <!-- <img src="https://picsum.photos/536/353" alt="Image" class="img-fluid" /> -->
-                                            <span class="f-14">
+                                            <span class="f-14" *ngIf="!objectURL_3">
                                                 500 &times; 500
                                             </span>
+                                            <img *ngIf="objectURL_3" [src]="objectURL_3" alt="Image" class="img-fluid" />
                                         </label>
-                                        <input type="file" id="fileUploadXl" class="d-none" />
+                                        <input type="file" id="fileUploadXl" (change)="uploadImage($event,3)" class="d-none" />
                                     </div>
                                     <div class="d-inline-block mb-4 me-4">
                                         <label for="fileUploadXxl" class="file-uploader size-xxl cursor-pointer d-flex flex-column align-items-center justify-content-center">
-                                            <span class="material-icons icon f-36">
+                                            <span class="material-icons icon f-36" *ngIf="!objectURL_4">
                                                 photo_camera
                                             </span>
                                             <!-- <img src="https://picsum.photos/536/353" alt="Image" class="img-fluid" /> -->
-                                            <span class="f-14">
+                                            <span class="f-14" *ngIf="!objectURL_4">
                                                 500 &times; 500
                                             </span>
+                                            <img *ngIf="objectURL_4" [src]="objectURL_4" alt="Image" class="img-fluid" />
                                         </label>
-                                        <input type="file" id="fileUploadXxl" class="d-none" />
+                                        <input type="file" id="fileUploadXxl" (change)="uploadImage($event,4)" class="d-none" />
                                     </div>
                                 </div>
 
@@ -123,8 +127,7 @@
                                         <mat-form-field class="w-100 f-16">
                                             <mat-label>Certificate<span class="text-danger ms-2">*</span></mat-label>
                                             <mat-select>
-                                                <mat-option class="text-capitalize" value="A">A</mat-option>
-                                                <mat-option class="text-capitalize" value="U">U</mat-option>
+                                                <mat-option class="text-capitalize" *ngFor='let crtf of certification' value="{{crtf}}">{{crtf}}</mat-option>
                                             </mat-select>
                                         </mat-form-field>
                                     </div>
@@ -150,8 +153,7 @@
                                         <mat-form-field class="w-100 f-16">
                                             <mat-label>Media Type<span class="text-danger ms-2">*</span></mat-label>
                                             <mat-select>
-                                                <mat-option class="text-capitalize" value="mp4">mp4</mat-option>
-                                                <mat-option class="text-capitalize" value="3gp">3gp</mat-option>
+                                                <mat-option class="text-capitalize" *ngFor='let type of mediaType' value="{{type}}">{{type}}</mat-option>
                                             </mat-select>
                                         </mat-form-field>
                                     </div>
@@ -165,8 +167,7 @@
                                         <mat-form-field class="w-100 f-16">
                                             <mat-label>Genres<span class="text-danger ms-2">*</span></mat-label>
                                             <mat-select multiple>
-                                                <mat-option class="text-capitalize" value="comedy">comedy</mat-option>
-                                                <mat-option class="text-capitalize" value="horror">horror</mat-option>
+                                                <mat-option class="text-capitalize" *ngFor='let gener of mediaGener' value="{{gener}}">{{gener}}</mat-option>
                                             </mat-select>
                                         </mat-form-field>
                                     </div>
@@ -174,8 +175,7 @@
                                         <mat-form-field class="w-100 f-16">
                                             <mat-label>Media Provider<span class="text-danger ms-2">*</span></mat-label>
                                             <mat-select>
-                                                <mat-option class="text-capitalize" value="new">new</mat-option>
-                                                <mat-option class="text-capitalize" value="test">test</mat-option>
+                                                <mat-option class="text-capitalize" *ngFor='let provider of mediaProvider' value="{{provider}}">{{provider}}</mat-option>
                                             </mat-select>
                                         </mat-form-field>
                                     </div>
