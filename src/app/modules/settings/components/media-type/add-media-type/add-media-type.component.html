@@ -9,7 +9,7 @@
     </div>
     <form [formGroup]="multiTypeForm">
         <div class="add-modal-body mt-4 overflow-auto py-3 px-4 px-sm-5 py-sm-4 mx-0 mx-md-3">
-            <button *ngIf="!editMode" class="btn btn-primary f-15 add-btn px-4" (click)="addType()">{{title}}</button>
+            <button mat-button *ngIf="!editMode" class="btn btn-primary f-15 add-btn px-4" (click)="addType()">{{title}}</button>
             <div class="genres-list mt-5" cdkDropList (cdkDropListDropped)="drop($event)">
                 <div formArrayName="multyType" class="genres-list-item mb-4 mb-md-0" cdkDrag *ngFor="let item of typeFormGroups.controls;let i = index">
                     <div class="row" [formGroupName]="i">
@@ -32,11 +32,11 @@
             </div>
         </div>
         <div class="add-modal-footer py-4 px-5 border-top text-end">
-            <button class="cancel-btn btn f-15 text-danger shadow-none me-3 bg-transparent border-0"
+            <button mat-button class="cancel-btn btn f-15 text-danger shadow-none me-3 bg-transparent border-0"
                 (click)="dialogRef.close()">Cancel</button>
-            <button *ngIf="!editMode" class="cancel-btn btn f-15 shadow-none text-success" type="submit"
+            <button mat-button *ngIf="!editMode" class="cancel-btn btn f-15 shadow-none text-success" type="submit"
                 (click)="onSubmit()">Add</button>
-            <button *ngIf="editMode" class="cancel-btn btn f-15 shadow-none text-success" type="submit"
+            <button mat-button *ngIf="editMode" class="cancel-btn btn f-15 shadow-none text-success" type="submit"
                 (click)="editType()">Edit</button>
         </div>
     </form>

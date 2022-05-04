@@ -7,16 +7,28 @@
       <div class="collapse navbar-collapse" id="navbarScroll">
         <ul class="navbar-nav me-auto p-2 my-lg-0 navbar-nav-scroll">
           <li class="nav-item">
-            <a class="nav-link text-white px-4" routerLink="/subscribers" routerLinkActive="active" aria-current="page">Subscribers</a>
+            <button class="nav-link text-white px-4" mat-button routerLink="/subscribers" routerLinkActive="active" aria-current="page">
+              Subscribers
+            </button>
+            <!-- <a class="nav-link text-white px-4" routerLink="/subscribers" routerLinkActive="active" aria-current="page">Subscribers</a> -->
           </li>
           <li class="nav-item mx-md-3">
-            <a class="nav-link text-white px-4" routerLink="/content" routerLinkActive="active">Content</a>
+            <button class="nav-link text-white px-4" mat-button routerLink="/content" routerLinkActive="active" aria-current="page">
+              Content
+            </button>
+            <!-- <a class="nav-link text-white px-4" routerLink="/content" routerLinkActive="active">Content</a> -->
           </li>
           <li class="nav-item mx-md-3">
-            <a class="nav-link text-white px-4">Slides</a>
+            <button class="nav-link text-white px-4" mat-button aria-current="page">
+              Slides
+            </button>
+            <!-- <a class="nav-link text-white px-4">Slides</a> -->
           </li>
           <li class="nav-item">
-            <a class="nav-link text-white px-4">Datasets</a>
+            <button class="nav-link text-white px-4" mat-button aria-current="page">
+              Datasets
+            </button>
+            <!-- <a class="nav-link text-white px-4">Datasets</a> -->
           </li>
         </ul>
         <!-- <form class="d-flex">
@@ -27,12 +39,12 @@
             <ul class="list-unstyled mb-0 d-flex">
                 <li class="p-2">
                     <p class="mb-0 text-white">{{loginUser}}</p>
-                    <button class="bg-transparent border-0 light-text" (click)="logout()">Logout</button>
+                    <button  mat-button class="bg-transparent border-0 light-text" (click)="logout()">Logout</button>
                 </li>
                 <li class="p-2">
                   <a routerLink="/settings/genres" class="text-decoration-none">
                     <mat-icon aria-hidden="false" class="d-block light-text w-100 text-center" aria-label="settings icon">settings</mat-icon>
-                    <button class="bg-transparent border-0 light-text">Settings</button>
+                    <button mat-button class="bg-transparent border-0 light-text">Settings</button>
                   </a>
                 </li>
             </ul>

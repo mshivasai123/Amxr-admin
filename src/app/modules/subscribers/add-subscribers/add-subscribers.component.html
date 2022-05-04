@@ -81,10 +81,10 @@
         </div>
     </div>
     <div class="add-modal-footer py-4 px-5 border-top text-end">
-        <button class="cancel-btn btn f-15 text-danger shadow-none me-3 bg-transparent border-0"
+        <button mat-button class="cancel-btn btn f-15 text-danger shadow-none me-3 bg-transparent border-0"
         (click)="dialogRef.close()">Cancel</button>
-        <button *ngIf="!editMode" class="cancel-btn btn f-15 shadow-none text-success" type="submit" (click)="onSubmit()">Add</button>
-        <button *ngIf="editMode" class="cancel-btn btn f-15 shadow-none text-success" type="submit" (click)="editSubscriber()">Edit</button>
+        <button mat-button *ngIf="!editMode" class="cancel-btn btn f-15 shadow-none text-success" type="submit" (click)="onSubmit()">Add</button>
+        <button mat-button *ngIf="editMode" class="cancel-btn btn f-15 shadow-none text-success" type="submit" (click)="editSubscriber()">Edit</button>
     </div>
     </form>
 </div>
