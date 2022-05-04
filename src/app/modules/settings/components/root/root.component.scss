@@ -2,11 +2,10 @@
 
 .settings-wrapper {
     .settings-sidebar {
-        background: $settingsSidebarBgColor;
-        box-shadow: 0px 0px 10px 5px rgba(0,0,0,0.4);
-    // padding: 0;
+        // background: $settingsSidebarBgColor;
+        // box-shadow: 0px 0px 10px 5px rgba(0,0,0,0.4);
     li {
-            a {
+            a,button {
                 color: $settingsSidebarTextColor;
                 &.active {
                     background-color: $settingsActiveItemBgColor;
@@ -14,6 +13,18 @@
             }
         }
     }
+}
+mat-sidenav-container {
+    @media(min-width: 768px) {
+        height: calc(100vh - 60px);    
+    }
+}
+mat-sidenav {
+    background: #dfdddd;
+    position: relative;
+    height: 100%;
+    box-shadow: 0px 0px 10px 5px rgb(0 0 0 / 40%);
+    // width: 224px;
 }
 
 @media (min-width : 767.99px) {
