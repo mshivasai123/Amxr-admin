@@ -15,7 +15,7 @@
                     </span>
                 </button>
             </div>
-            <button class="bg-transparent ms-md-5 border-0" mat-button [matMenuTriggerFor]="actionMenu">
+            <button class="bg-transparent ms-md-5 border-0" mat-icon-button [matMenuTriggerFor]="actionMenu">
                 <span class="material-icons align-middle">
                     more_vert
                 </span>
@@ -84,7 +84,7 @@
             <ng-container matColumnDef="action">
                 <th mat-header-cell *matHeaderCellDef> Action </th>
                 <td mat-cell *matCellDef="let element">
-                    <button class="bg-transparent border-0" mat-button [matMenuTriggerFor]="menu" (click)="selectUser(element)">
+                    <button class="bg-transparent border-0" mat-icon-button [matMenuTriggerFor]="menu" (click)="selectUser(element)">
                         <span class="material-icons align-middle">
                             more_vert
                         </span>
