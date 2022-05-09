@@ -29,6 +29,7 @@ export class RootComponent implements OnInit {
   mediaType:string;
   statusKey: any;
   selectedMedia : any;
+  searchedKeyword: string;
 
   constructor(
     public dialog: MatDialog,
