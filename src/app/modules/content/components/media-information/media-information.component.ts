@@ -126,7 +126,7 @@ export class MediaInformationComponent implements OnInit {
   ) {
     this.manageMediaService.mediaType.subscribe(data => {
       this.mediaTypeData = data;
-      return this.isWebSeries = (data === 'Movies') ? false : true;
+      return this.isWebSeries = (data === 'Single Media') ? false : true;
     })
   }
 

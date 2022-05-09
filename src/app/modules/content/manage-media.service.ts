@@ -18,6 +18,11 @@ export class ManageMediaService {
     return this.http.get(endPoint)
   }
 
+  getMediaInfo(): Observable<any>{
+    const endPoint = `api/media-informations`
+    return this.http.get(endPoint)
+  }
+
   addMedia(data: any): Observable<any> {
     const fData : FormData = new FormData
     fData.append("mediaModuleName", data.mediaModuleName);
