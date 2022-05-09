@@ -62,6 +62,7 @@ export const YEAR_MODE_FORMATS = {
 export class MediaInformationComponent implements OnInit {
   @Input() selectedLanguages: any = [];
   @Input() mainLanguage: any = '';
+  @Input() selectedSingleLang: any;
   mediaTypeData: string = '';
   _max: Moment;
   _min: Moment;
@@ -167,7 +168,7 @@ export class MediaInformationComponent implements OnInit {
 
   getProviders() {
     this.providerService.getProvider().subscribe(response => {
-      this.mediaGener = response?.data || [];
+      this.mediaProvider = response?.data || [];
     })
   }
 
@@ -284,6 +285,10 @@ export class MediaInformationComponent implements OnInit {
       val.url = ""
       return val
     })
+  }
+
+  saveData(){
+    console.log(this.mediaData,"this.mediaData")
   }
 
 
