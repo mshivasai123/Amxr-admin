@@ -92,6 +92,10 @@ export class MediaInformationComponent implements OnInit {
       mediaTypeId: "",
       mediaLength: "",
       genreId: "",
+      fileData1: "",
+      fileData2: "",
+      fileData3: "",
+      fileData4: ""
     },
     uploadtrailer: {
       mediaUrl:"",
@@ -177,39 +181,44 @@ export class MediaInformationComponent implements OnInit {
     this.file = event.target.files[0]
     // let dataObject:any = 'this'+'.'+'objectURL_'+id
     // console.log(dataObject)
-    if (this.objectURL_1) {
-      // revoke the old object url to avoid using more memory than needed
-      URL.revokeObjectURL(this.objectURL_1);
-    }
-    const fileD = this.file;
-    this.objectURL_1 = this.sanitizer.bypassSecurityTrustUrl(URL.createObjectURL(fileD));
+    // if (this.objectURL_1) {
+    //   // revoke the old object url to avoid using more memory than needed
+    //   URL.revokeObjectURL(this.objectURL_1);
+    // }
+    // const fileD = event.target.files[0];
+    // this.mediaData.mediaInformation.fileData1 = fileD;
+    // this.objectURL_1 = this.sanitizer.bypassSecurityTrustUrl(URL.createObjectURL(fileD));
     if (id === 1) {
       if (this.objectURL_1) {
         // revoke the old object url to avoid using more memory than needed
         URL.revokeObjectURL(this.objectURL_1);
       }
-      const fileD = this.file;
+      const fileD = event.target.files[0];
+    this.mediaData.mediaInformation.fileData1 = fileD;
       this.objectURL_1 = this.sanitizer.bypassSecurityTrustUrl(URL.createObjectURL(fileD));
     } else if (id === 2) {
       if (this.objectURL_2) {
         // revoke the old object url to avoid using more memory than needed
         URL.revokeObjectURL(this.objectURL_2);
       }
-      const fileD = this.file;
+      const fileD = event.target.files[0];
+    this.mediaData.mediaInformation.fileData2 = fileD;
       this.objectURL_2 = this.sanitizer.bypassSecurityTrustUrl(URL.createObjectURL(fileD));
     } else if (id === 3) {
       if (this.objectURL_3) {
         // revoke the old object url to avoid using more memory than needed
         URL.revokeObjectURL(this.objectURL_3);
       }
-      const fileD = this.file;
+      const fileD = event.target.files[0];
+    this.mediaData.mediaInformation.fileData3 = fileD;
       this.objectURL_3 = this.sanitizer.bypassSecurityTrustUrl(URL.createObjectURL(fileD));
     } else if (id === 4) {
       if (this.objectURL_4) {
         // revoke the old object url to avoid using more memory than needed
         URL.revokeObjectURL(this.objectURL_4);
       }
-      const fileD = this.file;
+      const fileD = event.target.files[0];
+    this.mediaData.mediaInformation.fileData4 = fileD;
       this.objectURL_4 = this.sanitizer.bypassSecurityTrustUrl(URL.createObjectURL(fileD));
     }
   }
