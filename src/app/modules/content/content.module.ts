@@ -9,6 +9,7 @@ import { MediaInformationComponent } from './components/media-information/media-
 import { FormsModule } from '@angular/forms';
 import { MediaRightPanelComponent } from './components/media-right-panel/media-right-panel.component';
 import { AddModuleComponent } from './components/add-module/add-module.component';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
 
 const routes: Routes = [
   {
@@ -37,7 +38,8 @@ const routes: Routes = [
     CommonModule,
     FormsModule,
     MaterialModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
+    Ng2SearchPipeModule
   ]
 })
 export class ContentModule { }

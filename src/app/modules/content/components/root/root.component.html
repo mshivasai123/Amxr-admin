@@ -8,7 +8,7 @@
               my_location
             </span>
           </span>
-          <input type="text" class="form-control f-16 shadow-none border-0 bg-transparent"
+          <input type="text" [(ngModel)]="searchedKeyword" class="form-control f-16 shadow-none border-0 bg-transparent"
             placeholder="Search Module...">
           <button class="input-group-text bg-transparent border-0 p-0">
             <span class="material-icons f-20">
@@ -33,7 +33,7 @@
     </mat-menu>
   
     <div class="w-100 overflow-auto">
-      <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 bg-transparent shadow-none custom-table w-100">
+      <table mat-table [dataSource]="dataSource | filter:searchedKeyword" class="mat-elevation-z8 bg-transparent shadow-none custom-table w-100">
   
         <!-- Position Column -->
         <ng-container matColumnDef="mediaModuleIcon">

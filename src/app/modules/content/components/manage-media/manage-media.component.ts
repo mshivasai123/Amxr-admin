@@ -32,6 +32,7 @@ export class ManageMediaComponent implements OnInit {
   displayedColumns: string[] = ['poster','mediaBatchId' , 'mediaId',  'mediaTitle', 'mediaType', 'languages', 'subtitles', 'genres', 'updatedAt', 'status', 'action'];
   dataSource = ELEMENT_DATA;
   duplicate : boolean = false;
+  searchedKeyword: string;
 
   constructor(
     public dialog: MatDialog,
