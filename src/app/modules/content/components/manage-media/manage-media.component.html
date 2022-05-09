@@ -49,9 +49,9 @@
             </ng-container>
 
             <!-- Name Column -->
-           <ng-container matColumnDef="batchId">
+           <ng-container matColumnDef="mediaBatchId">
             <th mat-header-cell *matHeaderCellDef class="ws-nowrap"> Batch Id </th>
-            <td mat-cell *matCellDef="let element" class="ws-nowrap"> {{element.batchId}} </td>
+            <td mat-cell *matCellDef="let element" class="ws-nowrap"> {{element.mediaBatchId}} </td>
            </ng-container>
 
             <!-- Name Column -->
@@ -63,9 +63,9 @@
             
 
             <!-- Weight Column -->
-            <ng-container matColumnDef="title">
+            <ng-container matColumnDef="mediaTitle">
                 <th mat-header-cell *matHeaderCellDef class="ws-nowrap"> Title </th>
-                <td mat-cell *matCellDef="let element" class="ws-nowrap"> {{element.title}} </td>
+                <td mat-cell *matCellDef="let element" class="ws-nowrap"> {{element.mediaTitle}} </td>
             </ng-container>
 
             <!-- Symbol Column -->
@@ -93,9 +93,9 @@
                 <td mat-cell *matCellDef="let element" class="ws-nowrap"> {{element.genres}} </td>
             </ng-container>
             <!-- Symbol Column -->
-            <ng-container matColumnDef="updatedDate">
+            <ng-container matColumnDef="updatedAt">
                 <th mat-header-cell *matHeaderCellDef> Updated Date </th>
-                <td mat-cell *matCellDef="let element" class="ws-nowrap"> {{element.updatedDate}} </td>
+                <td mat-cell *matCellDef="let element" class="ws-nowrap"> {{getDate(element.updatedAt)}} </td>
             </ng-container>
 
 

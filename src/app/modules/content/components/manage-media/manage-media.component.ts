@@ -1,23 +1,24 @@
 import { Component, OnInit } from '@angular/core';
 import { AddMediaComponent } from '../add-media/add-media.component';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { ManageMediaService } from '../../manage-media.service';
 
 export interface PeriodicElement {
   poster: string;
   mediaId: string;
-  batchId: string;
-  title: string;
+  mediaBatchId: string;
+  mediaTitle: string;
   mediaType: string;
   languages: string;
   subtitles: string;
   genres: string;
-  updatedDate: string;
+  updatedAt: string;
   status: string;
 }
 
 const ELEMENT_DATA: PeriodicElement[] = [
-  { poster: '', mediaId: 'TEL2343432323', batchId: '2343432323', title: "Title", mediaType: '2D', languages: 'Telugu', subtitles: 'English', genres: 'Crime', updatedDate: '6th Jan 2021', status: "active" },
-  { poster: '', mediaId: 'TEL2343432323', batchId: '2343432323', title: "Title", mediaType: '2D', languages: 'Telugu', subtitles: 'English', genres: 'Crime', updatedDate: '6th Jan 2021', status: "in-active" }
+  { poster: '', mediaId: 'TEL2343432323', mediaBatchId: '2343432323', mediaTitle: "Title", mediaType: '2D', languages: 'Telugu', subtitles: 'English', genres: 'Crime', updatedAt: '6th Jan 2021', status: "active" },
+  { poster: '', mediaId: 'TEL2343432323', mediaBatchId: '2343432323', mediaTitle: "Title", mediaType: '2D', languages: 'Telugu', subtitles: 'English', genres: 'Crime', updatedAt: '6th Jan 2021', status: "in-active" }
 ];
 
 
@@ -28,15 +29,33 @@ const ELEMENT_DATA: PeriodicElement[] = [
 })
 export class ManageMediaComponent implements OnInit {
 
-  displayedColumns: string[] = ['poster','batchId' , 'mediaId',  'title', 'mediaType', 'languages', 'subtitles', 'genres', 'updatedDate', 'status', 'action'];
+  displayedColumns: string[] = ['poster','mediaBatchId' , 'mediaId',  'mediaTitle', 'mediaType', 'languages', 'subtitles', 'genres', 'updatedAt', 'status', 'action'];
   dataSource = ELEMENT_DATA;
   duplicate : boolean = false;
 
   constructor(
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    public manageMediaService : ManageMediaService
   ) { }
 
   ngOnInit(): void {
+    this.getMediaData();
+  }
+
+  getMediaData(){
+    this.manageMediaService.getMediaInfo().subscribe(response =>{
+      console.log(response?.data)
+      this.dataSource = response?.data;
+      this.dataSource.forEach((element:any,i:number) => {
+        // this.dataSource[i].mediaModuleIcon = 'api/'+element.mediaModuleIcon
+        this.dataSource[i].status = element?.status === true ? 'active' : 'in-active'
+      });
+    })
+  }
+
+  getDate(date:Date){
+    let newDate = new Date(date);
+    return `${newDate.getDate()}-${newDate.getMonth()}-${newDate.getFullYear()}`
   }
 
   addMedia() {

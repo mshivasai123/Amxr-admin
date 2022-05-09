@@ -56,7 +56,6 @@ export class RootComponent implements OnInit {
   }
 
   type(event:string){
-     console.log(event)
      this.manageMediaService.mediaType.next(event);
   }
 
