@@ -10,6 +10,7 @@ import { FormsModule } from '@angular/forms';
 import { MediaRightPanelComponent } from './components/media-right-panel/media-right-panel.component';
 import { AddModuleComponent } from './components/add-module/add-module.component';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
+import { LoaderComponent } from 'src/app/shared/components/loader/loader.component';
 
 const routes: Routes = [
   {
@@ -32,7 +33,8 @@ const routes: Routes = [
     AddMediaComponent,
     MediaInformationComponent,
     MediaRightPanelComponent,
-    AddModuleComponent
+    AddModuleComponent,
+    LoaderComponent
   ],
   imports: [
     CommonModule,
