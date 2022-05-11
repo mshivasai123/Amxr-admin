@@ -21,7 +21,7 @@ export class AddMediaComponent implements OnInit {
   category: any;
   mediaDuplicate: boolean;
   firstGroup:string;
-  
+  moduleId = ''
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     public dialogRef: MatDialogRef<AddMediaComponent>,
@@ -29,7 +29,8 @@ export class AddMediaComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.mediaDuplicate = this.data;
+    this.mediaDuplicate = this.data?.duplicate;
+    this.moduleId = this.data?.moduleId;
     this.getLanguage();
   }
 

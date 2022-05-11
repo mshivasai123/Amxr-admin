@@ -63,11 +63,12 @@ export class MediaInformationComponent implements OnInit {
   @Input() selectedLanguages: any = [];
   @Input() mainLanguage: any = '';
   @Input() selectedSingleLang: any;
+  @Input() moduleId: any;
   mediaTypeData: string = '';
   _max: Moment;
   _min: Moment;
   _inputCtrl: FormControl = new FormControl();
-  languagesControl = new FormControl([]);
+  // languagesControl = new FormControl([]);
   // languages: string[] = ['Telugu','English', 'Hindi', 'Tamil', 'Kannada'];
   subtitlesAllowed = true;
   mediaSubtitlesAllowed = true;
@@ -91,24 +92,32 @@ export class MediaInformationComponent implements OnInit {
       sourceVendor: "",
       mediaTypeId: "",
       mediaLength: "",
-      genreId: "",
+      genreId: [],
       fileData1: "",
       fileData2: "",
       fileData3: "",
       fileData4: ""
     },
     uploadtrailer: {
-      mediaUrl:"",
-      audioSrcUrl:"",
+      mediaUrl: "",
+      audioSrcUrl: "",
       selectedLanguages: [],
       languageUrls: [],
     },
     uploadFullMedia: {
       series: {
-        introUrl:"",
+        introUrl: "",
         episodes: []
       },
-      Movies: {}
+      Movies: {
+        selectedLanguages: [],
+        languageUrls: [],
+        episodetitle: "",
+        mediaUrl: "",
+        audioUrl: "",
+        introDuration: "",
+        skipEnd: ""
+      }
     }
   }
   eachEpisodeData: any = {
@@ -194,7 +203,7 @@ export class MediaInformationComponent implements OnInit {
         URL.revokeObjectURL(this.objectURL_1);
       }
       const fileD = event.target.files[0];
-    this.mediaData.mediaInformation.fileData1 = fileD;
+      this.mediaData.mediaInformation.fileData1 = fileD;
       this.objectURL_1 = this.sanitizer.bypassSecurityTrustUrl(URL.createObjectURL(fileD));
     } else if (id === 2) {
       if (this.objectURL_2) {
@@ -202,7 +211,7 @@ export class MediaInformationComponent implements OnInit {
         URL.revokeObjectURL(this.objectURL_2);
       }
       const fileD = event.target.files[0];
-    this.mediaData.mediaInformation.fileData2 = fileD;
+      this.mediaData.mediaInformation.fileData2 = fileD;
       this.objectURL_2 = this.sanitizer.bypassSecurityTrustUrl(URL.createObjectURL(fileD));
     } else if (id === 3) {
       if (this.objectURL_3) {
@@ -210,7 +219,7 @@ export class MediaInformationComponent implements OnInit {
         URL.revokeObjectURL(this.objectURL_3);
       }
       const fileD = event.target.files[0];
-    this.mediaData.mediaInformation.fileData3 = fileD;
+      this.mediaData.mediaInformation.fileData3 = fileD;
       this.objectURL_3 = this.sanitizer.bypassSecurityTrustUrl(URL.createObjectURL(fileD));
     } else if (id === 4) {
       if (this.objectURL_4) {
@@ -218,15 +227,15 @@ export class MediaInformationComponent implements OnInit {
         URL.revokeObjectURL(this.objectURL_4);
       }
       const fileD = event.target.files[0];
-    this.mediaData.mediaInformation.fileData4 = fileD;
+      this.mediaData.mediaInformation.fileData4 = fileD;
       this.objectURL_4 = this.sanitizer.bypassSecurityTrustUrl(URL.createObjectURL(fileD));
     }
   }
 
   onCatRemoved(cat: string) {
-    const categories = this.languagesControl.value as string[];
-    this.removeFirst(categories, cat);
-    this.languagesControl.setValue(categories);
+    // const categories = this.languagesControl.value as string[];
+    // this.removeFirst(categories, cat);
+    // this.languagesControl.setValue(categories);
   }
 
   toggleView() {
@@ -288,6 +297,14 @@ export class MediaInformationComponent implements OnInit {
     })
   }
 
+  languageChangeMovie(){
+    let selectedlangs = this.languages.filter((lang: any) => { return this.mediaData.uploadFullMedia.Movies.selectedLanguages.includes(lang.id) })
+    this.mediaData.uploadFullMedia.Movies.languageUrls = selectedlangs.map((val: any) => {
+      val.url = ""
+      return val
+    })
+  }
+
   languageChangeTrailer() {
     let selectedlangs = this.languages.filter((lang: any) => { return this.mediaData.uploadtrailer.selectedLanguages.includes(lang.id) })
     this.mediaData.uploadtrailer.languageUrls = selectedlangs.map((val: any) => {
@@ -296,8 +313,58 @@ export class MediaInformationComponent implements OnInit {
     })
   }
 
-  saveData(){
-    console.log(this.mediaData,"this.mediaData")
+  saveData() {
+    console.log(this.mediaData, "this.mediaData")
+    let finalData: any = {};
+    //append media information
+    finalData["mediaInformation[mediaTitle]"] = this.mediaData.mediaInformation.mediaTitle
+    finalData["mediaInformation[mediaYear]"] = this._inputCtrl.value
+    finalData["vmediaInformation[mediaCertificateId]"] = this.mediaData.mediaInformation.mediaCertificateId
+    finalData["mediaInformation[resolution]"] = this.mediaData.mediaInformation.resolution
+    finalData["mediaInformation[mediaTypeId]"] = this.mediaData.mediaInformation.mediaTypeId
+    finalData["mediaInformation[mediaLength]"] = this.mediaData.mediaInformation.mediaLength
+    finalData["mediaInformation[sourceVendor]"] = this.mediaData.mediaInformation.sourceVendor
+    finalData["mediaInformation[genreId]"] = this.mediaData.mediaInformation.genreId.join(',')
+    finalData["mediaInformation[fileData1]"] = this.mediaData.mediaInformation.fileData1
+    finalData["mediaInformation[fileData2]"] = this.mediaData.mediaInformation.fileData2
+    finalData["mediaInformation[fileData3]"] = this.mediaData.mediaInformation.fileData3
+    finalData["mediaInformation[fileData4]"] = this.mediaData.mediaInformation.fileData4
+    //append upload trailer
+    finalData["mediaTrailer[mediaUrl]"] = this.mediaData.uploadtrailer.mediaUrl
+    finalData["mediaTrailer[audioUrl]"] = this.mediaData.uploadtrailer.audioSrcUrl
+    this.mediaData.uploadtrailer.languageUrls.forEach((lang: any, i: any) => {
+      finalData[`mediaTrailer[subTitles][${i}][languageId]`] = lang.id;
+      finalData[`mediaTrailer[subTitles][${i}][mediaSubtitleUrl]`] = lang.url;
+    });
+    //append upload full media
+    if (this.isWebSeries) {
+      finalData["mediaFullVideo[mediaFullVideoIntroUrl]"] = this.mediaData.uploadFullMedia.series.introUrl
+      this.mediaData.uploadFullMedia.series.episodes.forEach((episode: any, parentIndex: any) => {
+        finalData[`mediaFullVideo[${parentIndex}][mediaFullVideoMediaUrl]`] = episode.mediaUrl;
+        finalData[`mediaFullVideo[${parentIndex}][mediaFullVideoAudioUrl]`] = episode.audioUrl;
+        finalData[`mediaFullVideo[${parentIndex}][introDuration]`] = episode.introDuration;
+        episode.languageUrls.forEach((lang: any, childIndex: any) => {
+          finalData[`mediaFullVideo[${parentIndex}][subTitles][${childIndex}][languageId]`] = lang.id
+          finalData[`mediaFullVideo[${parentIndex}][subTitles][${childIndex}][mediaSubtitleUrl]`] = lang.url
+        });
+      });
+    }
+    if (!this.isWebSeries) {
+      // this.mediaData.uploadFullMedia.Movies.forEach((episode: any, parentIndex: any) => {
+        finalData[`mediaFullVideo[0][mediaFullVideoMediaUrl]`] =  this.mediaData.uploadFullMedia.Movies.mediaUrl;
+        finalData[`mediaFullVideo[0][mediaFullVideoAudioUrl]`] =  this.mediaData.uploadFullMedia.Movies.audioUrl;
+        finalData[`mediaFullVideo[0][introDuration]`] =  this.mediaData.uploadFullMedia.Movies.introDuration;
+        this.mediaData.uploadFullMedia.Movies.languageUrls.forEach((lang: any, childIndex: any) => {
+          finalData[`mediaFullVideo[0][subTitles][${childIndex}][languageId]`] = lang.id
+          finalData[`mediaFullVideo[0][subTitles][${childIndex}][mediaSubtitleUrl]`] = lang.url
+        });
+      // });
+    }
+    finalData["mediaInformation[mediaIdPrefix]"] = this.selectedSingleLang.name.slice(0, 3)
+    finalData["mediaInformation[languageId]"] = this.selectedSingleLang.id
+    finalData["mediaInformation[mediaModuleId]"] = this.moduleId
+
+    console.log(finalData,"finaldata")
   }
 
 
