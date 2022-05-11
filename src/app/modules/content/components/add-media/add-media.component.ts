@@ -22,6 +22,8 @@ export class AddMediaComponent implements OnInit {
   mediaDuplicate: boolean;
   firstGroup:string;
   moduleId = ''
+  showLoader:boolean = false;
+  
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     public dialogRef: MatDialogRef<AddMediaComponent>,
@@ -35,8 +37,12 @@ export class AddMediaComponent implements OnInit {
   }
 
   getLanguage() {
+    this.showLoader = true;
     this.languageService.getLanguage().subscribe(response => {
       this.languages = response?.data || [];
+      this.showLoader = false;
+    },err=>{
+      this.showLoader = false;
     })
   }
 
