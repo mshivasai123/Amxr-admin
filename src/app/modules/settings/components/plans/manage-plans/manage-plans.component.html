@@ -94,9 +94,15 @@
                 </td>
             </ng-container>
             <mat-menu #menu="matMenu">
-                <button mat-menu-item class="text-white text-capitalize" (click)="editPlan('status')">{{statusKey}}</button>
-                <button mat-menu-item class="text-white" (click)="editPlan()">Edit Plan</button>
-                <button mat-menu-item class="text-white" (click)="deletePlan()">Delete</button>
+                <button mat-menu-item class="text-white text-capitalize" (click)="editPlan('status')"><span class="material-icons mx-2 f-20">
+                    edit
+                </span>{{statusKey}}</button>
+                <button mat-menu-item class="text-white" (click)="editPlan()"><span class="material-icons mx-2 f-20">
+                    edit
+                </span>Edit Plan</button>
+                <button mat-menu-item class="text-white" (click)="deletePlan()"><span class="material-icons mx-2 f-20">
+                    delete
+                </span>Delete</button>
             </mat-menu>
 
             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

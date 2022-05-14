@@ -76,9 +76,15 @@
                 </td>
             </ng-container>
             <mat-menu #menu="matMenu">
-                <button mat-menu-item class="text-white text-capitalize" (click)="editLanguage('status')">{{statusKey}}</button>
-                <button mat-menu-item class="text-white" (click)="editLanguage()">Edit Language</button>
-                <button mat-menu-item class="text-white" (click)="deleteLanguage()">Delete</button>
+                <button mat-menu-item class="text-white text-capitalize" (click)="editLanguage('status')"><span class="material-icons mx-2 f-20">
+                    edit
+                </span>{{statusKey}}</button>
+                <button mat-menu-item class="text-white" (click)="editLanguage()"><span class="material-icons mx-2 f-20">
+                    edit
+                </span>Edit Language</button>
+                <button mat-menu-item class="text-white" (click)="deleteLanguage()"><span class="material-icons mx-2 f-20">
+                    delete
+                </span>Delete</button>
             </mat-menu>
 
             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
