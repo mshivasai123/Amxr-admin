@@ -14,10 +14,13 @@ import { HttpErrorInterceptor } from './shared/interceptor/error-interceptor.int
 import { FormsModule } from '@angular/forms';
 import { AuthGuard } from './shared/services/auth.guard';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { LoaderComponent } from './shared/components/loader/loader.component';
+import { LoaderInterceptor } from './shared/interceptor/loader-interceptor';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    LoaderComponent
   ],
   imports: [
     BrowserModule,
@@ -41,6 +44,11 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
       useClass: HttpErrorInterceptor,
       multi: true
     },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: LoaderInterceptor,
+      multi: true,
+   },
     { provide : ErrorHandler , useClass: ErrorHandlerService}
   ],
   bootstrap: [AppComponent],

@@ -56,6 +56,7 @@ export class AddLanguagesComponent implements OnInit {
   onSubmit(){
     if(this.multiLanguageForm.getRawValue().multyLanguage){
       const requestParams = this.multiLanguageForm.getRawValue().multyLanguage
+
       this.languageService.addMultyLanguage(requestParams).subscribe(response=>{
         if(response){
           this.closeModel('submited');

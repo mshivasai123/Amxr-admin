@@ -3,13 +3,15 @@ import {
     HttpEvent,
     HttpHandler,
     HttpInterceptor,
-    HttpRequest
+    HttpRequest,
+    HttpResponse
 } from "@angular/common/http";
 import { Injectable, Injector } from "@angular/core";
-import { catchError } from "rxjs/operators";
+import { catchError, map } from "rxjs/operators";
 import { Observable, throwError } from "rxjs";
 import { AuthService } from "../services/auth.service";
 import { Router } from "@angular/router";
+import { mapKeys } from "lodash";
 
 @Injectable()
 export class AuthInterceptorInterceptor implements HttpInterceptor {
@@ -19,6 +21,12 @@ export class AuthInterceptorInterceptor implements HttpInterceptor {
         request: HttpRequest<unknown>,
         next: HttpHandler
     ): Observable<HttpEvent<unknown>> {
+        next.handle(request).subscribe((data:any)=>{
+           if(data?.body.success === 0 && data?.body.message === 'Invalid Token...'){
+            localStorage.clear()
+            this.route.navigateByUrl('/login')
+           }
+        })
         if (this.authService.getToken() && !request.url.endsWith('users/login')) {
             let cloned = request.clone({
                 setHeaders: {
