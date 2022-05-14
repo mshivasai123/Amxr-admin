@@ -67,7 +67,7 @@
         </ng-container>
         <ng-container *ngIf="!showFirstSteps">
             <!-- <p>second steps</p> -->
-            <app-media-information #mediaComp [selectedSingleLang]="selectedLang" [selectedLanguages]="languageList" [mainLanguage]="category"></app-media-information>
+            <app-media-information #mediaComp [moduleId]="moduleId" [selectedSingleLang]="selectedLang" [selectedLanguages]="languageList" [mainLanguage]="category"></app-media-information>
         </ng-container>
     </div>
     <div class="add-modal-footer align-items-center justify-content-between py-4 px-5 border-top text-end"

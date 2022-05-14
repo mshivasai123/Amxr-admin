@@ -3,6 +3,7 @@ import { AddModuleComponent } from '../add-module/add-module.component';
 import { MatDialog } from '@angular/material/dialog';
 import { ManageMediaService } from '../../manage-media.service';
 import { ConformationComponent } from 'src/app/shared/model/conformation/conformation.component';
+import { Router } from '@angular/router';
 
 
 export interface PeriodicElement {
@@ -28,12 +29,14 @@ export class RootComponent implements OnInit {
   dataSource = ELEMENT_DATA;
   mediaType:string;
   statusKey: any;
+  selectedModuleId: any = ''
   selectedMedia : any;
   searchedKeyword: string;
 
   constructor(
     public dialog: MatDialog,
-    public manageMediaService : ManageMediaService
+    public manageMediaService : ManageMediaService,
+    public router: Router
   ) { }
 
   ngOnInit(): void {
@@ -56,8 +59,9 @@ export class RootComponent implements OnInit {
     return `${newDate.getDate()}-${newDate.getMonth()}-${newDate.getFullYear()}`
   }
 
-  type(event:string){
+  type(event:string,id: any){
      this.manageMediaService.mediaType.next(event);
+     this.selectedModuleId = id;
   }
 
   selectMedia(data:any){
@@ -121,5 +125,8 @@ export class RootComponent implements OnInit {
   
   }
 
+  manageMedia(){
+    this.router.navigateByUrl('/content/manage-media', { state: {moduleId:this.selectedModuleId} })
+  }
 
 }

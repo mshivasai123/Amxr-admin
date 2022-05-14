@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AddMediaComponent } from '../add-media/add-media.component';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ManageMediaService } from '../../manage-media.service';
+import { Location } from '@angular/common';
 
 export interface PeriodicElement {
   poster: string;
@@ -33,13 +34,18 @@ export class ManageMediaComponent implements OnInit {
   dataSource = ELEMENT_DATA;
   duplicate : boolean = false;
   searchedKeyword: string;
+  moduleId = ""
 
   constructor(
     public dialog: MatDialog,
-    public manageMediaService : ManageMediaService
+    public manageMediaService : ManageMediaService,
+    private location: Location,
   ) { }
 
   ngOnInit(): void {
+    let state: any = this.location.getState()
+    this.moduleId = state?.moduleId
+    console.log(state,"state")
     this.getMediaData();
   }
 
@@ -63,7 +69,7 @@ export class ManageMediaComponent implements OnInit {
     const dialogRef = this.dialog.open(AddMediaComponent, {
       width: '1100px',
       panelClass: ['add-modal', 'xxl-modal'],
-      data : this.duplicate
+      data : {duplicate:this.duplicate,moduleId:this.moduleId}
     });
   }
 

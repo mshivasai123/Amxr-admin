@@ -21,6 +21,7 @@ export class AddMediaComponent implements OnInit {
   category: any;
   mediaDuplicate: boolean;
   firstGroup:string;
+  moduleId = ''
   showLoader:boolean = false;
   
   constructor(
@@ -30,7 +31,8 @@ export class AddMediaComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.mediaDuplicate = this.data;
+    this.mediaDuplicate = this.data?.duplicate;
+    this.moduleId = this.data?.moduleId;
     this.getLanguage();
   }
 
