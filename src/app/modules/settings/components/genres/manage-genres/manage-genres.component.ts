@@ -46,6 +46,7 @@ export class ManageGenresComponent implements OnInit {
         this.dataSource[i].showInApp = element?.showInApp === true ? 'yes' : 'no'
         this.dataSource[i].status = element?.status === true ? 'active' : 'in-active'
       });
+    },err=>{
     })
   }
   
@@ -75,6 +76,7 @@ export class ManageGenresComponent implements OnInit {
           if(response){
             this.getGener()
           }
+        },err=>{
         })
       }
     });
@@ -97,6 +99,7 @@ export class ManageGenresComponent implements OnInit {
         if(response){
           this.getGener()
         }
+      },err=>{
       })
     } else {
       const dialogRef = this.dialog.open(AddGenresComponent, {

@@ -60,6 +60,7 @@ export class AddGenresComponent implements OnInit {
         if(response){
           this.closeModel('submited');
         }
+      },err=>{
       })
     }
   }
@@ -71,6 +72,7 @@ export class AddGenresComponent implements OnInit {
       if(response){
         this.closeModel('submited');
       }
+    },err=>{
     })
   }
 
