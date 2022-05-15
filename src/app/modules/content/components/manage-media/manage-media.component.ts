@@ -3,6 +3,7 @@ import { AddMediaComponent } from '../add-media/add-media.component';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ManageMediaService } from '../../manage-media.service';
 import { Location } from '@angular/common';
+import { Router } from '@angular/router';
 
 export interface PeriodicElement {
   poster: string;
@@ -18,8 +19,6 @@ export interface PeriodicElement {
 }
 
 const ELEMENT_DATA: PeriodicElement[] = [
-  { poster: '', mediaId: 'TEL2343432323', mediaBatchId: '2343432323', mediaTitle: "Title", mediaType: '2D', languages: 'Telugu', subtitles: 'English', genres: 'Crime', updatedAt: '6th Jan 2021', status: "active" },
-  { poster: '', mediaId: 'TEL2343432323', mediaBatchId: '2343432323', mediaTitle: "Title", mediaType: '2D', languages: 'Telugu', subtitles: 'English', genres: 'Crime', updatedAt: '6th Jan 2021', status: "in-active" }
 ];
 
 
@@ -35,26 +34,34 @@ export class ManageMediaComponent implements OnInit {
   duplicate : boolean = false;
   searchedKeyword: string;
   moduleId = ""
+  selectedMedia:any
 
   constructor(
     public dialog: MatDialog,
     public manageMediaService : ManageMediaService,
     private location: Location,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
     let state: any = this.location.getState()
     this.moduleId = state?.moduleId
+    if(this.moduleId){
+      this.getMediaData(this.moduleId);
+    }else {
+      this.router.navigate(['/content'])
+    }
     console.log(state,"state")
-    this.getMediaData();
   }
 
-  getMediaData(){
-    this.manageMediaService.getMediaInfo().subscribe(response =>{
+  getMediaData(id:any){
+    this.manageMediaService.getMediaInfo(id).subscribe(response =>{
       console.log(response?.data)
       this.dataSource = response?.data;
+      console.log(this.dataSource,"datasource")
       this.dataSource.forEach((element:any,i:number) => {
         // this.dataSource[i].mediaModuleIcon = 'api/'+element.mediaModuleIcon
+        element.subtitles=element?.media_full_videos[0]?.media_subtitles.map((val:any)=>val.language.name).join(',')
         this.dataSource[i].status = element?.status === true ? 'active' : 'in-active'
       });
     })
@@ -66,15 +73,44 @@ export class ManageMediaComponent implements OnInit {
   }
 
   addMedia() {
+    this.duplicate = false;
     const dialogRef = this.dialog.open(AddMediaComponent, {
       width: '1100px',
       panelClass: ['add-modal', 'xxl-modal'],
-      data : {duplicate:this.duplicate,moduleId:this.moduleId}
+      data : {duplicate:this.duplicate,moduleId:this.moduleId,isEdit:false}
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if(result=='close'){
+        this.getMediaData(this.moduleId);
+      }
     });
   }
 
   duplicateMedia(type:boolean){
      this.duplicate = type
+  }
+
+  mediaData(media:any){
+    this.selectedMedia = media
+    console.log(media,"media")
+  }
+
+  editMediaData(){
+    this.duplicate = false;
+    this.editMedia();
+  }
+
+  editMedia(){
+    const dialogRef = this.dialog.open(AddMediaComponent, {
+      width: '1100px',
+      panelClass: ['add-modal', 'xxl-modal'],
+      data : {duplicate:this.duplicate,moduleId:this.moduleId,mediaData: this.selectedMedia,isEdit:true}
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if(result=='close'){
+        this.getMediaData(this.moduleId);
+      }
+    });
   }
 
 }

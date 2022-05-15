@@ -60,15 +60,15 @@
                 <div class="radio-group" *ngIf='mediaDuplicate'>
                     <mat-radio-group
                               [(ngModel)]="firstGroup">
-                    <mat-radio-button class="example-radio-button mb-2 f-13" value="qdqd">Attach to Batch Id</mat-radio-button><br>
-                    <mat-radio-button class="example-radio-button f-13" value="qdqds">Create New Batch Id</mat-radio-button><br>
+                    <mat-radio-button class="example-radio-button mb-2 f-13" value="attachBatchId">Attach to Batch Id</mat-radio-button><br>
+                    <mat-radio-button class="example-radio-button f-13" value="createNew">Create New Batch Id</mat-radio-button><br>
                     </mat-radio-group>
                 </div>
             </div>
         </ng-container>
         <ng-container *ngIf="!showFirstSteps">
             <!-- <p>second steps</p> -->
-            <app-media-information #mediaComp [moduleId]="moduleId" [selectedSingleLang]="selectedLang" [selectedLanguages]="languageList" [mainLanguage]="category"></app-media-information>
+            <app-media-information #mediaComp (closeModal)="closeModal($event)" [batchAddorCreate]="firstGroup" [moduleId]="moduleId" [isEdit]="isEdit" [completeGetData]="completeGetData" [editMediaData]="mediaData" [selectedSingleLang]="selectedLang" [selectedLanguages]="languageList" [mainLanguage]="category"></app-media-information>
         </ng-container>
     </div>
     <div class="add-modal-footer align-items-center justify-content-between py-4 px-5 border-top text-end"

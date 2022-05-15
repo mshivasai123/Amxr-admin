@@ -18,8 +18,8 @@ export class ManageMediaService {
     return this.http.get(endPoint)
   }
 
-  getMediaInfo(): Observable<any>{
-    const endPoint = `api/media-informations`
+  getMediaInfo(id:any): Observable<any>{
+    const endPoint = `api/media-informations/` + id
     return this.http.get(endPoint)
   }
 
