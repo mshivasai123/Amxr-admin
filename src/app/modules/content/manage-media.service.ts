@@ -47,6 +47,17 @@ export class ManageMediaService {
     return this.http.put(endPoint, fData)
   }
 
+  editMediaInfo(data: any,key?:string): Observable<any> {
+    const endPoint = `api/media-informations/change-status/${data.id}`
+    console.log(data)
+    
+    const fData : FormData = new FormData
+    if(key == 'status') {
+      fData.append("status", data.status);
+    } 
+    return this.http.put(endPoint, fData)
+  }
+
   deleteMedia(data: any): Observable<any> {
     const endPoint = `api/media-modules/delete/${data.id}`
     return this.http.delete(endPoint)
