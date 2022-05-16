@@ -1,6 +1,8 @@
 import {
   Component, Input, OnInit,
-  forwardRef
+  forwardRef,
+  Output,
+  EventEmitter
 } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatDatepicker } from '@angular/material/datepicker';
@@ -25,6 +27,8 @@ import { MediatypeService } from 'src/app/modules/settings/components/media-type
 import { GenresService } from 'src/app/modules/settings/components/genres/genres.service';
 import { ProviderService } from 'src/app/modules/settings/components/media-provider/provider.service';
 import { LanguagesService } from 'src/app/modules/settings/components/languages/languages.service';
+import { API_ENDPOINT } from 'src/app/constants';
+import { MediaService } from 'src/app/shared/services/media.service';
 
 
 export const YEAR_MODE_FORMATS = {
@@ -64,6 +68,11 @@ export class MediaInformationComponent implements OnInit {
   @Input() mainLanguage: any = '';
   @Input() selectedSingleLang: any;
   @Input() moduleId: any;
+  @Input() editMediaData: any;
+  @Input() isEdit:any;
+  @Input() completeGetData:any;
+  @Input() batchAddorCreate:any;
+  @Output() closeModal = new EventEmitter<string>();
   mediaTypeData: string = '';
   _max: Moment;
   _min: Moment;
@@ -82,13 +91,16 @@ export class MediaInformationComponent implements OnInit {
   mediaType: any = [];
   mediaGener: any = [];
   mediaProvider: any = [];
-  languages: any = []
+  languages: any = [];
+  isDuplicateMedia: any = false;
+  apiEndpoint = API_ENDPOINT
   mediaData: any = {
     mediaInformation: {
       mediaTitle: "",
       mediaYear: this._inputCtrl,
       mediaCertificateId: "",
       resolution: "",
+      mediaSource: "",
       sourceVendor: "",
       mediaTypeId: "",
       mediaLength: "",
@@ -100,6 +112,7 @@ export class MediaInformationComponent implements OnInit {
     },
     uploadtrailer: {
       mediaUrl: "",
+      showSubtitle:true,
       audioSrcUrl: "",
       selectedLanguages: [],
       languageUrls: [],
@@ -110,6 +123,7 @@ export class MediaInformationComponent implements OnInit {
         episodes: []
       },
       Movies: {
+        showSubtitle: true,
         selectedLanguages: [],
         languageUrls: [],
         episodetitle: "",
@@ -127,7 +141,10 @@ export class MediaInformationComponent implements OnInit {
     mediaUrl: "",
     audioUrl: "",
     introDuration: "",
-    skipEnd: ""
+    skipEnd: "",
+    mediaEpisodePoster:"",
+    mediaEpisodePosterUrl:"",
+    showSubtitle: true
   }
   constructor(
     public manageMediaService: ManageMediaService,
@@ -136,7 +153,8 @@ export class MediaInformationComponent implements OnInit {
     public mediatypeService: MediatypeService,
     private generService: GenresService,
     public providerService: ProviderService,
-    public languageService: LanguagesService
+    public languageService: LanguagesService,
+    public mediaService: MediaService
   ) {
     this.manageMediaService.mediaType.subscribe(data => {
       this.mediaTypeData = data;
@@ -147,17 +165,78 @@ export class MediaInformationComponent implements OnInit {
 
 
   ngOnInit(): void {
+    
     this.getCertifications();
     this.getType();
     this.getGener();
     this.getProviders();
     this.getLanguage();
+    this.isDuplicateMedia= this.completeGetData?.duplicate ?? false;
+    if(this.isEdit){
+      console.log(this.editMediaData,this.batchAddorCreate,"editMediaData")
+      this.mediaData.mediaInformation.mediaTitle = this.editMediaData?.mediaTitle ?? '';
+      // this.mediaData.mediaInformation.mediaYear = this.editMediaData?.mediaYear.toString() ?? '';
+      _moment(this.editMediaData?.mediaYear).set({ date: 1 });
+      this._inputCtrl.setValue(_moment(new Date(this.editMediaData?.mediaYear,0,0)).set({ date: 1 }),{ emitEvent: false });
+      this.isDuplicateMedia = this.editMediaData?.isDefault ?? false;
+      this.mediaData.mediaInformation.mediaCertificateId = this.editMediaData?.mediaCertificateId ?? '';
+      this.mediaData.mediaInformation.resolution = this.editMediaData?.resolution ?? '';
+      this.mediaData.mediaInformation.mediaTypeId = this.editMediaData?.mediaTypeId ?? '';
+      this.mediaData.mediaInformation.mediaLength = this.editMediaData?.mediaLength ?? '';
+      this.mediaData.mediaInformation.mediaSource = this.editMediaData?.source ?? '';
+      this.mediaData.mediaInformation.genreId = this.editMediaData?.genreId.split(',') ?? [];
+      this.mediaData.mediaInformation.sourceVendor = this.editMediaData?.sourceVendor ?? '';
+      this.objectURL_1 = this.apiEndpoint + this.editMediaData?.mediaInformationIcon1 ?? '';
+      this.objectURL_2 = this.apiEndpoint + this.editMediaData?.mediaInformationIcon2 ?? '';
+      this.objectURL_3 = this.apiEndpoint + this.editMediaData?.mediaInformationIcon3 ?? '';
+      this.objectURL_4 = this.apiEndpoint + this.editMediaData?.mediaInformationIcon4 ?? '';
+      this.mediaData.uploadtrailer.mediaUrl = this.editMediaData?.media_trailer?.mediaUrl ?? '';
+      this.mediaData.uploadtrailer.audioSrcUrl = this.editMediaData?.media_trailer?.audioUrl ?? '';
+      this.mediaData.uploadtrailer.showSubtitle = this.editMediaData?.media_trailer?.showSubtitle ?? false;
+      this.mediaData.uploadtrailer.languageUrls= this.editMediaData?.media_trailer?.media_subtitles.map((val:any)=>{
+        val.language.url=val?.mediaSubtitleUrl??'';
+        this.mediaData.uploadtrailer.selectedLanguages.push(val.languageId);
+        return val.language;
+      })
+      this.editMediaData.media_full_videos.forEach((val: any,i:number) => {
+        let eachEpisode = cloneDeep(this.eachEpisodeData)
+        if(!this.isWebSeries && i===0){
+          this.mediaData.uploadFullMedia.Movies.mediaUrl = val.mediaFullVideoMediaUrl
+          this.mediaData.uploadFullMedia.Movies.audioUrl = val.mediaFullVideoAudioUrl
+          this.mediaData.uploadFullMedia.Movies.introDuration = val.introDuration
+          this.mediaData.uploadFullMedia.Movies.skipEnd = val.skipEnd
+          this.mediaData.uploadFullMedia.Movies.showSubtitle = val.showSubtitle
+          this.mediaData.uploadFullMedia.Movies.languageUrls =val.media_subtitles.map((lang:any)=>{
+            lang.language.url=lang?.mediaSubtitleUrl??'';
+            this.mediaData.uploadFullMedia.Movies.selectedLanguages.push(lang.languageId);
+            return lang.language;
+          })
+        }
+        if(this.isWebSeries){
+          if(i==0)this.mediaData.uploadFullMedia.series.introUrl = val.mediaFullVideoIntroUrl
+          eachEpisode.mediaUrl = val.mediaFullVideoMediaUrl
+          eachEpisode.audioUrl = val.mediaFullVideoAudioUrl
+          eachEpisode.introDuration = val.introDuration
+          eachEpisode.skipEnd = val.skipEnd
+          eachEpisode.episodetitle = val.mediaFullVideoTitle
+          eachEpisode.showSubtitle = val.showSubtitle
+          eachEpisode.mediaEpisodePosterUrl = this.apiEndpoint + val.mediaEpisodePoster;
+          eachEpisode.languageUrls =val.media_subtitles.map((lang:any)=>{
+            lang.language.url=lang?.mediaSubtitleUrl??'';
+            eachEpisode.selectedLanguages.push(lang.languageId);
+            return lang.language;
+          })
+          this.mediaData.uploadFullMedia.series.episodes.push(eachEpisode)
+        }
+
+      });
+      console.log(this.mediaData,"after assigning vals")
+    }
   }
 
   getLanguage() {
     this.languageService.getLanguage().subscribe(response => {
       this.languages = response?.data || [];
-
     })
   }
 
@@ -306,6 +385,7 @@ export class MediaInformationComponent implements OnInit {
   }
 
   languageChangeTrailer() {
+    // let existUrls = this.mediaData.uploadtrailer.languageUrls.map((val:any)=>val.id)
     let selectedlangs = this.languages.filter((lang: any) => { return this.mediaData.uploadtrailer.selectedLanguages.includes(lang.id) })
     this.mediaData.uploadtrailer.languageUrls = selectedlangs.map((val: any) => {
       val.url = ""
@@ -313,36 +393,54 @@ export class MediaInformationComponent implements OnInit {
     })
   }
 
+  uploadEpisodePoster(event:any,episodes: any){
+    // this.file = event.target.files[0]
+      if (episodes.mediaEpisodePosterUrl) {
+        // revoke the old object url to avoid using more memory than needed
+        URL.revokeObjectURL(episodes.mediaEpisodePosterUrl); 
+      }
+      const fileD = event.target.files[0];
+      episodes.mediaEpisodePoster = fileD;
+      episodes.mediaEpisodePosterUrl = this.sanitizer.bypassSecurityTrustUrl(URL.createObjectURL(fileD));
+
+  }
+
   saveData() {
     console.log(this.mediaData, "this.mediaData")
     let finalData: any = {};
     //append media information
     finalData["mediaInformation[mediaTitle]"] = this.mediaData.mediaInformation.mediaTitle
-    finalData["mediaInformation[mediaYear]"] = this._inputCtrl.value
-    finalData["vmediaInformation[mediaCertificateId]"] = this.mediaData.mediaInformation.mediaCertificateId
+    finalData["mediaInformation[mediaYear]"] = this._inputCtrl.value.year()
+    finalData["mediaInformation[mediaCertificateId]"] = this.mediaData.mediaInformation.mediaCertificateId
     finalData["mediaInformation[resolution]"] = this.mediaData.mediaInformation.resolution
     finalData["mediaInformation[mediaTypeId]"] = this.mediaData.mediaInformation.mediaTypeId
     finalData["mediaInformation[mediaLength]"] = this.mediaData.mediaInformation.mediaLength
     finalData["mediaInformation[sourceVendor]"] = this.mediaData.mediaInformation.sourceVendor
+    finalData["mediaInformation[source]"] = this.mediaData.mediaInformation.mediaSource
+    finalData["mediaInformation[isDefault]"] = this.isDuplicateMedia;
     finalData["mediaInformation[genreId]"] = this.mediaData.mediaInformation.genreId.join(',')
-    finalData["mediaInformation[fileData1]"] = this.mediaData.mediaInformation.fileData1
-    finalData["mediaInformation[fileData2]"] = this.mediaData.mediaInformation.fileData2
-    finalData["mediaInformation[fileData3]"] = this.mediaData.mediaInformation.fileData3
-    finalData["mediaInformation[fileData4]"] = this.mediaData.mediaInformation.fileData4
+   
     //append upload trailer
     finalData["mediaTrailer[mediaUrl]"] = this.mediaData.uploadtrailer.mediaUrl
     finalData["mediaTrailer[audioUrl]"] = this.mediaData.uploadtrailer.audioSrcUrl
+    finalData["mediaTrailer[showSubtitle]"] = this.mediaData.uploadtrailer.showSubtitle
     this.mediaData.uploadtrailer.languageUrls.forEach((lang: any, i: any) => {
       finalData[`mediaTrailer[subTitles][${i}][languageId]`] = lang.id;
       finalData[`mediaTrailer[subTitles][${i}][mediaSubtitleUrl]`] = lang.url;
     });
     //append upload full media
     if (this.isWebSeries) {
-      finalData["mediaFullVideo[mediaFullVideoIntroUrl]"] = this.mediaData.uploadFullMedia.series.introUrl
+      finalData["mediaFullVideo[0][mediaFullVideoIntroUrl]"] = this.mediaData.uploadFullMedia.series.introUrl
       this.mediaData.uploadFullMedia.series.episodes.forEach((episode: any, parentIndex: any) => {
         finalData[`mediaFullVideo[${parentIndex}][mediaFullVideoMediaUrl]`] = episode.mediaUrl;
         finalData[`mediaFullVideo[${parentIndex}][mediaFullVideoAudioUrl]`] = episode.audioUrl;
         finalData[`mediaFullVideo[${parentIndex}][introDuration]`] = episode.introDuration;
+        finalData[`mediaFullVideo[${parentIndex}][mediaIsEpisode]`] = true;
+        finalData[`mediaFullVideo[${parentIndex}][showSubtitle]`] = episode.showSubtitle;
+        finalData[`mediaFullVideo[${parentIndex}][mediaFullVideoTitle]`] = episode.episodetitle
+        finalData[`mediaFullVideo[${parentIndex}][skipEnd]`] = episode.skipEnd
+        finalData[`mediaFullVideo[${parentIndex}][mediaEpisodePoster]`] = episode.mediaEpisodePoster
+        finalData[`mediaFullVideo[${parentIndex}][mediaEpisodeOrder]`] = parentIndex 
         episode.languageUrls.forEach((lang: any, childIndex: any) => {
           finalData[`mediaFullVideo[${parentIndex}][subTitles][${childIndex}][languageId]`] = lang.id
           finalData[`mediaFullVideo[${parentIndex}][subTitles][${childIndex}][mediaSubtitleUrl]`] = lang.url
@@ -354,6 +452,10 @@ export class MediaInformationComponent implements OnInit {
         finalData[`mediaFullVideo[0][mediaFullVideoMediaUrl]`] =  this.mediaData.uploadFullMedia.Movies.mediaUrl;
         finalData[`mediaFullVideo[0][mediaFullVideoAudioUrl]`] =  this.mediaData.uploadFullMedia.Movies.audioUrl;
         finalData[`mediaFullVideo[0][introDuration]`] =  this.mediaData.uploadFullMedia.Movies.introDuration;
+        finalData[`mediaFullVideo[0][mediaIsEpisode]`] =  false;
+        finalData[`mediaFullVideo[0][showSubtitle]`] =  this.mediaData.uploadFullMedia.Movies.showSubtitle;
+        finalData[`mediaFullVideo[0][skipEnd]`] =  this.mediaData.uploadFullMedia.Movies.skipEnd;
+        finalData[`mediaFullVideo[0][mediaEpisodeOrder]`] =  0;
         this.mediaData.uploadFullMedia.Movies.languageUrls.forEach((lang: any, childIndex: any) => {
           finalData[`mediaFullVideo[0][subTitles][${childIndex}][languageId]`] = lang.id
           finalData[`mediaFullVideo[0][subTitles][${childIndex}][mediaSubtitleUrl]`] = lang.url
@@ -364,7 +466,49 @@ export class MediaInformationComponent implements OnInit {
     finalData["mediaInformation[languageId]"] = this.selectedSingleLang.id
     finalData["mediaInformation[mediaModuleId]"] = this.moduleId
 
+    if(this.batchAddorCreate === 'attachBatchId'){
+     finalData["mediaInformation[mediaBatchId]"] = this.editMediaData.mediaBatchId
+    }
+    if(this.isEdit && !this.batchAddorCreate){
+      finalData["fileData1"] = this.mediaData.mediaInformation.fileData1 ? this.mediaData.mediaInformation.fileData1 : this.editMediaData?.mediaInformationIcon1
+      finalData["fileData2"] = this.mediaData.mediaInformation.fileData2 ? this.mediaData.mediaInformation.fileData2 : this.editMediaData?.mediaInformationIcon2
+      finalData["fileData3"] = this.mediaData.mediaInformation.fileData3 ? this.mediaData.mediaInformation.fileData3 : this.editMediaData?.mediaInformationIcon3
+      finalData["fileData4"] = this.mediaData.mediaInformation.fileData4 ? this.mediaData.mediaInformation.fileData4 : this.editMediaData?.mediaInformationIcon4
+     this.editMedia(finalData)
+     return
+    }else if(this.isEdit && this.batchAddorCreate === 'attachBatchId'){
+      finalData["fileData1"] = this.mediaData.mediaInformation.fileData1 ? this.mediaData.mediaInformation.fileData1 : this.editMediaData?.mediaInformationIcon1
+      finalData["fileData2"] = this.mediaData.mediaInformation.fileData2 ? this.mediaData.mediaInformation.fileData2 : this.editMediaData?.mediaInformationIcon2
+      finalData["fileData3"] = this.mediaData.mediaInformation.fileData3 ? this.mediaData.mediaInformation.fileData3 : this.editMediaData?.mediaInformationIcon3
+      finalData["fileData4"] = this.mediaData.mediaInformation.fileData4 ? this.mediaData.mediaInformation.fileData4 : this.editMediaData?.mediaInformationIcon4
+     this.addMedia(finalData)
+     return
+    } else {
+      finalData["fileData1"] = this.mediaData.mediaInformation.fileData1
+      finalData["fileData2"] = this.mediaData.mediaInformation.fileData2
+      finalData["fileData3"] = this.mediaData.mediaInformation.fileData3
+      finalData["fileData4"] = this.mediaData.mediaInformation.fileData4
+    }
     console.log(finalData,"finaldata")
+    this.addMedia(finalData);
+  }
+
+  editMedia(finalData:any){
+    this.mediaService.editMediaInformation(finalData,this.editMediaData.id).subscribe((data)=>{
+      this.closeModal.emit("close");
+      console.log(data,"data")
+    },(err)=>{
+      console.log(err,"err")
+    })
+  }
+
+  addMedia(finalData:any){
+    this.mediaService.addMediaInformation(finalData).subscribe((data)=>{
+      this.closeModal.emit("close");
+      console.log(data,"data")
+    },(err)=>{
+      console.log(err,"err")
+    })
   }
 
 

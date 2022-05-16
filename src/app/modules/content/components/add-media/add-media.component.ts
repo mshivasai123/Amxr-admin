@@ -21,6 +21,9 @@ export class AddMediaComponent implements OnInit {
   category: any;
   mediaDuplicate: boolean;
   firstGroup:string;
+  mediaData:any;
+  completeGetData:any;
+  isEdit:any;
   moduleId = ''
   showLoader:boolean = false;
   
@@ -32,6 +35,16 @@ export class AddMediaComponent implements OnInit {
 
   ngOnInit(): void {
     this.mediaDuplicate = this.data?.duplicate;
+    console.log(this.data,"data")
+    this.isEdit = this.data?.isEdit
+    if(this.data?.isEdit){
+      this.mediaData = this.data?.mediaData;
+      if(!this.data?.duplicate)
+      this.category = this.data?.mediaData?.languageId
+      this.languageList = [this.data?.mediaData?.languageId]
+      this.selectedLang = this.data?.mediaData?.language
+    }
+    this.completeGetData = this.data
     this.moduleId = this.data?.moduleId;
     this.getLanguage();
   }
@@ -64,6 +77,11 @@ export class AddMediaComponent implements OnInit {
 
   saveData() {
     this.mediaComp.saveData()
+  }
+
+  closeModal(event:any){
+   console.log(event)
+   this.dialogRef.close(event)
   }
 
 }

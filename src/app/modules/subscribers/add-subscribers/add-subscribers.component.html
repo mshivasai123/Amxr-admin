@@ -65,12 +65,12 @@
                                 <span class="material-icons f-36" *ngIf="!objectURL">
                                     photo_camera
                                 </span>
-                                <img *ngIf="objectURL" [src]="objectURL" alt="Image" class="img-fluid" />
+                                <img *ngIf="objectURL" [src]="objectURL" alt="Image" class="img-fluid mh-100" />
                             </label>
                             <span class="f-14 m-3">
                                 500 &times; 500
                             </span>
-                            <input type="file" id="fileUpload" (change)="uploadImage($event)" formControlName="fileData" class="d-none" />
+                            <input type="file" id="fileUpload" accept="image/png, image/gif, image/jpeg" (change)="uploadImage($event)" formControlName="fileData" class="d-none" />
                         </div>
                     </div>
                 </div>
