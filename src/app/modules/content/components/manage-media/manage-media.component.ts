@@ -106,19 +106,6 @@ export class ManageMediaComponent implements OnInit {
     this.editMedia();
   }
 
-  // editMedia(){
-  //   const dialogRef = this.dialog.open(AddMediaComponent, {
-  //     width: '1100px',
-  //     panelClass: ['add-modal', 'xxl-modal'],
-  //     data : {duplicate:this.duplicate,moduleId:this.moduleId,mediaData: this.selectedMedia,isEdit:true}
-  //   });
-  //   dialogRef.afterClosed().subscribe(result => {
-  //     if(result=='close'){
-  //       this.getMediaData(this.moduleId);
-  //     }
-  //   });
-  // }
-
   editMedia(data?:string){
     if(data == 'status'){
       this.selectedMedia.status = this.selectedMedia.status == true ? "active" : "in-active";
