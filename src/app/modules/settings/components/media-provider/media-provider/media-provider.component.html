@@ -114,10 +114,18 @@
                 </td>
             </ng-container>
             <mat-menu #menu="matMenu">
-                <button mat-menu-item class="text-white">View Details</button>
-                <button mat-menu-item class="text-white text-capitalize" (click)="editProvider('status')">{{statusKey}}</button>
-                <button mat-menu-item class="text-white" (click)="editProvider()">Edit Provider</button>
-                <button mat-menu-item class="text-white" (click)="deleteProvider()">Delete</button>
+                <button mat-menu-item class="text-white"><span class="material-icons mx-2 f-20">
+                    edit
+                </span>View Details</button>
+                <button mat-menu-item class="text-white text-capitalize" (click)="editProvider('status')"><span class="material-icons mx-2 f-20">
+                    edit
+                </span>{{statusKey}}</button>
+                <button mat-menu-item class="text-white" (click)="editProvider()"><span class="material-icons mx-2 f-20">
+                    edit
+                </span>Edit Provider</button>
+                <button mat-menu-item class="text-white" (click)="deleteProvider()"><span class="material-icons mx-2 f-20">
+                    delete
+                </span>Delete</button>
             </mat-menu>
 
             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

@@ -7,7 +7,7 @@ import {
     HttpResponse
 } from "@angular/common/http";
 import { Injectable, Injector } from "@angular/core";
-import { catchError, map } from "rxjs/operators";
+import { catchError, map , tap } from "rxjs/operators";
 import { Observable, throwError } from "rxjs";
 import { AuthService } from "../services/auth.service";
 import { Router } from "@angular/router";
@@ -21,13 +21,8 @@ export class AuthInterceptorInterceptor implements HttpInterceptor {
         request: HttpRequest<unknown>,
         next: HttpHandler
     ): Observable<HttpEvent<unknown>> {
-        next.handle(request).subscribe((data:any)=>{
-           if(data?.body.success === 0 && data?.body.message === 'Invalid Token...'){
-            localStorage.clear()
-            this.route.navigateByUrl('/login')
-           }
-        })
         if (this.authService.getToken() && !request.url.endsWith('users/login')) {
+            
             let cloned = request.clone({
                 setHeaders: {
                     Authorization: `Bearer ${localStorage.getItem("token")}`
@@ -38,7 +33,16 @@ export class AuthInterceptorInterceptor implements HttpInterceptor {
             //     headers: cloned.headers.set('Boundary', 'MyBoundary')
             // })
             
-            return next.handle(cloned);
+            return next.handle(cloned).pipe(
+                tap((event: HttpEvent<any>) => {
+                  if (event instanceof HttpResponse) {
+                    if(event?.body.success === 0 && event?.body.message === 'Invalid Token...'){
+                        localStorage.clear()
+                        this.route.navigateByUrl('/login')
+                       }
+                  }
+                })
+              );;
         } else {
             return next.handle(request).pipe(
                 catchError(async (error: HttpErrorResponse) => {

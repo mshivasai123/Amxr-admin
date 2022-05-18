@@ -35,6 +35,7 @@ export class ManageMediaComponent implements OnInit {
   searchedKeyword: string;
   moduleId = ""
   selectedMedia:any
+  statusKey: any;
 
   constructor(
     public dialog: MatDialog,
@@ -52,6 +53,11 @@ export class ManageMediaComponent implements OnInit {
       this.router.navigate(['/content'])
     }
     console.log(state,"state")
+  }
+
+  selectMedia(data:any){
+    this.statusKey = data.status == "active" ? "in-active" : "active"
+    this.selectedMedia = data;
   }
 
   getMediaData(id:any){
@@ -100,17 +106,31 @@ export class ManageMediaComponent implements OnInit {
     this.editMedia();
   }
 
-  editMedia(){
-    const dialogRef = this.dialog.open(AddMediaComponent, {
-      width: '1100px',
-      panelClass: ['add-modal', 'xxl-modal'],
-      data : {duplicate:this.duplicate,moduleId:this.moduleId,mediaData: this.selectedMedia,isEdit:true}
-    });
-    dialogRef.afterClosed().subscribe(result => {
-      if(result=='close'){
-        this.getMediaData(this.moduleId);
+  editMedia(data?:string){
+    if(data == 'status'){
+      this.selectedMedia.status = this.selectedMedia.status == true ? "active" : "in-active";
+      let request = {
+        id : this.selectedMedia.id,
+        status : this.statusKey == "active" ? true : false,
+        mediaModuleName : this.selectedMedia.mediaModuleName
       }
-    });
+      this.manageMediaService.editMediaInfo(request,'status').subscribe(response =>{
+        if(response){
+          this.getMediaData(this.moduleId);
+        }
+      })
+    } else {
+      const dialogRef = this.dialog.open(AddMediaComponent, {
+        width: '1100px',
+        panelClass: ['add-modal', 'xxl-modal'],
+        data : {duplicate:this.duplicate,moduleId:this.moduleId,mediaData: this.selectedMedia,isEdit:true}
+      });
+      dialogRef.afterClosed().subscribe(result => {
+        if(result=='close'){
+          this.getMediaData(this.moduleId);
+        }
+      });
+  }
   }
 
 }

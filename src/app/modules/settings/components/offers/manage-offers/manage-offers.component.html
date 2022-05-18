@@ -80,9 +80,15 @@
                 </td>
             </ng-container>
             <mat-menu #menu="matMenu">
-                <button mat-menu-item class="text-white text-capitalize" (click)="editOffer('status')">{{statusKey}}</button>
-                <button mat-menu-item class="text-white" (click)="editOffer()">Edit Offer</button>
-                <button mat-menu-item class="text-white" (click)="deleteOffer()">Delete</button>
+                <button mat-menu-item class="text-white text-capitalize" (click)="editOffer('status')"><span class="material-icons mx-2 f-20">
+                    edit
+                </span>{{statusKey}}</button>
+                <button mat-menu-item class="text-white" (click)="editOffer()"><span class="material-icons mx-2 f-20">
+                    edit
+                </span>Edit Offer</button>
+                <button mat-menu-item class="text-white" (click)="deleteOffer()"><span class="material-icons mx-2 f-20">
+                    delete
+                </span>Delete</button>
             </mat-menu>
 
             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
