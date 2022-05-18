@@ -198,6 +198,7 @@ export class MediaInformationComponent implements OnInit {
         this.mediaData.uploadtrailer.selectedLanguages.push(val.languageId);
         return val.language;
       })
+      this.editMediaData.media_full_videos.sort((a:any,b:any)=> {return a.mediaEpisodeOrder - b.mediaEpisodeOrder});
       this.editMediaData.media_full_videos.forEach((val: any,i:number) => {
         let eachEpisode = cloneDeep(this.eachEpisodeData)
         if(!this.isWebSeries && i===0){
