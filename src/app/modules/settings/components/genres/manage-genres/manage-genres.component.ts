@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { ConformationComponent } from 'src/app/shared/model/conformation/conformation.component';
 import { AddGenresComponent } from '../add-genres/add-genres.component';
 import { GenresService } from '../genres.service';
-
+import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
+import { MatTable } from '@angular/material/table';
 export interface PeriodicElement {
   id : number;
   genresName: string;
@@ -24,7 +25,8 @@ const ELEMENT_DATA: PeriodicElement[] = [
   styleUrls: ['./manage-genres.component.scss']
 })
 export class ManageGenresComponent implements OnInit {
-
+  @ViewChild('table') table: MatTable<any>;
+  enableReorder=false;
   selectedGener: any;
   searchedKeyword: string;
   statusKey: any;
@@ -42,6 +44,7 @@ export class ManageGenresComponent implements OnInit {
   getGener(){
     this.generService.getGener().subscribe(response =>{
       this.dataSource = response?.data;
+      this.dataSource.sort((a:any,b:any)=> {return a.orderId - b.orderId});
       this.dataSource.forEach((element:any,i:number) => {
         this.dataSource[i].showInApp = element?.showInApp === true ? 'yes' : 'no'
         this.dataSource[i].status = element?.status === true ? 'active' : 'in-active'
@@ -113,6 +116,23 @@ export class ManageGenresComponent implements OnInit {
         }
       });
     }
+  }
+
+  dropTable(event: CdkDragDrop<any>) {
+    if(this.enableReorder){
+      const prevIndex = this.dataSource.findIndex((d:any) => d === event.item.data);
+      moveItemInArray(this.dataSource, prevIndex, event.currentIndex);
+      this.table.renderRows();
+    }
+  }
+
+  saveOrder(){
+    let data = this.dataSource.map((val:any,i:number)=>{return {id:val.id,orderId:i}})
+    this.generService.reOrder(data).subscribe((val)=>{
+
+    },(err)=>{
+
+    })
   }
 
 }

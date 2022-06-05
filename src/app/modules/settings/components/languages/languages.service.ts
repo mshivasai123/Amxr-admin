@@ -40,4 +40,9 @@ export class LanguagesService {
     const req = { name: data.name }
     return this.http.delete(endPoint)
   }
+
+  reOrder(data: any): Observable<any> {
+    const endPoint = `api/languages/reorder`
+    return this.http.put(endPoint, data)
+  }
 }

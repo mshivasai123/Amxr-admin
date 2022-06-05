@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { ConformationComponent } from 'src/app/shared/model/conformation/conformation.component';
 import { AddMediaTypeComponent } from '../add-media-type/add-media-type.component';
 import { MediatypeService } from '../mediatype.service';
-
+import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
+import { MatTable } from '@angular/material/table';
 
 export interface PeriodicElement {
   mediaType: string;
@@ -23,7 +24,8 @@ const ELEMENT_DATA: PeriodicElement[] = [
   styleUrls: ['./media-type.component.scss']
 })
 export class MediaTypeComponent implements OnInit {
-
+  @ViewChild('table') table: MatTable<any>;
+  enableReorder=false;
   selectedType : any;
   searchedKeyword: string;
   statusKey: any;
@@ -51,6 +53,7 @@ export class MediaTypeComponent implements OnInit {
   getType(){
     this.mediatypeService.getType().subscribe(response =>{
       this.dataSource = response?.data;
+      this.dataSource.sort((a:any,b:any)=> {return a.orderId - b.orderId});
       this.dataSource.forEach((element:any,i:number) => {
         this.dataSource[i].status = element?.status === true ? 'active' : 'in-active'
       });
@@ -121,5 +124,22 @@ export class MediaTypeComponent implements OnInit {
    }
   }
 
+
+  dropTable(event: CdkDragDrop<any>) {
+    if(this.enableReorder){
+      const prevIndex = this.dataSource.findIndex((d:any) => d === event.item.data);
+      moveItemInArray(this.dataSource, prevIndex, event.currentIndex);
+      this.table.renderRows();
+    }
+  }
+
+  saveOrder(){
+    let data = this.dataSource.map((val:any,i:number)=>{return {id:val.id,orderId:i}})
+    this.mediatypeService.reOrder(data).subscribe((val)=>{
+
+    },(err)=>{
+
+    })
+  }
 
 }

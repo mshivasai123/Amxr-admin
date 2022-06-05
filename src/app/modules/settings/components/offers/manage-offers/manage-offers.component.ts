@@ -40,7 +40,7 @@ export class ManageOffersComponent implements OnInit {
 
   getDate(date:Date){
     let newDate = new Date(date);
-    return `${newDate.getDate()}-${newDate.getMonth()}-${newDate.getFullYear()}`
+    return `${newDate.getDate()}-${newDate.getMonth()}-${newDate.getFullYear()}-${newDate.getHours()}:${newDate.getMinutes()}`
   }
 
   startAndEndDate(start:Date,end:Date){
@@ -58,7 +58,7 @@ export class ManageOffersComponent implements OnInit {
     })
   }
 
-  displayedColumns: string[] = ['name', 'discountCode','discountInPercentage','validityEndDateTime','status', 'action'];
+  displayedColumns: string[] = ['name', 'discountCode','discountInPercentage','validityEndDateTime','createdAt','status', 'action'];
   dataSource : any;
 
   addOffer() {

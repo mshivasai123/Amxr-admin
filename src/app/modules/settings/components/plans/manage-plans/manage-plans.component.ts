@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { ConformationComponent } from 'src/app/shared/model/conformation/conformation.component';
 import { AddGenresComponent } from '../../genres/add-genres/add-genres.component';
 import { AddPlansComponent } from '../add-plans/add-plans.component';
 import { PlansService } from '../plans.service';
-
+import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
+import { MatTable } from '@angular/material/table';
 export interface PeriodicElement {
   name: string;
   cost: number;
@@ -26,7 +27,8 @@ const ELEMENT_DATA: PeriodicElement[] = [
   styleUrls: ['./manage-plans.component.scss']
 })
 export class ManagePlansComponent implements OnInit {
-
+  @ViewChild('table') table: MatTable<any>;
+  enableReorder=false;
   selectedPlan: any;
   statusKey: any;
   searchedKeyword: string;
@@ -43,6 +45,7 @@ export class ManagePlansComponent implements OnInit {
   getPlan(){
     this.plansService.getPlan().subscribe(response =>{
       this.dataSource = response?.data;
+      this.dataSource.sort((a:any,b:any)=> {return a.orderId - b.orderId});
       this.dataSource.forEach((element:any,i:number) => {
         this.dataSource[i].status = element?.status === true ? 'active' : 'in-active'
       });
@@ -66,7 +69,7 @@ export class ManagePlansComponent implements OnInit {
 
   getDate(date:Date){
     let newDate = new Date(date);
-    return `${newDate.getDate()}-${newDate.getMonth()}-${newDate.getFullYear()}`
+    return `${newDate.getDate()}-${newDate.getMonth()}-${newDate.getFullYear()}-${newDate.getHours()}:${newDate.getMinutes()}`
   }
 
   startAndEndDate(start:Date,end:Date){
@@ -121,6 +124,23 @@ export class ManagePlansComponent implements OnInit {
       }
     });
   
+  }
+
+  dropTable(event: CdkDragDrop<any>) {
+    if(this.enableReorder){
+      const prevIndex = this.dataSource.findIndex((d:any) => d === event.item.data);
+      moveItemInArray(this.dataSource, prevIndex, event.currentIndex);
+      this.table.renderRows();
+    }
+  }
+
+  saveOrder(){
+    let data = this.dataSource.map((val:any,i:number)=>{return {id:val.id,orderId:i}})
+    this.plansService.reOrder(data).subscribe((val:any)=>{
+
+    },(err:any)=>{
+
+    })
   }
 
 }

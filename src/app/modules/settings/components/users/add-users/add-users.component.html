@@ -30,7 +30,7 @@
                         <div class="col-md-5 mb-4">
                             <mat-form-field class="example-full-width w-100 f-16">
                                 <mat-label>Phone<span class="text-danger ms-2">*</span></mat-label>
-                                <input matInput type="number" formControlName="mobile"/>
+                                <input matInput type="tel" onkeyup="this.value = this.value.replace(/[^0-9-]/g, '');" formControlName="mobile"/>
                             </mat-form-field>
                         </div>
                         <div class="col-md-5 offset-md-1 mb-4">

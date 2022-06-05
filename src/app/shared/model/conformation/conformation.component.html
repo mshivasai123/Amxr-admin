@@ -1,4 +1,4 @@
-<div class="add-modal">
+<div class="add-modal parent-confirmation">
     <div class="add-modal-header py-4 px-5 d-flex justify-content-between align-items-center p-3">
         <h2 class="m-0">Delete</h2>
         <button class="bg-transparent p-0 border-0" (click)="closeModel()">
@@ -12,7 +12,7 @@
     </div>
     <div class="add-modal-footer py-4 px-5 border-top text-end">
         <button mat-button class="cancel-btn btn f-15 text-danger shadow-none me-3 bg-transparent border-0"
-            (click)="dialogRef.close()">Cancel</button>
-        <button mat-button class="cancel-btn btn f-15 shadow-none text-success" (click)="submit()">Ok</button>
+            (click)="dialogRef.close()">No</button>
+        <button mat-button class="cancel-btn btn f-15 shadow-none text-success" (click)="submit()">Yes</button>
     </div>
 </div>

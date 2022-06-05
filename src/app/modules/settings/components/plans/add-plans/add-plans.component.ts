@@ -30,7 +30,7 @@ export class AddPlansComponent implements OnInit {
     console.log(this.planForm)
     this.finnalcost = data?.actualCost;
     this.calculateCost();
-    this.planForm.patchValue({name:data.name,actualCost: data?.actualCost,discountInPercentage : data.discountInPercentage,days: data?.days,currencyType:data.currencyType});
+    this.planForm.patchValue({name:data.name,actualCost: data?.actualCost,discountInPercentage : data.discountInPercentage,days: data?.days.toString(),currencyType:data.currencyType});
     this.calculateCost();  
   }
   }

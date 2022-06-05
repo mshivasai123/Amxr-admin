@@ -41,4 +41,9 @@ export class GenresService {
     const req = { name: data.name }
     return this.http.delete(endPoint)
   }
+
+  reOrder(data: any): Observable<any> {
+    const endPoint = `api/genres/reorder`
+    return this.http.put(endPoint, data)
+  }
 }

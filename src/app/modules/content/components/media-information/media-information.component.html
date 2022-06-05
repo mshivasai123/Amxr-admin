@@ -1,4 +1,4 @@
-<div class="container-fluid media-info h-100">
+<div class="container-fluid media-info h-100 parent-media-information">
     <div class="row h-100 justify-content-center">
         <!-- <div class="col-md-2 p-0 left-panel">
             <h4 class="p-3 border-bottom">Selected Languages</h4>
@@ -322,88 +322,101 @@
                                                 </div>
                                             </div>
                                         <!-- </div> -->
-                                    <ng-container *ngIf="mediaData?.uploadFullMedia?.series?.episodes?.length">
-                                        <mat-accordion class="mt-4 d-block" *ngFor="let episodes of mediaData.uploadFullMedia.series.episodes; let i=index">
-                                            <mat-expansion-panel>
-                                              <mat-expansion-panel-header class="px-3">
-                                                <mat-panel-title>
-                                                    <h4 class="m-0 mt-md-0 mt-3 me-3 ws-nowrap">Episode {{i+1}} - </h4>
-                                                    <mat-form-field class="example-full-width w-100 f-14 mxw-250" floatLabel="never"  (click)="$event.stopPropagation()">
-                                                        <mat-label>Title of Episode</mat-label>
-                                                        <input matInput  [(ngModel)]="episodes.episodetitle" />
-                                                    </mat-form-field>
-                                                    <div class="col-md-2 text-end">
-                                                        <mat-checkbox class="example-margin me-3 f-14 mt-md-0 mt-2" [(ngModel)]="episodes.showSubtitle" color="primary">Subtitles</mat-checkbox> 
-                                                    </div>
-                                                    <div class="col-md-3">
-                                                        <mat-form-field class="f-14 w-100 mxw-250" floatLabel="never">
-                                                            <mat-label>Select Languages:</mat-label>
-                                                            <mat-select [(ngModel)]="episodes.selectedLanguages" (selectionChange)="languageChange(episodes)" multiple>
-                                                                <mat-select-trigger>
-                                                                    <h4 class="m-0 fw-bold f-14">{{episodes.selectedLanguages.length}} Language(s) Selected</h4>
-                                                                </mat-select-trigger>
-                                                
-                                                                <mat-option *ngFor="let lang of languages" class="f-14" [value]="lang.id">
-                                                                    {{ lang?.name }}
-                                                                </mat-option>
-                                                            </mat-select>
-                                                        </mat-form-field>
-                                                    </div>
-                                                </mat-panel-title>
-                                                
-                                                <mat-panel-description>
-                                                </mat-panel-description>
-                                              </mat-expansion-panel-header>
-                                              <div class="row">
-                                                  <div class="col-md-3">
-                                                    <label for="{{'fileUploader'+i}}" class="file-uploader mt-4 size-xl cursor-pointer d-flex flex-column align-items-center justify-content-center">
-                                                        <span class="material-icons icon f-36" *ngIf="!episodes.mediaEpisodePosterUrl">
-                                                            photo_camera
-                                                        </span>
-                                                        <!-- <img src="https://picsum.photos/536/353" alt="Image" class="img-fluid" /> -->
-                                                        <span class="f-14" *ngIf="!episodes.mediaEpisodePosterUrl">
-                                                            500 &times; 500
-                                                        </span>
-                                                        <img *ngIf="episodes.mediaEpisodePosterUrl" [src]="episodes.mediaEpisodePosterUrl" alt="Image" class="img-fluid mh-100" />
-                                                    </label>
-                                                    <input type="file" id="{{'fileUploader'+i}}" accept="image/png, image/gif, image/jpeg" (change)="uploadEpisodePoster($event,episodes)" class="d-none" />                                                      
-                                                  </div>
-                                                  <div class="col-md-9">
-                                                      <div class="row">
-                                                          <div class="col-md-6">
-                                                            <mat-form-field class="example-full-width w-100 f-16">
-                                                                <mat-label>Media URL<span class="text-danger ms-2">*</span></mat-label>
-                                                                <input matInput [(ngModel)]="episodes.mediaUrl" />
-                                                            </mat-form-field>
-                                                            <mat-form-field class="example-full-width w-100 f-16">
-                                                                <mat-label>Audio Source URL<span class="text-danger ms-2">*</span></mat-label>
-                                                                <input matInput [(ngModel)]="episodes.audioUrl" />
-                                                            </mat-form-field>
-                                                            <mat-form-field class="example-full-width w-100 f-16">
-                                                                <mat-label>Intro Duration (sec)<span class="text-danger ms-2">*</span></mat-label>
-                                                                <input matInput type="number" [(ngModel)]="episodes.introDuration"/>
-                                                            </mat-form-field>
-                                                            <mat-form-field class="example-full-width w-100 f-16">
-                                                                <mat-label>Skip End (sec)<span class="text-danger ms-2">*</span></mat-label>
-                                                                <input matInput type="number" [(ngModel)]="episodes.skipEnd"/>
-                                                            </mat-form-field>
-                                                          </div>
-                                                          
-                                                          <div class="col-md-6" *ngIf="episodes.showSubtitle">
-                                                            <ng-container *ngFor="let subtitle of episodes.languageUrls">
-                                                                <mat-form-field class="example-full-width w-100 f-16">
-                                                                    <mat-label>{{subtitle?.name}} Subtitles URL<span class="text-danger ms-2">*</span></mat-label>
-                                                                    <input matInput [(ngModel)]="subtitle.url"/>
+                                        <div cdkDropList class="example-list" (cdkDropListDropped)="drop($event)">
+                                        
+                                            <ng-container *ngIf="mediaData?.uploadFullMedia?.series?.episodes?.length">
+                                                <mat-accordion class="mt-4 d-block"
+                                                   cdkDrag  *ngFor="let episodes of mediaData.uploadFullMedia.series.episodes; let i=index">
+                                                    <mat-expansion-panel>
+                                                        <mat-expansion-panel-header class="px-3">
+                                                            <mat-panel-title>
+                                                                <h4 class="m-0 mt-md-0 mt-3 me-3 ws-nowrap">Episode {{i+1}} - </h4>
+                                                                <mat-form-field class="example-full-width w-100 f-14 mxw-250" floatLabel="never"
+                                                                    (click)="$event.stopPropagation()">
+                                                                    <mat-label>Title of Episode</mat-label>
+                                                                    <input matInput [(ngModel)]="episodes.episodetitle" />
                                                                 </mat-form-field>
-                                                            </ng-container>  
-                                                          </div>
-                                                      </div>
-                                                  </div>
-                                              </div>
-                                            </mat-expansion-panel>
-                                        </mat-accordion>
-                                    </ng-container>
-                                    </div>
+                                                                <div class="col-md-2 text-end">
+                                                                    <mat-checkbox class="example-margin me-3 f-14 mt-md-0 mt-2"
+                                                                        [(ngModel)]="episodes.showSubtitle" color="primary">Subtitles</mat-checkbox>
+                                                                </div>
+                                                                <div class="col-md-3">
+                                                                    <mat-form-field class="f-14 w-100 mxw-250" floatLabel="never">
+                                                                        <mat-label>Select Languages:</mat-label>
+                                                                        <mat-select [(ngModel)]="episodes.selectedLanguages"
+                                                                            (selectionChange)="languageChange(episodes)" multiple>
+                                                                            <mat-select-trigger>
+                                                                                <h4 class="m-0 fw-bold f-14">{{episodes.selectedLanguages.length}} Language(s)
+                                                                                    Selected</h4>
+                                                                            </mat-select-trigger>
+                                        
+                                                                            <mat-option *ngFor="let lang of languages" class="f-14" [value]="lang.id">
+                                                                                {{ lang?.name }}
+                                                                            </mat-option>
+                                                                        </mat-select>
+                                                                    </mat-form-field>
+                                                                </div>
+                                                            </mat-panel-title>
+                                        
+                                                            <mat-panel-description>
+                                                                <mat-icon class="delete-icon-episode text-danger" (click)="deleteEpisode($event,i)">delete</mat-icon>
+                                                            </mat-panel-description>
+                                                        </mat-expansion-panel-header>
+                                                        <div class="row">
+                                                            <div class="col-md-3">
+                                                                <label for="{{'fileUploader'+i}}"
+                                                                    class="file-uploader mt-4 size-xl cursor-pointer d-flex flex-column align-items-center justify-content-center">
+                                                                    <span class="material-icons icon f-36" *ngIf="!episodes.mediaEpisodePosterUrl">
+                                                                        photo_camera
+                                                                    </span>
+                                                                    <!-- <img src="https://picsum.photos/536/353" alt="Image" class="img-fluid" /> -->
+                                                                    <span class="f-14" *ngIf="!episodes.mediaEpisodePosterUrl">
+                                                                        500 &times; 500
+                                                                    </span>
+                                                                    <img *ngIf="episodes.mediaEpisodePosterUrl" [src]="episodes.mediaEpisodePosterUrl"
+                                                                        alt="Image" class="img-fluid mh-100" />
+                                                                </label>
+                                                                <input type="file" id="{{'fileUploader'+i}}" accept="image/png, image/gif, image/jpeg"
+                                                                    (change)="uploadEpisodePoster($event,episodes)" class="d-none" />
+                                                            </div>
+                                                            <div class="col-md-9">
+                                                                <div class="row">
+                                                                    <div class="col-md-6">
+                                                                        <mat-form-field class="example-full-width w-100 f-16">
+                                                                            <mat-label>Media URL<span class="text-danger ms-2">*</span></mat-label>
+                                                                            <input matInput [(ngModel)]="episodes.mediaUrl" />
+                                                                        </mat-form-field>
+                                                                        <mat-form-field class="example-full-width w-100 f-16">
+                                                                            <mat-label>Audio Source URL<span class="text-danger ms-2">*</span></mat-label>
+                                                                            <input matInput [(ngModel)]="episodes.audioUrl" />
+                                                                        </mat-form-field>
+                                                                        <mat-form-field class="example-full-width w-100 f-16">
+                                                                            <mat-label>Intro Duration (sec)<span class="text-danger ms-2">*</span></mat-label>
+                                                                            <input matInput type="number" [(ngModel)]="episodes.introDuration" />
+                                                                        </mat-form-field>
+                                                                        <mat-form-field class="example-full-width w-100 f-16">
+                                                                            <mat-label>Skip End (sec)<span class="text-danger ms-2">*</span></mat-label>
+                                                                            <input matInput type="number" [(ngModel)]="episodes.skipEnd" />
+                                                                        </mat-form-field>
+                                                                    </div>
+                                        
+                                                                    <div class="col-md-6" *ngIf="episodes.showSubtitle">
+                                                                        <ng-container *ngFor="let subtitle of episodes.languageUrls">
+                                                                            <mat-form-field class="example-full-width w-100 f-16">
+                                                                                <mat-label>{{subtitle?.name}} Subtitles URL<span
+                                                                                        class="text-danger ms-2">*</span></mat-label>
+                                                                                <input matInput [(ngModel)]="subtitle.url" />
+                                                                            </mat-form-field>
+                                                                        </ng-container>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </mat-expansion-panel>
+                                                </mat-accordion>
+                                            </ng-container>
+                                        </div>
+                                        </div>
                                 </ng-container>
                             </div>
                           </div>

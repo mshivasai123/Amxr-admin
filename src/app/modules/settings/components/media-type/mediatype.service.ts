@@ -37,4 +37,9 @@ export class MediatypeService {
     const req = { name: data.name }
     return this.http.delete(endPoint)
   }
+
+  reOrder(data: any): Observable<any> {
+    const endPoint = `api/media-types/reorder`
+    return this.http.put(endPoint, data)
+  }
 }

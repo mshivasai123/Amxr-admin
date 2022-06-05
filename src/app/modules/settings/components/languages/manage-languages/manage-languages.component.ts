@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { ConformationComponent } from 'src/app/shared/model/conformation/conformation.component';
 import { AddLanguagesComponent } from '../add-languages/add-languages.component';
 import { LanguagesService } from '../languages.service';
-
+import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
+import { MatTable } from '@angular/material/table';
 export interface PeriodicElement {
   id : number;
   languageName: string;
@@ -24,7 +25,8 @@ const ELEMENT_DATA: PeriodicElement[] = [
   styleUrls: ['./manage-languages.component.scss']
 })
 export class ManageLanguagesComponent implements OnInit {
-
+  @ViewChild('table') table: MatTable<any>;
+  enableReorder=false;
   selectedLanguage : any;
   searchedKeyword: string;
   statusKey: any;
@@ -41,6 +43,7 @@ export class ManageLanguagesComponent implements OnInit {
   getLanguage(){
     this.languageService.getLanguage().subscribe(response =>{
       this.dataSource = response?.data;
+      this.dataSource.sort((a:any,b:any)=> {return a.orderId - b.orderId});
       this.dataSource.forEach((element:any,i:number) => {
         this.dataSource[i].showInAudio = element?.showInAudio === true ? 'yes' : 'no',
         this.dataSource[i].showInSubtitles = element?.showInSubtitles === true ? 'yes' : 'no', 
@@ -110,6 +113,23 @@ export class ManageLanguagesComponent implements OnInit {
       }
     });
    }
+  }
+
+  dropTable(event: CdkDragDrop<any>) {
+    if(this.enableReorder){
+      const prevIndex = this.dataSource.findIndex((d:any) => d === event.item.data);
+      moveItemInArray(this.dataSource, prevIndex, event.currentIndex);
+      this.table.renderRows();
+    }
+  }
+
+  saveOrder(){
+    let data = this.dataSource.map((val:any,i:number)=>{return {id:val.id,orderId:i}})
+    this.languageService.reOrder(data).subscribe((val)=>{
+
+    },(err)=>{
+
+    })
   }
 
 }

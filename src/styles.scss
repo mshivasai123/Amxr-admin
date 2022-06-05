@@ -48,6 +48,9 @@ table {
     border: 5px solid #fff;
     box-shadow: 0px 0px 1px 0px rgb(0 0 0 / 40%);
     border-radius: 5px;
+    height: 100px;
+    width: 100px;
+    object-fit: contain;
 }
 
 .mat-menu-panel {
@@ -96,6 +99,10 @@ table {
     .mat-expansion-panel-body  {
         padding: 0 1rem;
     }
+}
+
+.delete-icon-episode {
+    margin-left: auto;
 }
 
 .mat-chip.mat-standard-chip.mat-chip-selected.mat-primary {

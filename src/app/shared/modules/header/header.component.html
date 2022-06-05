@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-md navbar-light position-fixed top-0 w-100 f-16 p-0">
+<nav class="navbar navbar-expand-md navbar-light position-fixed top-0 w-100 f-16 p-0 parent-header">
     <div class="container-fluid p-0">
       <img src="../assets/images/favicon.png" class="img-responsive" alt="brand-img" />
       <button class="navbar-toggler p-2 me-3 my-4" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
@@ -41,10 +41,10 @@
                     <p class="mb-0 text-white">{{loginUser}}</p>
                     <button  mat-button class="bg-transparent border-0 light-text" (click)="logout()">Logout</button>
                 </li>
-                <li class="p-2">
+                <li class="p-2 settings-icon">
                   <a routerLink="/settings/genres" class="text-decoration-none">
-                    <mat-icon aria-hidden="false" class="d-block light-text w-100 text-center" aria-label="settings icon">settings</mat-icon>
-                    <button mat-button class="bg-transparent border-0 light-text">Settings</button>
+                    <mat-icon aria-hidden="false" class="d-block light-text w-100 text-center " aria-label="settings icon">settings</mat-icon>
+                    <!-- <button mat-button class="bg-transparent border-0 light-text">Settings</button> -->
                   </a>
                 </li>
             </ul>

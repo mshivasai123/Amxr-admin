@@ -1,4 +1,4 @@
-<div class="container-fluid mt-5">
+<div class="container-fluid mt-5 parent-certification">
     <div class="page-header d-flex align-items-center flex-wrap justify-content-between">
         <h3 class="page-title mb-3">Certificates</h3>
         <div class="page-search mb-3 d-flex flex-grow-1">
@@ -72,18 +72,19 @@
                 </td>
             </ng-container>
             <mat-menu #menu="matMenu">
-                <button mat-menu-item class="text-white text-capitalize" (click)="editCertification('status')">
-                    <span class="material-icons mx-2 f-20">
-                        edit
-                    </span>
-                    {{statusKey}}
-                </button>
                 <button mat-menu-item class="text-white" (click)="editCertification()">
                     <span class="material-icons mx-2 f-20">
                         edit
                     </span>
                     Edit Certification
                 </button>
+                <button mat-menu-item class="text-white text-capitalize" (click)="editCertification('status')">
+                    <span class="material-icons mx-2 f-20">
+                        edit
+                    </span>
+                    {{statusKey}}
+                </button>
+                
                 <button mat-menu-item class="text-white" (click)="deleteCertification()">
                     <span class="material-icons mx-2 f-20">
                         delete
