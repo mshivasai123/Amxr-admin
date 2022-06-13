@@ -23,17 +23,19 @@
     </div>
     <mat-menu #actionMenu="matMenu">
         <button mat-menu-item class="d-flex align-items-center text-white" (click)="duplicateMedia(false);addMedia()">
-            <span class="material-icons f-20 mx-2">
+            <!-- <span class="material-icons f-20 mx-2">
                 add
-            </span>
+            </span> -->
+        <img src="../../../../../assets/images/add-action.svg" class="img-responsive mx-2 f-20" alt="add-action" />
             Add Media
         </button>
-        <button mat-menu-item class="d-flex align-items-center text-white">
-            <span class="material-icons f-20 mx-2">
+        <!-- <button mat-menu-item class="d-flex align-items-center text-white"> -->
+            <!-- <span class="material-icons f-20 mx-2">
                 add
-            </span>
+            </span> -->
+            <!-- <img src="../../../../../assets/images/reorder-action.svg" class="img-responsive mx-2 f-20" alt="add-action" />
             Re-Order
-        </button>
+        </button> -->
     </mat-menu>
 
     <div class="w-100 overflow-auto">
@@ -95,8 +97,14 @@
             </ng-container>
             <!-- Symbol Column -->
             <ng-container matColumnDef="updatedAt">
-                <th mat-header-cell *matHeaderCellDef> Updated Date </th>
-                <td mat-cell *matCellDef="let element" class="ws-nowrap"> {{getDate(element.updatedAt)}} </td>
+                <th mat-header-cell *matHeaderCellDef> Created Date </th>
+                <td mat-cell *matCellDef="let element" class="ws-nowrap"> {{element.createdAt | date:'dd-MM-yy - HH:mm'}} </td>
+            </ng-container>
+
+            <!-- Symbol Column -->
+            <ng-container matColumnDef="reOrderDate">
+                <th mat-header-cell *matHeaderCellDef> Re-order Date </th>
+                <td mat-cell *matCellDef="let element" class="ws-nowrap"> {{element.reOrderingDate | date:'dd-MM-yy - HH:mm'}} </td>
             </ng-container>
 
 
@@ -128,16 +136,26 @@
                     View Info
                 </button> -->
                 <button mat-menu-item class="d-flex align-items-center text-white" (click)="editMediaData()">
-                    <span class="material-icons mx-2 f-20">
+                    <!-- <span class="material-icons mx-2 f-20">
                         edit
-                    </span>
+                    </span> -->
+                <img src="../../../../../assets/images/edit-action.svg" class="img-responsive mx-2 f-20" alt="edit-action" />
                     Edit Info
                 </button>
                 <button mat-menu-item class="d-flex align-items-center text-white" (click)='duplicateMedia(true);editMedia("")'>
-                    <span class="material-icons mx-2 f-20">
+                    <!-- <span class="material-icons mx-2 f-20">
                         edit
-                    </span>
+                    </span> -->
+                <img src="../../../../../assets/images/duplicate.svg" class="img-responsive mx-2 f-20" alt="edit-action" />
+                    
                     Add Duplicate
+                </button>
+                <button mat-menu-item class="d-flex align-items-center text-white" (click)="reOrder()">
+                    <!-- <span class="material-icons f-20 mx-2">
+                        add
+                    </span> -->
+                <img src="../../../../../assets/images/reorder-action.svg" class="img-responsive mx-2 f-20" alt="add-action" />
+                    Re-Order
                 </button>
                 <!-- <button mat-menu-item class="d-flex align-items-center text-white">
                     <span class="material-icons mx-2 f-20">
@@ -146,21 +164,26 @@
                     Analytics
                 </button> -->
                 <button mat-menu-item class="d-flex align-items-center text-white">
-                    <span class="material-icons mx-2 f-20">
+                    <!-- <span class="material-icons mx-2 f-20">
                         edit
-                    </span>
+                    </span> -->
+                <img src="../../../../../assets/images/reorder-action.svg" class="img-responsive mx-2 f-20" alt="add-action" />
+
                     Make live/Test
                 </button>
                 <button mat-menu-item class="d-flex align-items-center text-white" (click)='editMedia("status")'>
-                    <span class="material-icons mx-2 f-20">
+                    <!-- <span class="material-icons mx-2 f-20">
                         edit
-                    </span>
+                    </span> -->
+                <img  src="../../../../../assets/images/active-inactive.svg" class="img-responsive mx-2 f-20" alt="active-inactive" />
                     {{statusKey}}
                 </button>
-                <button mat-menu-item class="d-flex align-items-center text-white">
-                    <span class="material-icons mx-2 f-20">
+                <button mat-menu-item class="d-flex align-items-center text-white" (click)='deleteMedia()'>
+                    <!-- <span class="material-icons mx-2 f-20">
                         delete
-                    </span>
+                    </span> -->
+                <img  src="../../../../../assets/images/delete.svg" class="img-responsive mx-2 f-20" alt="delete" />
+
                     Delete
                 </button>
             </mat-menu>

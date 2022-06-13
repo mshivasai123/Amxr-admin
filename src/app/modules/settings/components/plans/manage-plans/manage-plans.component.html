@@ -27,7 +27,10 @@
         <button *ngIf="enableReorder" mat-button class="text-success" (click)="saveOrder()">Save</button> 
       </div>
     <mat-menu #actionMenu="matMenu">
-        <button mat-menu-item class="text-white" (click)="addPlans()">Add Sub. Plan</button>
+        <button mat-menu-item class="text-white" (click)="addPlans()">
+        <img src="../../../../../../assets/images/add-action.svg" class="img-responsive mx-2 f-20" alt="add-action" />
+            Add Sub. Plan
+        </button>
     </mat-menu>
 
     <div class="w-100 overflow-auto">
@@ -87,7 +90,7 @@
             <ng-container matColumnDef="createdAt">
                 <th mat-header-cell *matHeaderCellDef class="ws-nowrap"> Created date </th>
                 <td mat-cell *matCellDef="let element" class="ws-nowrap text-capitalize">
-                    {{getDate(element.createdAt)}}</td>
+                    {{element.createdAt | date:'dd-MM-yyyy - HH:mm'}}</td>
             </ng-container>
 
             <!-- Action Column -->
@@ -102,15 +105,24 @@
                 </td>
             </ng-container>
             <mat-menu #menu="matMenu">
-                <button mat-menu-item class="text-white text-capitalize" (click)="editPlan('status')"><span class="material-icons mx-2 f-20">
+                <button mat-menu-item class="text-white" (click)="editPlan()">
+                    <!-- <span class="material-icons mx-2 f-20">
                     edit
-                </span>{{statusKey}}</button>
-                <button mat-menu-item class="text-white" (click)="editPlan()"><span class="material-icons mx-2 f-20">
+                </span> -->
+                <img src="../../../../../../assets/images/edit-action.svg" class="img-responsive mx-2 f-20" alt="edit-action" />
+                Edit Plan</button>
+                <button mat-menu-item class="text-white text-capitalize" (click)="editPlan('status')">
+                    <!-- <span class="material-icons mx-2 f-20">
                     edit
-                </span>Edit Plan</button>
-                <button mat-menu-item class="text-white" (click)="deletePlan()"><span class="material-icons mx-2 f-20">
+                </span> -->
+                <img  src="../../../../../../assets/images/active-inactive.svg" class="img-responsive mx-2 f-20" alt="active-inactive" />
+                {{statusKey}}</button>
+                <button mat-menu-item class="text-white" (click)="deletePlan()">
+                    <!-- <span class="material-icons mx-2 f-20">
                     delete
-                </span>Delete</button>
+                </span> -->
+                <img  src="../../../../../../assets/images/delete.svg" class="img-responsive mx-2 f-20" alt="delete" />
+                Delete</button>
             </mat-menu>
 
             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

@@ -58,8 +58,25 @@ export class ManageMediaService {
     return this.http.put(endPoint, fData)
   }
 
-  deleteMedia(data: any): Observable<any> {
+  deleteModule(data: any): Observable<any> {
     const endPoint = `api/media-modules/delete/${data.id}`
     return this.http.delete(endPoint)
   }
+
+  deleteMedia(data: any): Observable<any> {
+    const endPoint = `api/media-informations/delete/${data.id}`
+    return this.http.delete(endPoint)
+  }
+
+
+  reOrder(data: any): Observable<any> {
+    const endPoint = `api/media-modules/reorder`
+    return this.http.put(endPoint, data)
+  }
+
+  reOrderMedia(data: any): Observable<any> {
+    const endPoint = `api/media-informations/reorder`
+    return this.http.put(endPoint, data)
+  }
+
 }

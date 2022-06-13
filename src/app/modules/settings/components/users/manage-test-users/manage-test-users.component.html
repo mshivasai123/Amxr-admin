@@ -8,7 +8,8 @@
                         my_location
                     </span>
                 </span>
-                <input type="text" [(ngModel)]="searchedKeyword" class="form-control f-16 shadow-none border-0 bg-transparent" placeholder="Search">
+                <input type="text" [(ngModel)]="searchedKeyword"
+                    class="form-control f-16 shadow-none border-0 bg-transparent" placeholder="Search">
                 <button class="input-group-text bg-transparent border-0 p-0">
                     <span class="material-icons f-20">
                         search
@@ -23,7 +24,10 @@
         </div>
     </div>
     <mat-menu #actionMenu="matMenu">
-        <button mat-menu-item class="text-white" (click)="addusers()">Add Admin User</button>
+        <button mat-menu-item class="text-white" (click)="addusers()">
+        <img src="../../../../../../assets/images/add-action.svg" class="img-responsive mx-2 f-20" alt="add-action" />
+            Add Admin User
+        </button>
     </mat-menu>
 
     <div class="w-100 overflow-auto">
@@ -77,14 +81,16 @@
             <ng-container matColumnDef="createdAt">
                 <th mat-header-cell *matHeaderCellDef class="ws-nowrap"> Offer Validity </th>
                 <td mat-cell *matCellDef="let element" class="ws-nowrap text-capitalize">
-                   {{startAndEndDate(element.validityStartDate , element.validityEndDate)}} </td>
+                    {{element.validityStartDate | date:'dd-MM-yyyy' }} - {{ element.validityEndDate |
+                    date:'dd-MM-yyyy'}} </td>
             </ng-container>
 
             <!-- Action Column -->
             <ng-container matColumnDef="action">
                 <th mat-header-cell *matHeaderCellDef> Action </th>
                 <td mat-cell *matCellDef="let element">
-                    <button class="bg-transparent border-0" mat-icon-button [matMenuTriggerFor]="menu" (click)="selectUser(element)">
+                    <button class="bg-transparent border-0" mat-icon-button [matMenuTriggerFor]="menu"
+                        (click)="selectUser(element)">
                         <span class="material-icons align-middle">
                             more_vert
                         </span>
@@ -92,16 +98,32 @@
                 </td>
             </ng-container>
             <mat-menu #menu="matMenu">
-                <button mat-menu-item class="text-white" (click)="editUser()"><span class="material-icons mx-2 f-20">
+                <button mat-menu-item class="text-white" (click)="editUser()">
+                    <!-- <span class="material-icons mx-2 f-20">
                     edit
-                </span>Edit User</button>
-                <button mat-menu-item class="text-white text-capitalize" (click)="editUser('status')"><span class="material-icons mx-2 f-20">
+                </span> -->
+                    <img src="../../../../../../assets/images/edit-action.svg" class="img-responsive mx-2 f-20"
+                        alt="edit-action" />
+                    Edit User
+                </button>
+                <button mat-menu-item class="text-white text-capitalize" (click)="editUser('status')">
+                    <!-- <span class="material-icons mx-2 f-20">
                     edit
-                </span>{{statusKey}}</button>
-                
-                <button mat-menu-item class="text-white" (click)="deleteUser()"><span class="material-icons mx-2 f-20">
+                </span> -->
+                    <img src="../../../../../../assets/images/active-inactive.svg" class="img-responsive mx-2 f-20"
+                        alt="active-inactive" />
+                    {{statusKey}}
+                </button>
+
+                <button mat-menu-item class="text-white" (click)="deleteUser()">
+                    <!-- <span class="material-icons mx-2 f-20">
                     delete
-                </span>Delete</button>
+                </span> -->
+                    <img src="../../../../../../assets/images/delete.svg" class="img-responsive mx-2 f-20"
+                        alt="delete" />
+
+                    Delete
+                </button>
             </mat-menu>
 
             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

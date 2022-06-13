@@ -378,11 +378,12 @@ export class MediaInformationComponent implements OnInit {
   }
 
   addEpisode() {
-    this.mediaData.uploadFullMedia.series.episodes.push(cloneDeep(this.eachEpisodeData))
+   let episode = cloneDeep(this.eachEpisodeData)
+    this.mediaData.uploadFullMedia.series.episodes.push(episode)
   }
   languageChange(episodes: any) {
     let x = episodes;
-    let selectedlangs = this.languages.filter((lang: any) => { return episodes.selectedLanguages.includes(lang.id) })
+    let selectedlangs = cloneDeep(this.languages.filter((lang: any) => { return episodes.selectedLanguages.includes(lang.id) }))
     x.languageUrls = selectedlangs.map((val: any) => {
       val.url = ""
       return val

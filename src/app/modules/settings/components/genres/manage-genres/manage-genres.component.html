@@ -30,7 +30,9 @@
       <button *ngIf="enableReorder" mat-button class="text-success" (click)="saveOrder()">Save</button> 
     </div>
     <mat-menu #actionMenu="matMenu">
-      <button mat-menu-item class="text-white" (click)="addGener()">Add Genre</button>
+      <button mat-menu-item class="text-white" (click)="addGener()">
+        <img src="../../../../../../assets/images/add-action.svg" class="img-responsive mx-2 f-20" alt="add-action" />
+        Add Genre</button>
     </mat-menu>
   
     <div class="w-100 overflow-auto">
@@ -77,16 +79,28 @@
           </td>
         </ng-container>
         <mat-menu #menu="matMenu">
-          <button mat-menu-item class="text-white" (click)="editGener()"><span class="material-icons mx-2 f-20">
+          <button mat-menu-item class="text-white" (click)="editGener()">
+            <!-- <span class="material-icons mx-2 f-20">
             edit
-        </span>Edit Genre</button>
-          <button mat-menu-item class="text-white text-capitalize" (click)="editGener('status')"><span class="material-icons mx-2 f-20">
+        </span> -->
+        <img src="../../../../../../assets/images/edit-action.svg" class="img-responsive mx-2 f-20" alt="edit-action" />
+        Edit Genre</button>
+          <button mat-menu-item class="text-white text-capitalize" (click)="editGener('status')">
+            <!-- <span class="material-icons mx-2 f-20">
             edit
-        </span>{{statusKey}}</button>
+        </span> -->
+        <!-- <img *ngIf="statusKey == 'active'" src="../../../../../../assets/images/active.svg" class="img-responsive mx-2 f-20" alt="active" />
+        <img *ngIf="statusKey == 'in-active'" src="../../../../../../assets/images/inactive.svg" class="img-responsive mx-2 f-20" alt="inactive" /> -->
+        <img  src="../../../../../../assets/images/active-inactive.svg" class="img-responsive mx-2 f-20" alt="active-inactive" />
+
+        {{statusKey}}</button>
          
-          <button mat-menu-item class="text-white" (click)="deleteGener()"><span class="material-icons mx-2 f-20">
+          <button mat-menu-item class="text-white" (click)="deleteGener()">
+            <!-- <span class="material-icons mx-2 f-20">
             delete
-        </span>Delete</button>
+        </span> -->
+        <img  src="../../../../../../assets/images/delete.svg" class="img-responsive mx-2 f-20" alt="delete" />
+        Delete</button>
         </mat-menu>
   
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

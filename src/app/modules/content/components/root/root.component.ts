@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { AddModuleComponent } from '../add-module/add-module.component';
 import { MatDialog } from '@angular/material/dialog';
 import { ManageMediaService } from '../../manage-media.service';
 import { ConformationComponent } from 'src/app/shared/model/conformation/conformation.component';
 import { Router } from '@angular/router';
-
+import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
+import { MatTable } from '@angular/material/table';
 
 export interface PeriodicElement {
   mediaModuleIcon: any;
@@ -25,6 +26,8 @@ const ELEMENT_DATA: PeriodicElement[] = [
   styleUrls: ['./root.component.scss']
 })
 export class RootComponent implements OnInit {
+  @ViewChild('table') table: MatTable<any>;
+  enableReorder=false;
   displayedColumns: string[] = ['mediaModuleIcon', 'mediaModuleName', 'mediaModuleType', 'updatedAt', 'status', 'action'];
   dataSource = ELEMENT_DATA;
   mediaType:string;
@@ -47,6 +50,7 @@ export class RootComponent implements OnInit {
     this.manageMediaService.getMedia().subscribe(response =>{
       console.log(response?.data)
       this.dataSource = response?.data;
+      this.dataSource.sort((a:any,b:any)=> {return a.orderId - b.orderId});
       this.dataSource.forEach((element:any,i:number) => {
         this.dataSource[i].mediaModuleIcon = 'api/'+element.mediaModuleIcon
         this.dataSource[i].status = element?.status === true ? 'active' : 'in-active'
@@ -115,7 +119,7 @@ export class RootComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe(result => {
       if(result == 'submited'){
-        this.manageMediaService.deleteMedia(this.selectedMedia).subscribe(response=>{
+        this.manageMediaService.deleteModule(this.selectedMedia).subscribe(response=>{
           if(response){
             this.getMediaData()
           }
@@ -127,6 +131,23 @@ export class RootComponent implements OnInit {
 
   manageMedia(){
     this.router.navigateByUrl('/content/manage-media', { state: {moduleId:this.selectedModuleId} })
+  }
+
+  dropTable(event: CdkDragDrop<any>) {
+    if(this.enableReorder){
+      const prevIndex = this.dataSource.findIndex((d:any) => d === event.item.data);
+      moveItemInArray(this.dataSource, prevIndex, event.currentIndex);
+      this.table.renderRows();
+    }
+  }
+
+  saveOrder(){
+    let data = this.dataSource.map((val:any,i:number)=>{return {id:val.id,orderId:i}})
+    this.manageMediaService.reOrder(data).subscribe((val)=>{
+
+    },(err)=>{
+
+    })
   }
 
 }

@@ -1,0 +1,26 @@
+<div class="add-modal parent-confirmation">
+    <div class="add-modal-header py-4 px-5 d-flex justify-content-between align-items-center p-3">
+        <h2 class="m-0">Re-Order</h2>
+        <button class="bg-transparent p-0 border-0" (click)="closeModel()">
+            <span class="close material-icons align-middle">
+                close
+            </span>
+        </button>
+    </div>
+    <div class="add-modal-body mt-4 overflow-auto py-3 px-4 px-sm-5 py-sm-4 mx-0 mx-md-3">
+        <!-- <h4>Are you sure you want to delete?</h4> -->
+        <mat-form-field class="w-100 f-16">
+            <mat-label>Choose a date</mat-label>
+          <!-- #docregion toggle -->
+            <input matInput [matDatepicker]="picker" [(ngModel)]="selectedDate">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          <!-- #enddocregion toggle -->
+          </mat-form-field>
+    </div>
+    <div class="add-modal-footer py-4 px-5 border-top text-end">
+        <button mat-button class="cancel-btn btn f-15 text-danger shadow-none me-3 bg-transparent border-0"
+            (click)="dialogRef.close()">Cancel</button>
+        <button [disabled]="!selectedDate" class="cancel-btn btn f-15 shadow-none text-success" (click)="submit()">Reorder</button>
+    </div>
+</div>

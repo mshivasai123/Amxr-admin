@@ -13,8 +13,6 @@ export interface PeriodicElement {
 }
 
 const ELEMENT_DATA: PeriodicElement[] = [
-  { id : 1 , genresName : 'Thriller', showInApp: "yes", status: 'Active' },
-  { id : 2 ,genresName : 'Suspence', showInApp: "no", status: 'InActive' }
 ];
 
 
