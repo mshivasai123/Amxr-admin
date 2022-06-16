@@ -30,6 +30,8 @@ import { LanguagesService } from 'src/app/modules/settings/components/languages/
 import { API_ENDPOINT } from 'src/app/constants';
 import { MediaService } from 'src/app/shared/services/media.service';
 import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
+import { ConformationComponent } from 'src/app/shared/model/conformation/conformation.component';
+import { MatDialog } from '@angular/material/dialog';
 
 export const YEAR_MODE_FORMATS = {
   parse: {
@@ -159,7 +161,8 @@ export class MediaInformationComponent implements OnInit {
     private generService: GenresService,
     public providerService: ProviderService,
     public languageService: LanguagesService,
-    public mediaService: MediaService
+    public mediaService: MediaService,
+    public dialog: MatDialog,
   ) {
     this.manageMediaService.mediaType.subscribe(data => {
       this.mediaTypeData = data;
@@ -421,7 +424,19 @@ export class MediaInformationComponent implements OnInit {
 
   deleteEpisode(event:any,i:number){
     event.stopPropagation()
-    this.mediaData.uploadFullMedia.series.episodes.splice(i,1);
+    const dialogRef = this.dialog.open(ConformationComponent, {
+      width: '500px',
+      panelClass: ['add-modal']
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if(result == 'submited'){
+        this.mediaData.uploadFullMedia.series.episodes.splice(i,1);
+      }
+    });
+  }
+
+  deleteMedia(){
+    
   }
 
   drop(event: CdkDragDrop<string[]>) {

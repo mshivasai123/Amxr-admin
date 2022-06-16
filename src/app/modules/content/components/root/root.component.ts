@@ -33,6 +33,7 @@ export class RootComponent implements OnInit {
   mediaType:string;
   statusKey: any;
   selectedModuleId: any = ''
+  selectedModule:any;
   selectedMedia : any;
   searchedKeyword: string;
 
@@ -63,9 +64,10 @@ export class RootComponent implements OnInit {
     return `${newDate.getDate()}-${newDate.getMonth()}-${newDate.getFullYear()}`
   }
 
-  type(event:string,id: any){
+  type(event:string,id: any,element:any){
      this.manageMediaService.mediaType.next(event);
      this.selectedModuleId = id;
+     this.selectedModule = element;
   }
 
   selectMedia(data:any){
@@ -130,7 +132,7 @@ export class RootComponent implements OnInit {
   }
 
   manageMedia(){
-    this.router.navigateByUrl('/content/manage-media', { state: {moduleId:this.selectedModuleId} })
+    this.router.navigateByUrl('/content/manage-media', { state: {moduleId:this.selectedModuleId,selectedModule:this.selectedModule} })
   }
 
   dropTable(event: CdkDragDrop<any>) {

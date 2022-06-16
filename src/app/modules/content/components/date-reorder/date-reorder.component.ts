@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { MatDialogRef } from '@angular/material/dialog';
+import { Component, Inject, OnInit } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 @Component({
   selector: 'app-date-reorder',
   templateUrl: './date-reorder.component.html',
@@ -7,9 +7,11 @@ import { MatDialogRef } from '@angular/material/dialog';
 })
 export class DateReorderComponent implements OnInit {
   selectedDate=""
-  constructor( public dialogRef: MatDialogRef<DateReorderComponent>,) { }
+  constructor( public dialogRef: MatDialogRef<DateReorderComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any,) { }
 
   ngOnInit(): void {
+    this.selectedDate = this.data.reOrderingDate;
   }
 
   closeModel(){

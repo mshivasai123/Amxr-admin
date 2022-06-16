@@ -11,7 +11,7 @@
         <div class="add-modal-body mt-4 overflow-auto py-3 px-4 px-sm-5 py-sm-4 mx-0 mx-md-3">
             <button mat-button *ngIf="!editMode" class="btn btn-primary f-15 add-btn px-4" (click)="addGener()">{{title}}</button>
             <div class="genres-list mt-5" cdkDropList (cdkDropListDropped)="drop($event)">
-                <div formArrayName="multyGener" class="genres-list-item mb-4 mb-md-0" cdkDrag *ngFor="let item of generFormGroups.controls;let i = index">
+                <div formArrayName="multyGener" class="genres-list-item mb-4 mb-md-0" *ngFor="let item of generFormGroups.controls;let i = index">
                     <div class="row" [formGroupName]="i">
                         <div class="col-lg-8 col-md-10">
                             <div class="d-flex align-items-center flex-md-nowrap flex-wrap">

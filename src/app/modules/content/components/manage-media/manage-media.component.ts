@@ -39,6 +39,7 @@ export class ManageMediaComponent implements OnInit {
   moduleId = ""
   selectedMedia: any
   statusKey: any;
+  selectedModuleName: any;
 
   constructor(
     public dialog: MatDialog,
@@ -50,6 +51,7 @@ export class ManageMediaComponent implements OnInit {
   ngOnInit(): void {
     let state: any = this.location.getState()
     this.moduleId = state?.moduleId
+    this.selectedModuleName = state?.selectedModule?.mediaModuleName ?? ''
     if (this.moduleId) {
       this.getMediaData(this.moduleId);
     } else {
@@ -143,7 +145,7 @@ export class ManageMediaComponent implements OnInit {
     const dialogRef = this.dialog.open(DateReorderComponent, {
       width: '500px',
       panelClass: ['add-modal'],
-      data: {}
+      data: {reOrderingDate : this.selectedMedia.reOrderingDate ?? this.selectedMedia.createdAt}
     });
     dialogRef.afterClosed().subscribe(selectedDate => {
       if (selectedDate) {
