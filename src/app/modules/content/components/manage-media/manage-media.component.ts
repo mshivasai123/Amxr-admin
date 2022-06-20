@@ -33,12 +33,13 @@ const ELEMENT_DATA: PeriodicElement[] = [
 export class ManageMediaComponent implements OnInit {
 
   displayedColumns: string[] = ['poster', 'mediaBatchId', 'mediaId', 'mediaTitle', 'mediaType', 'languages', 'subtitles', 'genres', 'updatedAt', 'reOrderDate', 'status', 'action'];
-  dataSource = ELEMENT_DATA;
+  dataSource:any = ELEMENT_DATA;
   duplicate: boolean = false;
   searchedKeyword: string;
   moduleId = ""
   selectedMedia: any
   statusKey: any;
+  isLiveKey:any;
   selectedModuleName: any;
 
   constructor(
@@ -62,6 +63,7 @@ export class ManageMediaComponent implements OnInit {
 
   selectMedia(data: any) {
     this.statusKey = data.status == "active" ? "in-active" : "active"
+    this.isLiveKey = data.isLive == "live" ? "test" : "live"
     this.selectedMedia = data;
   }
 
@@ -75,8 +77,9 @@ export class ManageMediaComponent implements OnInit {
         element.reOrderingDate = element.reOrderingDate ?? element.createdAt
         element.subtitles = element?.media_full_videos[0]?.media_subtitles.map((val: any) => val.language.name).join(',')
         this.dataSource[i].status = element?.status === true ? 'active' : 'in-active'
+        this.dataSource[i].isLive = element?.isLive === true ? 'live' : 'test'
       });
-      this.dataSource.sort((a, b) => { return new Date(b.reOrderingDate).valueOf() - new Date(a.reOrderingDate).valueOf(); })
+      this.dataSource.sort((a:any, b:any) => { return new Date(b.reOrderingDate).valueOf() - new Date(a.reOrderingDate).valueOf(); })
     })
   }
 
@@ -111,6 +114,18 @@ export class ManageMediaComponent implements OnInit {
   editMediaData() {
     this.duplicate = false;
     this.editMedia();
+  }
+
+  updateIsLive(){
+      let request = {
+        id: this.selectedMedia.id,
+        status: this.isLiveKey == "live" ? true : false,
+      }
+      this.manageMediaService.editLiveTest(request).subscribe(response => {
+        if (response) {
+          this.getMediaData(this.moduleId);
+        }
+      })
   }
 
   editMedia(data?: string) {

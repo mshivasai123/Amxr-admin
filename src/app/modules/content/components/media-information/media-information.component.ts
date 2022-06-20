@@ -236,6 +236,7 @@ export class MediaInformationComponent implements OnInit {
           eachEpisode.showSubtitle = val.showSubtitle
           eachEpisode.id = val.id
           eachEpisode.mediaEpisodePosterUrl = this.apiEndpoint + val.mediaEpisodePoster;
+          eachEpisode.existingUrl=val.mediaEpisodePoster;
           eachEpisode.languageUrls =val.media_subtitles.map((lang:any)=>{
             lang.language.url=lang?.mediaSubtitleUrl??'';
             lang.language.editSubtitleId= lang.id;
@@ -263,9 +264,9 @@ export class MediaInformationComponent implements OnInit {
   }
 
   getType() {
-    this.mediatypeService.getType().subscribe(response => {
-      this.mediaType = response?.data || [];
-    })
+    // this.mediatypeService.getType().subscribe(response => {
+    //   this.mediaType = response?.data || [];
+    // })
   }
 
   getGener() {
@@ -483,7 +484,7 @@ export class MediaInformationComponent implements OnInit {
         finalData[`mediaFullVideo[${parentIndex}][showSubtitle]`] = episode.showSubtitle;
         finalData[`mediaFullVideo[${parentIndex}][mediaFullVideoTitle]`] = episode.episodetitle
         finalData[`mediaFullVideo[${parentIndex}][skipEnd]`] = episode.skipEnd
-        finalData[`mediaFullVideo[${parentIndex}][mediaEpisodePoster]`] = episode.mediaEpisodePoster
+        finalData[`mediaFullVideo[${parentIndex}][mediaEpisodePoster]`] = episode.mediaEpisodePoster ? episode.mediaEpisodePoster : episode.existingUrl
         finalData[`mediaFullVideo[${parentIndex}][mediaEpisodeOrder]`] = parentIndex 
         if(this.isEdit && !this.batchAddorCreate &&  episode.id)
         finalData[`mediaFullVideo[${parentIndex}][id]`] = episode.id
@@ -523,20 +524,21 @@ export class MediaInformationComponent implements OnInit {
 
     if(this.batchAddorCreate === 'attachBatchId'){
      finalData["mediaInformation[mediaBatchId]"] = this.editMediaData.mediaBatchId
+     finalData["mediaInformation[mediaId]"] = this.selectedSingleLang.name.slice(0, 3) + this.editMediaData.mediaBatchId
     }
     if(this.isEdit && !this.batchAddorCreate){
 
-      finalData[this.mediaData.mediaInformation.fileData1 ? "fileData1" : "mediaInformationIcon1"] = this.mediaData.mediaInformation.fileData1 ? this.mediaData.mediaInformation.fileData1 : this.editMediaData?.mediaInformationIcon1
-      finalData[this.mediaData.mediaInformation.fileData2 ? "fileData2" : "mediaInformationIcon2"] = this.mediaData.mediaInformation.fileData2 ? this.mediaData.mediaInformation.fileData2 : this.editMediaData?.mediaInformationIcon2
-      finalData[this.mediaData.mediaInformation.fileData3 ? "fileData3" : "mediaInformationIcon3"] = this.mediaData.mediaInformation.fileData3 ? this.mediaData.mediaInformation.fileData3 : this.editMediaData?.mediaInformationIcon3
-      finalData[this.mediaData.mediaInformation.fileData4 ? "fileData4" : "mediaInformationIcon4"] = this.mediaData.mediaInformation.fileData4 ? this.mediaData.mediaInformation.fileData4 : this.editMediaData?.mediaInformationIcon4
+      finalData[this.mediaData.mediaInformation.fileData1 ? "fileData1" : "mediaInformation[mediaInformationIcon1]"] = this.mediaData.mediaInformation.fileData1 ? this.mediaData.mediaInformation.fileData1 : this.editMediaData?.mediaInformationIcon1
+      finalData[this.mediaData.mediaInformation.fileData2 ? "fileData2" : "mediaInformation[mediaInformationIcon2]"] = this.mediaData.mediaInformation.fileData2 ? this.mediaData.mediaInformation.fileData2 : this.editMediaData?.mediaInformationIcon2
+      finalData[this.mediaData.mediaInformation.fileData3 ? "fileData3" : "mediaInformation[mediaInformationIcon3]"] = this.mediaData.mediaInformation.fileData3 ? this.mediaData.mediaInformation.fileData3 : this.editMediaData?.mediaInformationIcon3
+      finalData[this.mediaData.mediaInformation.fileData4 ? "fileData4" : "mediaInformation[mediaInformationIcon4]"] = this.mediaData.mediaInformation.fileData4 ? this.mediaData.mediaInformation.fileData4 : this.editMediaData?.mediaInformationIcon4
      this.editMedia(finalData)
      return
-    }else if(this.isEdit && this.batchAddorCreate === 'attachBatchId'){
-      finalData[this.mediaData.mediaInformation.fileData1 ? "fileData1" : "mediaInformationIcon1"] = this.mediaData.mediaInformation.fileData1 ? this.mediaData.mediaInformation.fileData1 : this.editMediaData?.mediaInformationIcon1
-      finalData[this.mediaData.mediaInformation.fileData2 ? "fileData2" : "mediaInformationIcon2"] = this.mediaData.mediaInformation.fileData2 ? this.mediaData.mediaInformation.fileData2 : this.editMediaData?.mediaInformationIcon2
-      finalData[this.mediaData.mediaInformation.fileData3 ? "fileData3" : "mediaInformationIcon3"] = this.mediaData.mediaInformation.fileData3 ? this.mediaData.mediaInformation.fileData3 : this.editMediaData?.mediaInformationIcon3
-      finalData[this.mediaData.mediaInformation.fileData4 ? "fileData4" : "mediaInformationIcon4"] = this.mediaData.mediaInformation.fileData4 ? this.mediaData.mediaInformation.fileData4 : this.editMediaData?.mediaInformationIcon4
+    }else if(this.isEdit && (this.batchAddorCreate === 'attachBatchId' || this.batchAddorCreate === 'createNew')){
+      finalData[this.mediaData.mediaInformation.fileData1 ? "fileData1" : "mediaInformation[mediaInformationIcon1]"] = this.mediaData.mediaInformation.fileData1 ? this.mediaData.mediaInformation.fileData1 : this.editMediaData?.mediaInformationIcon1
+      finalData[this.mediaData.mediaInformation.fileData2 ? "fileData2" : "mediaInformation[mediaInformationIcon2]"] = this.mediaData.mediaInformation.fileData2 ? this.mediaData.mediaInformation.fileData2 : this.editMediaData?.mediaInformationIcon2
+      finalData[this.mediaData.mediaInformation.fileData3 ? "fileData3" : "mediaInformation[mediaInformationIcon3]"] = this.mediaData.mediaInformation.fileData3 ? this.mediaData.mediaInformation.fileData3 : this.editMediaData?.mediaInformationIcon3
+      finalData[this.mediaData.mediaInformation.fileData4 ? "fileData4" : "mediaInformation[mediaInformationIcon4]"] = this.mediaData.mediaInformation.fileData4 ? this.mediaData.mediaInformation.fileData4 : this.editMediaData?.mediaInformationIcon4
      this.addMedia(finalData)
      return
     } else {

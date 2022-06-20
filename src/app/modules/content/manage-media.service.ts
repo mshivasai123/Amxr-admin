@@ -55,7 +55,14 @@ export class ManageMediaService {
     if(key == 'status') {
       fData.append("status", data.status);
     } 
-    return this.http.put(endPoint, fData)
+    return this.http.put(endPoint, {status: data.status})
+  }
+
+  editLiveTest(data: any): Observable<any> {
+    const endPoint = `api/media-informations/change-live/${data.id}`
+    // const fData : FormData = new FormData
+    // fData.append("isLive", data.status);
+    return this.http.put(endPoint, {"isLive": data.status})
   }
 
   deleteModule(data: any): Observable<any> {

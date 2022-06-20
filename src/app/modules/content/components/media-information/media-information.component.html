@@ -154,7 +154,19 @@
                                         <mat-form-field class="w-100 f-16">
                                             <mat-label>Media Type<span class="text-danger ms-2">*</span></mat-label>
                                             <mat-select  [(ngModel)]="mediaData.mediaInformation.mediaTypeId">
-                                                <mat-option class="text-capitalize" *ngFor='let type of mediaType' value="{{type.id}}">{{type.name}}</mat-option>
+                                                
+                                                <!-- <mat-option class="text-capitalize" *ngFor='let type of mediaType' value="{{type.id}}">{{type.name}}</mat-option> -->
+                                                <mat-option class="text-capitalize" value="2D">2D</mat-option>
+                                                <mat-option class="text-capitalize" value="3D-Anaglyph">3D-Anaglyph</mat-option>
+                                                <mat-option class="text-capitalize" value="3D-TB">3D-TB</mat-option>
+                                                <mat-option class="text-capitalize" value="3D-LR">3D-LR</mat-option>
+                                                <mat-option class="text-capitalize" value="360-Mono">360-Mono</mat-option>
+                                                <mat-option class="text-capitalize" value="360-TB">360-TB</mat-option>
+                                                <mat-option class="text-capitalize" value="360-LR">360-LR</mat-option>
+                                                <mat-option class="text-capitalize" value="180-Mono">180-Mono</mat-option>
+                                                <mat-option class="text-capitalize" value="180-TB">180-TB</mat-option>
+                                                <mat-option class="text-capitalize" value="180-LR">180-LR</mat-option>
+
                                             </mat-select>
                                         </mat-form-field>
                                     </div>
