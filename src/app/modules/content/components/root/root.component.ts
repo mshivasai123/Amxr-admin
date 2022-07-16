@@ -16,8 +16,7 @@ export interface PeriodicElement {
 }
 
 const ELEMENT_DATA: PeriodicElement[] = [
-  { mediaModuleIcon: 1, mediaModuleName: 'Movies', mediaModuleType: "Single", updatedAt: '6th Jan 2021', status: "Active / Inactive" },
-  { mediaModuleIcon: 2, mediaModuleName: 'Series', mediaModuleType: "Sequence", updatedAt: '6th Jan 2021', status: "Active / Inactive" }
+
 ];
 
 @Component({

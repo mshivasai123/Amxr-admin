@@ -26,7 +26,7 @@ export class AddMediaComponent implements OnInit {
   isEdit:any;
   moduleId = ''
   showLoader:boolean = false;
-  
+  selectedModuleName =''
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     public dialogRef: MatDialogRef<AddMediaComponent>,
@@ -44,6 +44,7 @@ export class AddMediaComponent implements OnInit {
       this.languageList = [this.data?.mediaData?.languageId]
       this.selectedLang = this.data?.mediaData?.language
     }
+    this.selectedModuleName = this.data?.selectedModuleName
     this.completeGetData = this.data
     this.moduleId = this.data?.moduleId;
     this.getLanguage();

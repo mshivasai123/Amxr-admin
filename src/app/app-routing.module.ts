@@ -19,7 +19,11 @@ const routes: Routes = [
   },
   {
     path: 'settings', canActivate: [AuthGuard] , loadChildren: () => import('./modules/settings/settings.module').then(m => m.SettingsModule)
-  }
+  },
+  {
+    path :'**',
+    redirectTo : '/login'
+  },
 ];
 
 @NgModule({

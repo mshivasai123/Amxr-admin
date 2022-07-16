@@ -387,28 +387,36 @@ export class MediaInformationComponent implements OnInit {
   }
   languageChange(episodes: any) {
     let x = episodes;
-    let selectedlangs = cloneDeep(this.languages.filter((lang: any) => { return episodes.selectedLanguages.includes(lang.id) }))
-    x.languageUrls = selectedlangs.map((val: any) => {
+    x.languageUrls =cloneDeep(x.languageUrls.filter((val:any)=>{return episodes.selectedLanguages.includes(val.id)}))
+    
+    let selectedlangs = cloneDeep(this.languages.filter((lang: any) => { return episodes.selectedLanguages.includes(lang.id) && (!this.filterSubtitle(x.languageUrls , lang.id))  }))
+    x.languageUrls = [...x.languageUrls,...selectedlangs.map((val: any) => {
       val.url = ""
       return val
-    })
+    })]
   }
 
   languageChangeMovie(){
-    let selectedlangs = this.languages.filter((lang: any) => { return this.mediaData.uploadFullMedia.Movies.selectedLanguages.includes(lang.id) })
-    this.mediaData.uploadFullMedia.Movies.languageUrls = selectedlangs.map((val: any) => {
+    this.mediaData.uploadFullMedia.Movies.languageUrls =cloneDeep(this.mediaData.uploadFullMedia.Movies.languageUrls.filter((val:any)=>{return this.mediaData.uploadFullMedia.Movies.selectedLanguages.includes(val.id)}))
+    let selectedlangs = this.languages.filter((lang: any) => { return this.mediaData.uploadFullMedia.Movies.selectedLanguages.includes(lang.id) && (!this.filterSubtitle(this.mediaData.uploadFullMedia.Movies.languageUrls , lang.id)) })
+    this.mediaData.uploadFullMedia.Movies.languageUrls = [...this.mediaData.uploadFullMedia.Movies.languageUrls,...selectedlangs.map((val: any) => {
       val.url = ""
       return val
-    })
+    })]
   }
 
-  languageChangeTrailer() {
+  languageChangeTrailer(event: any) {
     // let existUrls = this.mediaData.uploadtrailer.languageUrls.map((val:any)=>val.id)
-    let selectedlangs = this.languages.filter((lang: any) => { return this.mediaData.uploadtrailer.selectedLanguages.includes(lang.id) })
-    this.mediaData.uploadtrailer.languageUrls = selectedlangs.map((val: any) => {
+    this.mediaData.uploadtrailer.languageUrls =cloneDeep(this.mediaData.uploadtrailer.languageUrls.filter((val:any)=>{return this.mediaData.uploadtrailer.selectedLanguages.includes(val.id)}))
+    let selectedlangs = this.languages.filter((lang: any) => { return this.mediaData.uploadtrailer.selectedLanguages.includes(lang.id) && (!this.filterSubtitle(this.mediaData.uploadtrailer.languageUrls , lang.id)) })
+    this.mediaData.uploadtrailer.languageUrls = [...this.mediaData.uploadtrailer.languageUrls,...selectedlangs.map((val: any) => {
       val.url = ""
       return val
-    })
+    })]
+  }
+
+  filterSubtitle(langs=[],id=''){
+    return langs.find((val:any)=>{return val.id == id})
   }
 
   uploadEpisodePoster(event:any,episodes: any){

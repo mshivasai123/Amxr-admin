@@ -206,7 +206,7 @@
                                             <mat-checkbox class="example-margin me-3 mt-md-0 mt-2" [(ngModel)]="mediaData.uploadtrailer.showSubtitle" color="primary">Subtitles</mat-checkbox> 
                                             <mat-form-field class="f-14 w-100 mxw-250" floatLabel="never">
                                                 <mat-label>Select Languages:</mat-label>
-                                                <mat-select  (selectionChange)="languageChangeTrailer()" [(ngModel)]="mediaData.uploadtrailer.selectedLanguages"  multiple>
+                                                <mat-select  (selectionChange)="languageChangeTrailer($event)" [(ngModel)]="mediaData.uploadtrailer.selectedLanguages"  multiple>
                                                     <mat-select-trigger>
                                                         <!-- <mat-chip-list>
                                                             <mat-chip *ngFor="let category of languagesControl.value" class="f-12" [removable]="true"

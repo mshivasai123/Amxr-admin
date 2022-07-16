@@ -93,7 +93,7 @@ export class ManageMediaComponent implements OnInit {
     const dialogRef = this.dialog.open(AddMediaComponent, {
       width: '1100px',
       panelClass: ['add-modal', 'xxl-modal'],
-      data: { duplicate: this.duplicate, moduleId: this.moduleId, isEdit: false }
+      data: { duplicate: this.duplicate, moduleId: this.moduleId, isEdit: false, selectedModuleName: this.selectedModuleName }
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result == 'close') {
@@ -145,7 +145,7 @@ export class ManageMediaComponent implements OnInit {
       const dialogRef = this.dialog.open(AddMediaComponent, {
         width: '1100px',
         panelClass: ['add-modal', 'xxl-modal'],
-        data: { duplicate: this.duplicate, moduleId: this.moduleId, mediaData: this.selectedMedia, isEdit: true }
+        data: { duplicate: this.duplicate, moduleId: this.moduleId, mediaData: this.selectedMedia, isEdit: true,selectedModuleName: this.selectedModuleName }
       });
       dialogRef.afterClosed().subscribe(result => {
         if (result == 'close') {
